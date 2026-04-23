@@ -132,7 +132,7 @@ export const Hero = () => {
               <div className="container-club pointer-events-none relative z-20 flex flex-col justify-end min-h-[80svh] pb-20 pt-32 lg:min-h-[88svh] lg:pb-28 lg:pt-40">
                 <div className="max-w-4xl space-y-4 animate-slide-up">
                   <Link to={slide.href} className="pointer-events-auto inline-block group">
-                    <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.1] sm:leading-[0.95] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] sm:underline sm:decoration-white/90 sm:decoration-[3px] sm:underline-offset-[10px] sm:group-hover:decoration-gold transition-colors">
+                    <h1 className="font-display text-4xl lg:text-7xl font-bold uppercase leading-[1.1] sm:leading-[0.95] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] sm:underline sm:decoration-white/90 sm:decoration-[3px] sm:underline-offset-[10px] sm:group-hover:decoration-gold transition-colors sm:text-5xl">
                       {slide.title}
                     </h1>
                     <span className="mt-3 block h-[3px] w-24 bg-white/90 group-hover:bg-gold transition-colors sm:hidden" />
