@@ -28,6 +28,13 @@ export const ar = {
     venue: "ملعب طرابلس الدولي",
     cta: "تفاصيل المباراة",
     vs: "ضد",
+    days: "يوم",
+    hours: "ساعة",
+    minutes: "دقيقة",
+    seconds: "ثانية",
+    schedule: "الجدول الكامل",
+    home: "ملعبنا",
+    away: "خارج الديار",
   },
   sections: {
     latestNews: "آخر الأخبار",
