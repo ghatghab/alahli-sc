@@ -1,17 +1,7 @@
-import { useTranslation } from "react-i18next";
-import { PageHeader } from "@/components/PageHeader";
 import { ComingSoon } from "@/components/ComingSoon";
 
-export const makePage = (key: "club" | "teams" | "matchCenter" | "schedule" | "tickets" | "academy" | "contact") => {
-  const Page = () => {
-    const { t } = useTranslation();
-    return (
-      <>
-        <PageHeader title={t(`pages.${key}.title`)} intro={t(`pages.${key}.intro`)} />
-        <ComingSoon />
-      </>
-    );
-  };
+export const makePage = (_key: "club" | "teams" | "matchCenter" | "schedule" | "tickets" | "academy" | "contact") => {
+  const Page = () => <ComingSoon />;
   return Page;
 };
 
