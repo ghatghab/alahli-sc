@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Facebook, Instagram, Twitter, Youtube, MapPin, Mail, Phone } from "lucide-react";
-import { Logo } from "./Logo";
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import logoCrest from "@/assets/logo-alahli.jpg";
 import partner1 from "@/assets/partners/partner-1.jpg";
 import partner2 from "@/assets/partners/partner-2.jpg";
 import partner3 from "@/assets/partners/partner-3.jpg";
@@ -12,6 +12,49 @@ export const Footer = () => {
     { src: partner1, alt: "Partner 1" },
     { src: partner2, alt: "Partner 2" },
     { src: partner3, alt: "Partner 3" },
+  ];
+  const columns: { title: string; links: { label: string; to: string }[] }[] = [
+    {
+      title: t("footer.cols.news"),
+      links: [
+        { label: t("footer.links.alahliTv"), to: "/tv" },
+        { label: t("footer.links.tvPlus"), to: "/tv" },
+      ],
+    },
+    {
+      title: t("footer.cols.matches"),
+      links: [
+        { label: t("footer.links.standings"), to: "/standings" },
+        { label: t("footer.links.tickets"), to: "/tickets" },
+      ],
+    },
+    {
+      title: t("footer.cols.teams"),
+      links: [
+        { label: t("footer.links.mensFirst"), to: "/teams" },
+        { label: t("footer.links.legends"), to: "/teams" },
+      ],
+    },
+    {
+      title: t("footer.cols.store"),
+      links: [
+        { label: t("footer.links.kits"), to: "/store" },
+        { label: t("footer.links.clothing"), to: "/store" },
+        { label: t("footer.links.shopByPlayer"), to: "/store" },
+        { label: t("footer.links.newArrivals"), to: "/store" },
+        { label: t("footer.links.sale"), to: "/store" },
+        { label: t("footer.links.accessories"), to: "/store" },
+      ],
+    },
+    {
+      title: t("footer.cols.club"),
+      links: [
+        { label: t("footer.links.history"), to: "/club" },
+        { label: t("footer.links.honours"), to: "/club" },
+        { label: t("footer.links.apps"), to: "/club" },
+        { label: t("footer.links.autographed"), to: "/club" },
+      ],
+    },
   ];
   return (
     <footer className="bg-primary text-primary-foreground mt-20">
@@ -39,53 +82,46 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="container-club py-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-        <div className="space-y-4">
-          <Logo />
-          <p className="text-sm text-primary-foreground/70 max-w-xs">
-            {t("brand.tagline")} — Tripoli, Libya.
-          </p>
-          <div className="flex gap-2">
+      <div className="container-club py-16">
+        <div className="grid gap-10 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+          {columns.map((col) => (
+            <div key={col.title}>
+              <h4 className="font-display font-bold uppercase text-base mb-5 text-primary-foreground">
+                {col.title}
+              </h4>
+              <ul className="space-y-3 text-sm text-primary-foreground/90">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link to={link.to} className="hover:text-gold transition-smooth">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 flex flex-col items-center gap-6">
+          <Link to="/" aria-label="Alahli SC" className="block">
+            <img
+              src={logoCrest}
+              alt="Alahli SC crest"
+              className="h-24 w-24 object-contain"
+            />
+          </Link>
+          <div className="flex gap-3">
             {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
               <a
                 key={i}
                 href="#"
                 aria-label="social"
-                className="h-9 w-9 rounded-full grid place-items-center bg-primary-foreground/10 hover:bg-gold hover:text-gold-foreground transition-smooth"
+                className="h-10 w-10 rounded-full grid place-items-center bg-primary-foreground/10 hover:bg-gold hover:text-gold-foreground transition-smooth"
               >
                 <Icon className="h-4 w-4" />
               </a>
             ))}
           </div>
-        </div>
-
-        <div>
-          <h4 className="font-display uppercase tracking-wider text-sm mb-4 text-gold">{t("footer.explore")}</h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/80">
-            <li><Link to="/club" className="hover:text-gold transition-smooth">{t("nav.club")}</Link></li>
-            <li><Link to="/teams" className="hover:text-gold transition-smooth">{t("nav.teams")}</Link></li>
-            <li><Link to="/news" className="hover:text-gold transition-smooth">{t("nav.news")}</Link></li>
-            <li><Link to="/match-center" className="hover:text-gold transition-smooth">{t("nav.matchCenter")}</Link></li>
-            <li><Link to="/tickets" className="hover:text-gold transition-smooth">{t("nav.tickets")}</Link></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="font-display uppercase tracking-wider text-sm mb-4 text-gold">{t("footer.legal")}</h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/80">
-            <li><a href="#" className="hover:text-gold transition-smooth">{t("footer.privacy")}</a></li>
-            <li><a href="#" className="hover:text-gold transition-smooth">{t("footer.terms")}</a></li>
-            <li><a href="#" className="hover:text-gold transition-smooth">{t("footer.accessibility")}</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="font-display uppercase tracking-wider text-sm mb-4 text-gold">{t("nav.contact")}</h4>
-          <ul className="space-y-3 text-sm text-primary-foreground/80">
-            <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-accent" />{t("footer.address")}</li>
-            <li className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-accent" />contact@alahli.ly</li>
-            <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-accent" />+218 21 000 0000</li>
-          </ul>
         </div>
       </div>
 
