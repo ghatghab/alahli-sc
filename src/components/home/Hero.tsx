@@ -115,18 +115,18 @@ export const Hero = () => {
   const slides: Slide[] = newsSlides.length > 0 ? newsSlides : [fallbackSlide];
 
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-background">
-      <div ref={emblaRef} className="h-[100svh] overflow-hidden">
-        <div className="flex h-full">
+    <section className="relative overflow-hidden bg-background">
+      <div ref={emblaRef} className="overflow-hidden">
+        <div className="flex">
           {slides.map(slide => (
-            <div key={slide.key} className="relative h-full min-w-0 shrink-0 grow-0 basis-full">
+            <div key={slide.key} className="relative min-w-0 shrink-0 grow-0 basis-full">
               <img
                 src={slide.image}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover object-[center_25%] scale-105"
+                className="absolute inset-0 h-full w-full object-cover object-[center_25%]"
                 loading="eager"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/50 to-primary/30" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-transparent to-transparent rtl:bg-gradient-to-l" />
 
               <Link
@@ -134,7 +134,7 @@ export const Hero = () => {
                 className="absolute inset-0 z-10"
                 aria-label={slide.title}
               />
-              <div className="container-club pointer-events-none relative z-20 flex h-full flex-col justify-end pb-24 pt-40 lg:pb-32 lg:pt-48">
+              <div className="container-club pointer-events-none relative z-20 flex flex-col justify-end min-h-[80svh] pb-20 pt-32 lg:min-h-[88svh] lg:pb-28 lg:pt-40">
                 <div className="max-w-4xl space-y-4 animate-slide-up">
                   <Link to={slide.href} className="pointer-events-auto inline-block group">
                     <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[0.95] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] underline decoration-white/90 decoration-[3px] underline-offset-[10px] group-hover:decoration-gold transition-colors">
