@@ -151,6 +151,9 @@ export const fr = {
   news: {
     empty: "Aucun article pour l'instant. Revenez bientôt !",
     backToList: "Retour aux actualités",
+    emptyHero: "Aucune actualité pour le moment.",
+    search: "Rechercher",
+    allCategories: "Tous",
   },
   auth: {
     title: "Connexion",
