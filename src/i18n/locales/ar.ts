@@ -36,6 +36,18 @@ export const ar = {
     home: "ملعبنا",
     away: "خارج الديار",
   },
+  matchDetail: {
+    events: "الأحداث",
+    lineups: "التشكيلات",
+    stats: "الإحصائيات",
+    gallery: "الصور",
+    starters: "التشكيلة الأساسية",
+    subs: "البدلاء",
+    noEvents: "لا توجد أحداث بعد.",
+    noLineups: "سيتم الإعلان عن التشكيلات قريباً.",
+    noStats: "الإحصائيات غير متاحة بعد.",
+    noGallery: "الصور قادمة قريباً.",
+  },
   sections: {
     latestNews: "آخر الأخبار",
     latestNewsSub: "تابع كل ما يحدث في النادي",
