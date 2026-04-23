@@ -241,6 +241,11 @@ const NewsLayout = ({
                   <h3 className="font-display text-sm md:text-base font-bold mt-1 leading-snug line-clamp-3 group-hover:text-accent transition-smooth">
                     {tr.title}
                   </h3>
+                  {tr.excerpt && (
+                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2 max-h-0 opacity-0 group-hover:max-h-20 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                      {tr.excerpt}
+                    </p>
+                  )}
                 </div>
               </Link>
             </li>
