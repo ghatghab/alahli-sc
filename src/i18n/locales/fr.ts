@@ -15,13 +15,7 @@ export const fr = {
     language: "Langue",
     theme: "Thème",
   },
-  hero: {
-    eyebrow: "Tripoli, Libye • Fondé en 1950",
-    title: "Nous sommes Alahli",
-    subtitle: "La fierté du vert et blanc. La maison officielle de l'Alahli Sports Club — calendrier, actualités, équipes et moments inoubliables.",
-    ctaPrimary: "Prochain match",
-    ctaSecondary: "Dernières actus",
-  },
+
   nextMatch: {
     label: "Prochain match",
     competition: "Championnat de Libye",

@@ -19,7 +19,7 @@ export const StadiumSection = () => {
             {t("sections.stadiumSub")}
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            {t("hero.subtitle")}
+            {t("sections.stadiumSub")}
           </p>
           <div className="grid grid-cols-3 gap-4 py-4 border-y border-border">
             <div>
