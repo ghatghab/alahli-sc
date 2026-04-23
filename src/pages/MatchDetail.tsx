@@ -51,7 +51,7 @@ const MatchDetail = () => {
     return (
       <div className="container-club pt-40 pb-20 text-center">
         <h1 className="font-display text-3xl font-bold uppercase">{t("pages.notFound.title")}</h1>
-        <Link to="/schedule" className="mt-4 inline-block text-accent">
+        <Link to="/match-center" className="mt-4 inline-block text-accent">
           {t("nextMatch.schedule")}
         </Link>
       </div>
@@ -90,7 +90,7 @@ const MatchDetailContent = ({
           style={{ background: "radial-gradient(60% 60% at 50% 0%, hsl(var(--gold) / 0.4) 0%, transparent 60%)" }}
         />
         <div className="container-club relative">
-          <Link to="/schedule" className="inline-flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-gold transition-smooth">
+          <Link to="/match-center" className="inline-flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-gold transition-smooth">
             <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
             {t("nextMatch.schedule")}
           </Link>

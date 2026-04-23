@@ -14,7 +14,7 @@ const navItems = [
   { to: "/teams", key: "nav.teams" },
   { to: "/match-center", key: "nav.matchCenter" },
   { to: "/news", key: "nav.news" },
-  { to: "/schedule", key: "nav.schedule" },
+  { to: "/standings", key: "nav.standings" },
   { to: "/academy", key: "nav.academy" },
   { to: "/contact", key: "nav.contact" },
 ];
