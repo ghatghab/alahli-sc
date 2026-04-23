@@ -1,8 +1,11 @@
+export type Team = "football" | "basketball" | "handball" | "volleyball";
+
 export type Fixture = {
   id: string;
   competition: string;
   competitionColor: string; // tailwind bg-* class
   date: Date;
+  team: Team;
   opponentName: { en: string; fr: string; ar: string };
   opponentShort: string;
   homeAway: "home" | "away";
