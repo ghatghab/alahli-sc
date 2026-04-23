@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Ticket } from "lucide-react";
+import { Menu, X, Ticket, Settings } from "lucide-react";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { to: "/club", key: "nav.club" },
@@ -20,6 +21,7 @@ const navItems = [
 
 export const Header = () => {
   const { t } = useTranslation();
+  const { isEditor } = useAuth();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -71,6 +73,11 @@ export const Header = () => {
         </nav>
 
         <div className="flex items-center gap-1">
+          {isEditor && (
+            <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title="Admin">
+              <Link to="/admin"><Settings className="h-4 w-4" /></Link>
+            </Button>
+          )}
           <Button asChild variant="gold" size="sm" className="hidden md:inline-flex">
             <Link to="/tickets">
               <Ticket className="h-4 w-4" />
