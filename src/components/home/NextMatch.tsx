@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.jpg";
 import { fixtures, nextFixtureIndex, type Fixture } from "@/lib/fixtures";
 import { LiveBadge } from "@/components/match/LiveBadge";
-import { NextMatchSkeleton } from "./
+import { NextMatchSkeleton } from "./NextMatchSkeleton";
 
 const useCountdown = (target: Date) => {
   const [now, setNow] = useState(() => new Date());
