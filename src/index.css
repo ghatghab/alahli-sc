@@ -10,50 +10,50 @@ All colors MUST be HSL.
   :root {
     /* Alahli SC — Light theme */
     --background: 0 0% 100%;
-    --foreground: 165 100% 7%;
+    --foreground: 165 60% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 165 100% 7%;
+    --card-foreground: 165 60% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 165 100% 7%;
+    --popover-foreground: 165 60% 10%;
 
-    --primary: 165 100% 7%;            /* deep evergreen #00241b */
+    --primary: 165 85% 9%;             /* deep evergreen, slightly lifted for readability */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 162 76% 13%;
+    --primary-hover: 162 70% 16%;
 
-    --secondary: 150 40% 96%;
-    --secondary-foreground: 165 100% 7%;
+    --secondary: 150 30% 95%;
+    --secondary-foreground: 165 70% 10%;
 
-    --muted: 150 20% 95%;
-    --muted-foreground: 165 10% 40%;
+    --muted: 150 20% 96%;
+    --muted-foreground: 165 15% 32%;   /* darker for AA contrast */
 
-    --accent: 145 38% 56%;             /* mint #65b891 */
-    --accent-foreground: 165 100% 7%;
-    --accent-soft: 138 64% 74%;
+    --accent: 158 55% 32%;             /* richer club green for links/accents */
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 145 40% 60%;
 
-    --highlight: 152 100% 86%;
+    --highlight: 152 80% 80%;
 
-    --gold: 45 67% 47%;                /* #C9A227 */
-    --gold-foreground: 165 100% 7%;
+    --gold: 43 78% 45%;                /* deeper, club-style gold */
+    --gold-foreground: 165 90% 8%;
 
     --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 20% 90%;
-    --input: 150 20% 90%;
-    --ring: 165 100% 7%;
+    --border: 150 15% 88%;
+    --input: 150 15% 88%;
+    --ring: 158 55% 32%;
 
     --radius: 0.75rem;
 
-    --gradient-hero: linear-gradient(135deg, hsl(165 100% 7% / 0.95), hsl(162 76% 13% / 0.7) 60%, hsl(145 38% 30% / 0.4));
-    --gradient-primary: linear-gradient(135deg, hsl(165 100% 7%), hsl(162 76% 18%));
-    --gradient-gold: linear-gradient(135deg, hsl(45 67% 47%), hsl(45 80% 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(145 38% 56%), hsl(138 64% 74%));
+    --gradient-hero: linear-gradient(135deg, hsl(165 90% 8% / 0.95), hsl(162 75% 14% / 0.75) 55%, hsl(145 50% 25% / 0.45));
+    --gradient-primary: linear-gradient(135deg, hsl(165 90% 8%), hsl(162 70% 18%));
+    --gradient-gold: linear-gradient(135deg, hsl(43 78% 45%), hsl(45 85% 58%));
+    --gradient-accent: linear-gradient(135deg, hsl(158 55% 32%), hsl(145 50% 50%));
 
-    --shadow-soft: 0 4px 20px hsl(165 100% 7% / 0.08);
-    --shadow-elegant: 0 10px 40px -10px hsl(165 100% 7% / 0.25);
-    --shadow-gold: 0 6px 24px hsl(45 67% 47% / 0.35);
+    --shadow-soft: 0 4px 20px hsl(165 90% 8% / 0.10);
+    --shadow-elegant: 0 10px 40px -10px hsl(165 90% 8% / 0.30);
+    --shadow-gold: 0 6px 24px hsl(43 78% 45% / 0.40);
 
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -71,45 +71,45 @@ All colors MUST be HSL.
 
   .dark {
     /* Alahli SC — Dark theme */
-    --background: 220 33% 7%;          /* #0B0F19 */
+    --background: 165 55% 6%;          /* deep evergreen black */
     --foreground: 0 0% 100%;
 
-    --card: 220 25% 10%;
+    --card: 165 40% 10%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 220 25% 10%;
+    --popover: 165 40% 10%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 165 100% 12%;
+    --primary: 158 60% 18%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 160 80% 20%;
+    --primary-hover: 158 55% 26%;
 
-    --secondary: 220 20% 14%;
+    --secondary: 165 30% 14%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 20% 14%;
-    --muted-foreground: 220 10% 65%;
+    --muted: 165 25% 14%;
+    --muted-foreground: 150 15% 75%;
 
-    --accent: 145 38% 56%;
-    --accent-foreground: 165 100% 7%;
-    --accent-soft: 184 28% 42%;
+    --accent: 145 55% 60%;             /* bright mint, AA on dark */
+    --accent-foreground: 165 90% 8%;
+    --accent-soft: 145 35% 45%;
 
     --highlight: 138 64% 74%;
 
-    --gold: 45 67% 52%;
-    --gold-foreground: 165 100% 7%;
+    --gold: 44 85% 58%;                /* brighter gold for dark bg */
+    --gold-foreground: 165 90% 8%;
 
     --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 18%;
-    --input: 220 20% 18%;
-    --ring: 145 38% 56%;
+    --border: 165 25% 18%;
+    --input: 165 25% 18%;
+    --ring: 145 55% 60%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(220 33% 5% / 0.92), hsl(165 100% 7% / 0.75) 55%, hsl(145 38% 25% / 0.4));
-    --gradient-primary: linear-gradient(135deg, hsl(165 100% 10%), hsl(160 80% 18%));
-    --gradient-gold: linear-gradient(135deg, hsl(45 67% 52%), hsl(45 80% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(145 38% 56%), hsl(138 64% 74%));
+    --gradient-hero: linear-gradient(135deg, hsl(165 55% 5% / 0.95), hsl(158 60% 12% / 0.75) 55%, hsl(145 50% 22% / 0.4));
+    --gradient-primary: linear-gradient(135deg, hsl(165 60% 10%), hsl(158 55% 22%));
+    --gradient-gold: linear-gradient(135deg, hsl(44 85% 55%), hsl(46 90% 68%));
+    --gradient-accent: linear-gradient(135deg, hsl(145 55% 45%), hsl(138 60% 65%));
 
     --shadow-soft: 0 4px 20px hsl(0 0% 0% / 0.4);
     --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.6);
