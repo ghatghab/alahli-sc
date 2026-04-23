@@ -2,8 +2,9 @@ import jerseyImg from "@/assets/lineup-jersey.png";
 import type { Player } from "@/lib/fixtures";
 
 /**
- * Half-pitch lineup. Renders a 4-3-3 (or close) formation grouped by position.
- * Home side mirrors so both teams attack toward the centre line.
+ * Full-pitch lineup. Both teams share one horizontal football field.
+ * Home occupies left half (GK far left → FW near centre).
+ * Away occupies right half (FW near centre → GK far right).
  */
 
 type Side = "home" | "away";
@@ -25,13 +26,13 @@ const Jersey = ({
   player: Player;
   tone: "home" | "away";
 }) => (
-  <div className="flex flex-col items-center text-center w-16 sm:w-20">
+  <div className="flex flex-col items-center text-center w-14 sm:w-16">
     <div className="relative">
       <img
         src={jerseyImg}
         alt=""
         aria-hidden
-        className={`h-10 sm:h-12 w-auto object-contain ${
+        className={`h-9 sm:h-11 w-auto object-contain drop-shadow ${
           tone === "away" ? "grayscale opacity-70" : ""
         }`}
       />
@@ -39,7 +40,7 @@ const Jersey = ({
         {player.number}
       </span>
     </div>
-    <span className="mt-1 text-[10px] sm:text-[11px] font-semibold leading-tight text-foreground line-clamp-1">
+    <span className="mt-1 text-[10px] sm:text-[11px] font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] line-clamp-1">
       {player.name}
     </span>
   </div>
@@ -52,66 +53,67 @@ const Line = ({
   players: Player[];
   tone: Side;
 }) => (
-  <div className="flex flex-col items-center justify-around h-full gap-2">
+  <div className="flex flex-col items-center justify-around h-full gap-1">
     {players.map((p) => (
       <Jersey key={p.number} player={p} tone={tone} />
     ))}
   </div>
 );
 
-const HalfPitch = ({
-  players,
-  side,
-}: {
-  players: Player[];
-  side: Side;
-}) => {
-  const { GK, DF, MF, FW } = groupByPosition(players);
-  // Each formation line is a vertical column on the pitch.
-  // Home: GK far left → FW near centre. Away: mirror (FW near centre → GK far right).
-  const order = side === "home" ? [GK, DF, MF, FW] : [FW, MF, DF, GK];
-
-  return (
-    <div className="relative w-full">
-      {/* Pitch background */}
-      <div
-        aria-hidden
-        className="absolute inset-0 rounded-lg border border-border bg-muted/30"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(90deg, transparent 0 40px, hsl(var(--muted) / 0.35) 40px 80px)",
-        }}
-      />
-      {/* Centre line on the inner edge */}
-      <div
-        aria-hidden
-        className={`absolute top-0 bottom-0 w-px bg-border ${
-          side === "home" ? "right-0" : "left-0"
-        }`}
-      />
-      {/* Centre circle (half) */}
-      <div
-        aria-hidden
-        className={`absolute top-1/2 -translate-y-1/2 h-24 w-24 rounded-full border border-border ${
-          side === "home" ? "-right-12" : "-left-12"
-        }`}
-      />
-      {/* Penalty box */}
-      <div
-        aria-hidden
-        className={`absolute top-1/2 -translate-y-1/2 h-2/3 w-16 border border-border ${
-          side === "home" ? "left-0 border-r-0" : "right-0 border-l-0"
-        }`}
-      />
-
-      <div className="relative grid grid-cols-4 gap-1 py-6 min-h-[460px] items-stretch">
-        {order.map((group, i) => (
-          <Line key={i} players={group} tone={side} />
-        ))}
-      </div>
-    </div>
-  );
-};
+/** Pure SVG pitch markings drawn at full size, lines in white. */
+const PitchMarkings = () => (
+  <svg
+    aria-hidden
+    viewBox="0 0 1000 600"
+    preserveAspectRatio="none"
+    className="absolute inset-0 h-full w-full"
+  >
+    {/* Outer boundary */}
+    <rect
+      x="10"
+      y="10"
+      width="980"
+      height="580"
+      fill="none"
+      stroke="white"
+      strokeOpacity="0.7"
+      strokeWidth="2"
+    />
+    {/* Halfway line */}
+    <line x1="500" y1="10" x2="500" y2="590" stroke="white" strokeOpacity="0.7" strokeWidth="2" />
+    {/* Centre circle + spot */}
+    <circle cx="500" cy="300" r="70" fill="none" stroke="white" strokeOpacity="0.7" strokeWidth="2" />
+    <circle cx="500" cy="300" r="3" fill="white" fillOpacity="0.7" />
+    {/* Left penalty area */}
+    <rect x="10" y="150" width="130" height="300" fill="none" stroke="white" strokeOpacity="0.7" strokeWidth="2" />
+    {/* Left goal area */}
+    <rect x="10" y="220" width="50" height="160" fill="none" stroke="white" strokeOpacity="0.7" strokeWidth="2" />
+    {/* Left penalty spot */}
+    <circle cx="100" cy="300" r="3" fill="white" fillOpacity="0.7" />
+    {/* Left penalty arc */}
+    <path
+      d="M 140 240 A 60 60 0 0 1 140 360"
+      fill="none"
+      stroke="white"
+      strokeOpacity="0.7"
+      strokeWidth="2"
+    />
+    {/* Right penalty area */}
+    <rect x="860" y="150" width="130" height="300" fill="none" stroke="white" strokeOpacity="0.7" strokeWidth="2" />
+    {/* Right goal area */}
+    <rect x="940" y="220" width="50" height="160" fill="none" stroke="white" strokeOpacity="0.7" strokeWidth="2" />
+    {/* Right penalty spot */}
+    <circle cx="900" cy="300" r="3" fill="white" fillOpacity="0.7" />
+    {/* Right penalty arc */}
+    <path
+      d="M 860 240 A 60 60 0 0 0 860 360"
+      fill="none"
+      stroke="white"
+      strokeOpacity="0.7"
+      strokeWidth="2"
+    />
+  </svg>
+);
 
 export const LineupPitch = ({
   home,
@@ -119,11 +121,40 @@ export const LineupPitch = ({
 }: {
   home: Player[];
   away: Player[];
-}) => (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <HalfPitch players={home} side="home" />
-    <HalfPitch players={away} side="away" />
-  </div>
-);
+}) => {
+  const h = groupByPosition(home);
+  const a = groupByPosition(away);
+  // Home columns: GK → DF → MF → FW (left to right)
+  // Away columns: FW → MF → DF → GK (continuing left to right)
+  const columns: { players: Player[]; tone: Side }[] = [
+    { players: h.GK, tone: "home" },
+    { players: h.DF, tone: "home" },
+    { players: h.MF, tone: "home" },
+    { players: h.FW, tone: "home" },
+    { players: a.FW, tone: "away" },
+    { players: a.MF, tone: "away" },
+    { players: a.DF, tone: "away" },
+    { players: a.GK, tone: "away" },
+  ];
+
+  return (
+    <div
+      className="relative w-full overflow-hidden rounded-xl border border-border"
+      style={{
+        background:
+          "linear-gradient(90deg, hsl(140 45% 32%) 0%, hsl(140 50% 28%) 12.5%, hsl(140 45% 32%) 25%, hsl(140 50% 28%) 37.5%, hsl(140 45% 32%) 50%, hsl(140 50% 28%) 62.5%, hsl(140 45% 32%) 75%, hsl(140 50% 28%) 87.5%, hsl(140 45% 32%) 100%)",
+      }}
+    >
+      <div className="relative aspect-[5/3] min-h-[360px] w-full">
+        <PitchMarkings />
+        <div className="relative z-10 grid h-full grid-cols-8 gap-0 px-2 py-3 sm:px-4 sm:py-5">
+          {columns.map((col, i) => (
+            <Line key={i} players={col.players} tone={col.tone} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default LineupPitch;
