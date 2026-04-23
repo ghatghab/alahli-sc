@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, Search } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   NewsArticleRow,
@@ -12,6 +12,8 @@ import {
   pickTranslation,
 } from "@/lib/news";
 import fallback from "@/assets/stadium-aerial.jpg";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { Input } from "@/components/ui/input";
 
 type Row = NewsArticleRow & {
   news_translations: NewsTranslationRow[];
@@ -25,31 +27,62 @@ export const NewsList = () => {
   const month = params.month ? Number(params.month) : null;
   const [items, setItems] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<NewsCategoryRow[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     (async () => {
-      let q = supabase
+      const [articlesRes, catsRes] = await Promise.all([
+        supabase
         .from("news_articles")
         .select("*, news_translations(*), news_categories(*)")
         .eq("published", true)
-        .order("published_at", { ascending: false });
-
-      if (year && month) {
-        const from = new Date(Date.UTC(year, month - 1, 1)).toISOString();
-        const to = new Date(Date.UTC(year, month, 1)).toISOString();
-        q = q.gte("published_at", from).lt("published_at", to);
-      }
-
-      const { data } = await q;
+        .order("published_at", { ascending: false })
+        .then(r => {
+          if (year && month) {
+            // client-side filter for archive
+          }
+          return r;
+        }),
+        supabase.from("news_categories").select("*").order("sort_order"),
+      ]);
       if (!cancelled) {
-        setItems((data as unknown as Row[]) ?? []);
+        let articles = (articlesRes.data as unknown as Row[]) ?? [];
+        if (year && month) {
+          const from = new Date(Date.UTC(year, month - 1, 1));
+          const to = new Date(Date.UTC(year, month, 1));
+          articles = articles.filter(a => {
+            if (!a.published_at) return false;
+            const d = new Date(a.published_at);
+            return d >= from && d < to;
+          });
+        }
+        setItems(articles);
+        setCategories((catsRes.data as NewsCategoryRow[]) ?? []);
         setLoading(false);
       }
     })();
     return () => { cancelled = true; };
   }, [year, month]);
+
+  const filtered = useMemo(() => {
+    let result = items;
+    if (activeCategory) {
+      result = result.filter(i => i.category_id === activeCategory);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(i => {
+        const tr = pickTranslation(i.news_translations, i18n.language);
+        if (!tr) return false;
+        return tr.title.toLowerCase().includes(q) || (tr.excerpt ?? "").toLowerCase().includes(q);
+      });
+    }
+    return result;
+  }, [items, activeCategory, searchQuery, i18n.language]);
 
   const archiveTitle =
     year && month
@@ -61,7 +94,8 @@ export const NewsList = () => {
 
   return (
     <>
-      <section className="container-club pt-28 md:pt-32 pb-16">
+      <Breadcrumbs className="pt-20" />
+      <section className="container-club pt-8 pb-16">
         <header className="mb-10">
           <h1 className="font-display text-3xl sm:text-5xl font-bold uppercase">
             {archiveTitle ?? t("pages.news.title")}
@@ -70,16 +104,57 @@ export const NewsList = () => {
             <p className="mt-3 max-w-2xl text-muted-foreground">{t("pages.news.intro")}</p>
           )}
         </header>
+
+        {/* Filters */}
+        <div className="mb-8 flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 flex-1">
+            <button
+              onClick={() => setActiveCategory(null)}
+              className={cn(
+                "px-4 py-2 rounded-md text-sm font-bold border transition-smooth",
+                !activeCategory
+                  ? "bg-foreground text-background border-foreground"
+                  : "bg-background text-foreground border-border hover:border-foreground"
+              )}
+            >
+              {t("news.allCategories")}
+            </button>
+            {categories.map(cat => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
+                className={cn(
+                  "px-4 py-2 rounded-md text-sm font-bold border transition-smooth",
+                  activeCategory === cat.id
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-background text-foreground border-border hover:border-foreground"
+                )}
+              >
+                {categoryName(cat, i18n.language)}
+              </button>
+            ))}
+          </div>
+          <div className="relative w-full sm:w-64">
+            <Search className="absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder={t("news.search")}
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="ps-9"
+            />
+          </div>
+        </div>
+
         {loading ? (
           <div className="flex justify-center py-20">
             <Loader2 className="h-6 w-6 animate-spin text-accent" />
           </div>
-        ) : items.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">
             {t("news.empty")}
           </div>
         ) : (
-          <NewsLayout items={items} lang={i18n.language} ctaLabel={t("sections.cta")} />
+          <NewsLayout items={filtered} lang={i18n.language} ctaLabel={t("sections.cta")} />
         )}
       </section>
     </>

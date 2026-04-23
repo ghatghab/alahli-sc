@@ -53,7 +53,7 @@ export const Header = () => {
               className={({ isActive }) =>
                 cn(
                   "relative px-3 py-2 text-sm font-medium uppercase tracking-wider transition-smooth",
-                  "text-foreground/80 hover:text-accent",
+                  "text-gold font-bold hover:text-accent",
                   isActive && "text-accent"
                 )
               }
