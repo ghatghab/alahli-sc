@@ -26,21 +26,21 @@ const Jersey = ({
   player: Player;
   tone: "home" | "away";
 }) => (
-  <div className="flex flex-col items-center text-center w-14 sm:w-16">
+  <div className="flex flex-col items-center text-center w-20 sm:w-24">
     <div className="relative">
       <img
         src={jerseyImg}
         alt=""
         aria-hidden
-        className={`h-9 sm:h-11 w-auto object-contain drop-shadow ${
+        className={`h-14 sm:h-16 w-auto object-contain drop-shadow-lg ${
           tone === "away" ? "grayscale opacity-70" : ""
         }`}
       />
-      <span className="absolute inset-0 grid place-items-center font-display font-black text-[11px] sm:text-xs text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] tabular-nums pt-1">
+      <span className="absolute inset-0 grid place-items-center font-display font-black text-base sm:text-lg text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] tabular-nums pt-1.5">
         {player.number}
       </span>
     </div>
-    <span className="mt-1 text-[10px] sm:text-[11px] font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] line-clamp-1">
+    <span className="mt-1.5 text-[11px] sm:text-xs font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] line-clamp-1">
       {player.name}
     </span>
   </div>
