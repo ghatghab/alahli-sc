@@ -10,7 +10,7 @@ export const JoinCTA = () => {
     <section className="relative overflow-hidden">
       <img src={hero} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-primary/80 backdrop-blur-sm" />
-      <div className="relative container-club py-20 lg:py-28 text-center text-primary-foreground">
+      <div className="relative container-club py-14 lg:py-20 text-center text-primary-foreground">
         <h2 className="font-display text-4xl sm:text-6xl font-bold uppercase">{t("sections.join")}</h2>
         <p className="mt-4 text-primary-foreground/80 max-w-xl mx-auto">{t("sections.joinSub")}</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">

@@ -7,7 +7,7 @@ import stadium from "@/assets/stadium-aerial.jpg";
 export const StadiumSection = () => {
   const { t } = useTranslation();
   return (
-    <section className="container-club py-20 lg:py-28">
+    <section className="container-club py-14 lg:py-20">
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-elegant order-2 lg:order-1">
           <img src={stadium} alt="Stadium" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />

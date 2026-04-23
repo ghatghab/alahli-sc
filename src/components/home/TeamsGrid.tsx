@@ -16,7 +16,7 @@ export const TeamsGrid = () => {
   ] as const;
 
   return (
-    <section className="bg-muted/40 py-20 lg:py-28">
+    <section className="bg-muted/40 py-14 lg:py-20">
       <div className="container-club">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="text-xs uppercase tracking-[0.25em] text-accent font-semibold">{t("nav.teams")}</div>
