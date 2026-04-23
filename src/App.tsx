@@ -16,7 +16,8 @@ import Auth from "./pages/Auth";
 import { NewsList } from "./pages/news/NewsList";
 import { NewsArticle } from "./pages/news/NewsArticle";
 import MatchDetail from "./pages/MatchDetail";
-import Schedule from "./pages/Schedule";
+import MatchCenter from "./pages/MatchCenter";
+import Standings from "./pages/Standings";
 import { ProtectedAdmin } from "./components/admin/ProtectedAdmin";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -56,9 +57,9 @@ const App = () => (
               <Route path="/news" element={<NewsList />} />
               <Route path="/news/:year/:month" element={<NewsList />} />
               <Route path="/news/:year/:month/:slug" element={<NewsArticle />} />
-              <Route path="/match-center" element={<MatchCenterPage />} />
+              <Route path="/match-center" element={<MatchCenter />} />
               <Route path="/match/:id" element={<MatchDetail />} />
-              <Route path="/schedule" element={<Schedule />} />
+              <Route path="/standings" element={<Standings />} />
               <Route path="/tickets" element={<TicketsPage />} />
               <Route path="/academy" element={<AcademyPage />} />
               <Route path="/contact" element={<ContactPage />} />

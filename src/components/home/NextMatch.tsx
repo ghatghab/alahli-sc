@@ -119,7 +119,7 @@ export const NextMatch = () => {
           </div>
           <div className="lg:w-40 flex lg:justify-end">
             <Button asChild variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
-              <Link to="/schedule" aria-label={t("nextMatch.schedule")}>
+              <Link to="/match-center" aria-label={t("nextMatch.schedule")}>
                 {t("nextMatch.schedule")}
               </Link>
             </Button>
