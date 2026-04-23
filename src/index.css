@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Thmanyah Sans — Arabic typography */
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -141,7 +178,7 @@ All colors MUST be HSL.
   }
 
   [dir="rtl"] body {
-    font-family: 'Tajawal', 'IBM Plex Sans', system-ui, sans-serif;
+    font-family: 'Thmanyah Sans', 'Tajawal', 'IBM Plex Sans', system-ui, sans-serif;
   }
 
   h1, h2, h3, h4, h5 {
@@ -150,7 +187,7 @@ All colors MUST be HSL.
   }
 
   [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5 {
-    font-family: 'Tajawal', 'Oswald', sans-serif;
+    font-family: 'Thmanyah Sans', 'Tajawal', 'Oswald', sans-serif;
     font-weight: 700;
   }
 }
