@@ -134,7 +134,7 @@ export const Hero = () => {
                 className="absolute inset-0 z-10"
                 aria-label={slide.title}
               />
-              <div className="container-club pointer-events-none relative z-20 flex h-full flex-col justify-end pb-20 pt-32 lg:pb-28">
+              <div className="container-club pointer-events-none relative z-20 flex h-full flex-col justify-end pb-24 pt-40 lg:pb-32 lg:pt-48">
                 <div className="max-w-4xl space-y-4 animate-slide-up">
                   <Link to={slide.href} className="pointer-events-auto inline-block group">
                     <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[0.95] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] underline decoration-white/90 decoration-[3px] underline-offset-[10px] group-hover:decoration-gold transition-colors">
