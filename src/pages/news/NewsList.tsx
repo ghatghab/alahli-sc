@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { PageHeader } from "@/components/PageHeader";
 import {
   NewsArticleRow,
   NewsCategoryRow,
@@ -62,11 +61,15 @@ export const NewsList = () => {
 
   return (
     <>
-      <PageHeader
-        title={archiveTitle ?? t("pages.news.title")}
-        intro={archiveTitle ? undefined : t("pages.news.intro")}
-      />
-      <section className="container-club py-16">
+      <section className="container-club pt-28 md:pt-32 pb-16">
+        <header className="mb-10">
+          <h1 className="font-display text-3xl sm:text-5xl font-bold uppercase">
+            {archiveTitle ?? t("pages.news.title")}
+          </h1>
+          {!archiveTitle && (
+            <p className="mt-3 max-w-2xl text-muted-foreground">{t("pages.news.intro")}</p>
+          )}
+        </header>
         {loading ? (
           <div className="flex justify-center py-20">
             <Loader2 className="h-6 w-6 animate-spin text-accent" />

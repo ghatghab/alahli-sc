@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { PageHeader } from "@/components/PageHeader";
 import { fixtures } from "@/lib/fixtures";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -87,9 +86,8 @@ const Standings = () => {
 
   return (
     <>
-      <PageHeader title={t("standings.title")} intro={t("standings.intro")} />
-
-      <section className="container-club py-10">
+      <h1 className="sr-only">{t("standings.title")}</h1>
+      <section className="container-club pt-28 md:pt-32 pb-10">
         <div className="rounded-xl border border-border bg-card p-4 md:p-5 shadow-soft mb-6">
           <div className="grid gap-3 md:grid-cols-12 items-end">
             <div className="md:col-span-5">
