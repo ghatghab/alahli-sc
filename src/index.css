@@ -9,6 +9,7 @@
   font-weight: 300;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0660-0669;
 }
 @font-face {
   font-family: 'Thmanyah Sans';
@@ -16,6 +17,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0660-0669;
 }
 @font-face {
   font-family: 'Thmanyah Sans';
@@ -23,6 +25,7 @@
   font-weight: 500;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0660-0669;
 }
 @font-face {
   font-family: 'Thmanyah Sans';
@@ -30,6 +33,7 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0660-0669;
 }
 @font-face {
   font-family: 'Thmanyah Sans';
@@ -37,6 +41,7 @@
   font-weight: 900;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0660-0669;
 }
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
@@ -190,6 +195,48 @@ All colors MUST be HSL.
     font-family: 'Thmanyah Sans', 'Tajawal', 'Oswald', sans-serif;
     font-weight: 700;
   }
+}
+
+/* Arabic typography — robust selectors (works on Safari/Android even when dir is set on a child) */
+:lang(ar),
+[dir="rtl"] {
+  font-family: 'Thmanyah Sans', 'Tajawal', 'IBM Plex Sans', system-ui, sans-serif;
+  font-feature-settings: "kern", "liga", "calt";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: lining-nums;
+}
+
+:lang(ar) h1, :lang(ar) h2, :lang(ar) h3, :lang(ar) h4, :lang(ar) h5,
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5 {
+  font-family: 'Thmanyah Sans', 'Tajawal', 'Oswald', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;            /* Arabic should never use negative tracking */
+  line-height: 1.35;            /* taller line-height for AR descenders/diacritics */
+  text-transform: none !important; /* uppercase doesn't apply to Arabic; prevents weird glyph shifts on Safari */
+}
+
+:lang(ar) p, :lang(ar) li, :lang(ar) span, :lang(ar) a, :lang(ar) button,
+[dir="rtl"] p, [dir="rtl"] li {
+  line-height: 1.8;
+  letter-spacing: 0;
+}
+
+/* Uppercase utility is meaningless in Arabic — neutralize it for AR */
+:lang(ar) .uppercase,
+[dir="rtl"] .uppercase {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Stronger muted contrast for Arabic readability (light + dark) */
+:lang(ar) .text-muted-foreground,
+[dir="rtl"] .text-muted-foreground {
+  color: hsl(165 25% 22%);
+}
+.dark :lang(ar) .text-muted-foreground,
+.dark [dir="rtl"] .text-muted-foreground {
+  color: hsl(150 15% 85%);
 }
 
 @layer components {
