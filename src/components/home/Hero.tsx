@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Pause, Play } from "lucide-react";
+import { ArrowRight, Clock, Pause, Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   NewsArticleRow,
@@ -12,6 +12,7 @@ import {
   NewsTranslationRow,
   categoryName,
   pickTranslation,
+  timeAgo,
 } from "@/lib/news";
 import heroImg from "@/assets/hero-stadium.jpg";
 
@@ -23,7 +24,8 @@ type Row = NewsArticleRow & {
 type Slide = {
   key: string;
   image: string;
-  eyebrow: string;
+  category: string;
+  publishedAt: string | null;
   title: string;
   href: string;
   cta: string;
