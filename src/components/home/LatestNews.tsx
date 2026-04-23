@@ -67,31 +67,36 @@ export const LatestNews = () => {
           return (
             <article
               key={item.id}
-              className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-soft hover:shadow-elegant transition-smooth"
+              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-soft hover:shadow-elegant hover:border-accent/40 transition-smooth"
             >
-              <Link to={url} className="block">
-                <div className="aspect-[4/3] overflow-hidden">
+              <Link to={url} className="flex flex-col h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-xl">
+                <div className="aspect-[4/3] overflow-hidden shrink-0">
                   <img
                     src={item.cover_image_url ?? fallback}
                     alt=""
                     loading="lazy"
-                    className="h-full w-full object-cover transition-smooth group-hover:scale-110"
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 {item.news_categories && (
-                  <div className="absolute top-3 left-3 rtl:left-auto rtl:right-3">
+                  <div className="absolute top-3 start-3">
                     <span className="px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-wider">
                       {categoryName(item.news_categories, i18n.language)}
                     </span>
                   </div>
                 )}
-                <div className="p-5">
+                <div className="p-5 flex flex-col flex-1 transition-all duration-300 group-hover:pb-7">
                   <div className="text-xs text-muted-foreground">
                     {formatDate(item.published_at, i18n.language)}
                   </div>
                   <h3 className="font-display text-lg font-bold mt-2 leading-tight group-hover:text-accent transition-smooth">
                     {tr.title}
                   </h3>
+                  <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                    <p className="overflow-hidden text-sm text-muted-foreground line-clamp-3">
+                      {tr.excerpt}
+                    </p>
+                  </div>
                   <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent">
                     {t("sections.cta")} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
                   </span>
