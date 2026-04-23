@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Search, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUpDown, RefreshCw } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -10,10 +10,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/PageHeader";
+import { LiveBadge } from "@/components/match/LiveBadge";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import logo from "@/assets/logo-alahli.jpg";
 import { cn } from "@/lib/utils";
+import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 
 const TEAMS: Team[] = ["football", "basketball", "handball", "volleyball"];
 const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -24,24 +27,45 @@ const tzShort = (() => {
   } catch { return ""; }
 })();
 
+const PAGE_SIZE = 10;
+
 const MatchCenter = () => {
   const { t, i18n } = useTranslation();
   const lang = (i18n.language as "en" | "fr" | "ar") || "en";
   const locale = lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB";
 
-  const [q, setQ] = useState("");
-  const [team, setTeam] = useState<string>("all");
-  const [comp, setComp] = useState<string>("all");
-  const [status, setStatus] = useState<string>("all");
-  const [sort, setSort] = useState<"asc" | "desc">("asc");
+  // Filters — persisted across language changes & reloads
+  const [q, setQ] = useLocalStorageState<string>("mc.search", "");
+  const [team, setTeam] = useLocalStorageState<string>("mc.team", "all");
+  const [comp, setComp] = useLocalStorageState<string>("mc.comp", "all");
+  const [status, setStatus] = useLocalStorageState<string>("mc.status", "all");
+  const [sort, setSort] = useLocalStorageState<"asc" | "desc">("mc.sort", "asc");
+  const [liveOnly, setLiveOnly] = useLocalStorageState<boolean>("mc.liveOnly", false);
+  const [visible, setVisible] = useState(PAGE_SIZE);
+
+  // Reset pagination when filters change
+  useEffect(() => { setVisible(PAGE_SIZE); }, [q, team, comp, status, sort, liveOnly]);
+
+  // Live mode auto-refresh: re-renders every 30s so live minutes/counters can update.
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => setTick(n => n + 1), 30_000);
+    return () => window.clearInterval(id);
+  }, []);
 
   const competitions = useMemo(
     () => Array.from(new Set(fixtures.map(f => f.competition))).sort(),
     [],
   );
 
+  const liveFixtures = useMemo(
+    () => fixtures.filter(f => f.status === "live"),
+    [],
+  );
+
   const list = useMemo(() => {
     const filtered = fixtures.filter(f => {
+      if (liveOnly && f.status !== "live") return false;
       if (team !== "all" && f.team !== team) return false;
       if (comp !== "all" && f.competition !== comp) return false;
       if (status !== "all" && f.status !== status) return false;
@@ -56,12 +80,15 @@ const MatchCenter = () => {
       sort === "asc" ? a.date.getTime() - b.date.getTime() : b.date.getTime() - a.date.getTime(),
     );
     return filtered;
-  }, [q, team, comp, status, sort]);
+  }, [q, team, comp, status, sort, liveOnly]);
 
-  // Group by month-year
+  const paged = useMemo(() => list.slice(0, visible), [list, visible]);
+  const hasMore = visible < list.length;
+
+  // Group paged results by month-year
   const grouped = useMemo(() => {
     const map = new Map<string, { label: string; items: Fixture[] }>();
-    for (const f of list) {
+    for (const f of paged) {
       const key = `${f.date.getFullYear()}-${f.date.getMonth()}`;
       const label = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric", timeZone: userTZ })
         .format(f.date);
@@ -69,7 +96,7 @@ const MatchCenter = () => {
       map.get(key)!.items.push(f);
     }
     return Array.from(map.entries()).map(([key, v]) => ({ key, ...v }));
-  }, [list, locale]);
+  }, [paged, locale]);
 
   const fmtDayDate = (d: Date) => {
     const wk = new Intl.DateTimeFormat(locale, { weekday: "short", timeZone: userTZ }).format(d);
@@ -82,22 +109,56 @@ const MatchCenter = () => {
     return `${wk} | ${dt} | ${tm}${tzShort ? " " + tzShort : ""}`;
   };
 
+  const resetFilters = () => {
+    setQ(""); setTeam("all"); setComp("all"); setStatus("all"); setSort("asc"); setLiveOnly(false);
+  };
+
   return (
     <>
       <PageHeader title={t("pages.matchCenter.title")} intro={t("pages.matchCenter.intro")} />
 
       <section className="container-club py-10">
+        {/* Live now */}
+        {liveFixtures.length > 0 && (
+          <div className="mb-8 rounded-xl border border-destructive/30 bg-destructive/5 p-4 md:p-5">
+            <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <div className="flex items-center gap-3">
+                <LiveBadge size="md" />
+                <h2 className="font-display font-black uppercase text-lg md:text-xl tracking-wider">
+                  {t("live.now")}
+                </h2>
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                <RefreshCw className="h-3 w-3 animate-[spin_4s_linear_infinite]" />
+                {t("live.autoRefresh")}
+              </span>
+            </div>
+            <ul className="divide-y divide-border">
+              {liveFixtures.map(f => (
+                <MatchRow
+                  key={f.id}
+                  fixture={f}
+                  lang={lang}
+                  locale={locale}
+                  fmtDayDate={fmtDayDate}
+                  t={t}
+                />
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* Filters */}
         <div className="rounded-xl border border-border bg-card p-4 md:p-5 shadow-soft">
           <div className="grid gap-3 md:grid-cols-12">
             <div className="md:col-span-4 relative">
-              <Search className="absolute top-1/2 -translate-y-1/2 left-3 rtl:left-auto rtl:right-3 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute top-1/2 -translate-y-1/2 start-3 h-4 w-4 text-muted-foreground pointer-events-none" />
               <Input
                 value={q}
                 onChange={e => setQ(e.target.value)}
                 placeholder={t("schedule.search")}
                 aria-label={t("schedule.search")}
-                className="pl-9 rtl:pl-3 rtl:pr-9"
+                className="ps-9"
               />
             </div>
             <div className="md:col-span-2">
@@ -128,12 +189,13 @@ const MatchCenter = () => {
             </div>
             <div className="md:col-span-2">
               <Select value={status} onValueChange={setStatus}>
-                <SelectTrigger aria-label="Status">
+                <SelectTrigger aria-label={t("schedule.status")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("schedule.all")}</SelectItem>
                   <SelectItem value="upcoming">{t("schedule.upcoming")}</SelectItem>
+                  <SelectItem value="live">{t("schedule.live")}</SelectItem>
                   <SelectItem value="finished">{t("schedule.finished")}</SelectItem>
                 </SelectContent>
               </Select>
@@ -141,16 +203,58 @@ const MatchCenter = () => {
             <div className="md:col-span-1">
               <button
                 type="button"
-                onClick={() => setSort(s => (s === "asc" ? "desc" : "asc"))}
+                onClick={() => setSort(sort === "asc" ? "desc" : "asc")}
                 aria-label={t("schedule.sort")}
                 title={sort === "asc" ? t("schedule.sortDateAsc") : t("schedule.sortDateDesc")}
-                className="w-full inline-flex items-center justify-center gap-1 rounded-md border border-border bg-background px-3 h-10 text-sm hover:border-accent hover:text-accent transition"
+                className="w-full inline-flex items-center justify-center gap-1 rounded-md border border-border bg-background px-3 h-10 text-sm hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition"
               >
                 <ArrowUpDown className="h-4 w-4" />
                 <span className="font-bold">{sort === "asc" ? "↑" : "↓"}</span>
               </button>
             </div>
           </div>
+
+          {/* Toggles row */}
+          <div className="mt-4 flex items-center justify-between flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => setLiveOnly(!liveOnly)}
+              aria-pressed={liveOnly}
+              className={cn(
+                "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                liveOnly
+                  ? "border-destructive bg-destructive text-destructive-foreground"
+                  : "border-border text-foreground/80 hover:border-destructive hover:text-destructive",
+              )}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className={cn(
+                  "absolute inline-flex h-full w-full rounded-full opacity-75",
+                  liveOnly ? "bg-current animate-ping" : "bg-destructive",
+                )} />
+                <span className={cn(
+                  "relative inline-flex h-2 w-2 rounded-full",
+                  liveOnly ? "bg-current" : "bg-destructive",
+                )} />
+              </span>
+              {t("live.only")}
+            </button>
+
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="text-xs text-muted-foreground">
+                {t("schedule.results", { n: list.length })}
+              </span>
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="text-xs underline-offset-4 hover:underline text-muted-foreground hover:text-foreground"
+              >
+                {t("schedule.reset")}
+              </button>
+            </div>
+          </div>
+
           <p className="mt-3 text-xs text-muted-foreground">
             {t("schedule.yourTimezone")} · <span className="font-mono">{userTZ}</span>
           </p>
@@ -168,82 +272,101 @@ const MatchCenter = () => {
                 </h2>
                 <ul className="divide-y divide-border border-y border-border">
                   {group.items.map(f => (
-                    <MatchRow key={f.id} fixture={f} lang={lang} fmtDayDate={fmtDayDate} t={t} />
+                    <MatchRow key={f.id} fixture={f} lang={lang} locale={locale} fmtDayDate={fmtDayDate} t={t} />
                   ))}
                 </ul>
               </div>
             ))
           )}
         </div>
+
+        {/* Pagination */}
+        {hasMore && (
+          <div className="mt-8 flex justify-center">
+            <Button
+              variant="outline"
+              onClick={() => setVisible(v => v + PAGE_SIZE)}
+              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+            >
+              {t("schedule.loadMore", { n: Math.min(PAGE_SIZE, list.length - visible) })}
+            </Button>
+          </div>
+        )}
       </section>
     </>
   );
 };
 
 const MatchRow = ({
-  fixture, lang, fmtDayDate, t,
+  fixture, lang, locale, fmtDayDate, t,
 }: {
   fixture: Fixture;
   lang: "en" | "fr" | "ar";
+  locale: string;
   fmtDayDate: (d: Date) => string;
-  t: (k: string) => string;
+  t: (k: string, opts?: Record<string, unknown>) => string;
 }) => {
   const opp = fixture.opponentName[lang];
   const isHome = fixture.homeAway === "home";
   const finished = fixture.status === "finished";
+  const isLive = fixture.status === "live";
   const homeName = isHome ? "Alahli SC" : opp;
   const awayName = isHome ? opp : "Alahli SC";
   const homeLogo = isHome ? logo : null;
   const awayLogo = isHome ? null : logo;
 
-  const matchdayLabel = `${fixture.competition}`;
-
   return (
     <li>
       <Link
         to={`/match/${fixture.id}`}
-        className="block py-5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md"
+        className={cn(
+          "block py-5 group rounded-md transition",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+          isLive && "bg-destructive/5 hover:bg-destructive/10",
+        )}
+        aria-label={`${homeName} vs ${awayName}`}
       >
-        {/* Top meta line: date left, competition right */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 px-2 md:px-4 mb-2 text-xs md:text-sm text-muted-foreground">
-          <div className="md:col-start-1">{fmtDayDate(fixture.date)}</div>
-          <div className="md:col-start-3 md:text-right font-medium">{matchdayLabel}</div>
+        {/* Top meta line: date | competition */}
+        <div className="flex flex-wrap items-center justify-between gap-2 px-2 md:px-4 mb-2 text-xs md:text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <span>{fmtDayDate(fixture.date)}</span>
+            {isLive && <LiveBadge minute={fixture.liveMinute} />}
+          </div>
+          <span className="font-medium text-end">{fixture.competition}</span>
         </div>
 
-        {/* Main row: home name | center score/time | away name */}
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:gap-6 px-2 md:px-4">
-          {/* Home */}
-          <div className="font-display font-bold text-base md:text-xl text-foreground group-hover:text-accent transition-colors text-right md:text-left">
+        {/* Main row */}
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 md:gap-6 px-2 md:px-4">
+          <div className="font-display font-bold text-sm md:text-xl text-foreground group-hover:text-accent transition-colors text-end md:text-start">
             {homeName}
           </div>
 
-          {/* Center: badges + score */}
           <div className="flex items-center gap-2 md:gap-4">
-            <Crest src={homeLogo} alt={homeName} color={fixture.competitionColor} />
+            <Crest src={homeLogo} alt={homeName} color={fixture.competitionColor} short={fixture.opponentShort} isAlahli={isHome} />
             <div className="flex flex-col items-center min-w-[72px] md:min-w-[110px]">
-              {finished && fixture.score ? (
-                <div className="font-display font-black text-xl md:text-3xl tabular-nums tracking-tight">
+              {(finished || isLive) && fixture.score ? (
+                <div className={cn(
+                  "font-display font-black tabular-nums tracking-tight",
+                  "text-xl md:text-3xl",
+                  isLive && "text-destructive",
+                )}>
                   {fixture.score.home} : {fixture.score.away}
                 </div>
               ) : (
-                <div className={cn(
-                  "font-display font-black text-lg md:text-2xl tabular-nums",
-                  "text-accent",
-                )}>
-                  {new Intl.DateTimeFormat(lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB", {
+                <div className="font-display font-black text-lg md:text-2xl tabular-nums text-accent">
+                  {new Intl.DateTimeFormat(locale, {
                     hour: "2-digit", minute: "2-digit", hour12: false, timeZone: userTZ,
                   }).format(fixture.date)}
                 </div>
               )}
               <div className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-0.5">
-                {finished ? t("schedule.finished") : isHome ? t("nextMatch.home") : t("nextMatch.away")}
+                {isLive ? `${fixture.liveMinute ?? ""}'` : finished ? t("schedule.finished") : isHome ? t("nextMatch.home") : t("nextMatch.away")}
               </div>
             </div>
-            <Crest src={awayLogo} alt={awayName} color={fixture.competitionColor} />
+            <Crest src={awayLogo} alt={awayName} color={fixture.competitionColor} short={fixture.opponentShort} isAlahli={!isHome} />
           </div>
 
-          {/* Away */}
-          <div className="font-display font-bold text-base md:text-xl text-foreground group-hover:text-accent transition-colors text-left md:text-right">
+          <div className="font-display font-bold text-sm md:text-xl text-foreground group-hover:text-accent transition-colors text-start md:text-end">
             {awayName}
           </div>
         </div>
@@ -252,7 +375,9 @@ const MatchRow = ({
   );
 };
 
-const Crest = ({ src, alt, color }: { src: string | null; alt: string; color: string }) => {
+const Crest = ({
+  src, alt, color, short, isAlahli,
+}: { src: string | null; alt: string; color: string; short: string; isAlahli: boolean }) => {
   if (src) {
     return (
       <div className="h-10 w-10 md:h-14 md:w-14 rounded-full overflow-hidden bg-background border border-border shrink-0">
@@ -268,7 +393,7 @@ const Crest = ({ src, alt, color }: { src: string | null; alt: string; color: st
       )}
       aria-label={alt}
     >
-      {alt.slice(0, 3).toUpperCase()}
+      {isAlahli ? "AHL" : short}
     </div>
   );
 };
