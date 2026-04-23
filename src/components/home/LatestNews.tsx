@@ -65,26 +65,27 @@ export const LatestNews = () => {
   );
 
   return (
-    <section className="container-club py-14 lg:py-20">
+    <section className="container-club py-16 lg:py-24">
       <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
         <div>
-          <div className="text-xs uppercase tracking-[0.25em] text-accent font-semibold">{t("nav.news")}</div>
-          <h2 className="font-display text-3xl sm:text-5xl font-bold uppercase mt-2">{t("sections.latestNews")}</h2>
-          <p className="text-muted-foreground mt-2">{t("sections.latestNewsSub")}</p>
+          <div className="eyebrow">{t("nav.news")}</div>
+          <h2 className="font-display text-3xl sm:text-5xl font-bold uppercase mt-3 leading-[0.95]">{t("sections.latestNews")}</h2>
+          <div className="mt-3 h-[3px] w-16 bg-gradient-to-r from-gold to-transparent rtl:bg-gradient-to-l" />
+          <p className="text-muted-foreground mt-4 max-w-md">{t("sections.latestNewsSub")}</p>
         </div>
-        <Button asChild variant="outline">
+        <Button asChild variant="outline" className="border-gold/40 text-foreground hover:bg-gold hover:text-gold-foreground hover:border-gold">
           <Link to="/news">{t("sections.viewAll")} <ArrowRight className="h-4 w-4 rtl:rotate-180" /></Link>
         </Button>
       </div>
 
       {/* Category filter chips */}
       {categories.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-10">
           {categories.map(cat => (
             <Link
               key={cat.id}
               to={`/news?category=${cat.slug}`}
-              className="px-4 py-1.5 rounded-full border border-border text-xs font-bold uppercase tracking-wider text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-smooth"
+              className="px-4 py-1.5 rounded-full border border-border text-xs font-bold uppercase tracking-[0.15em] text-foreground hover:bg-gold hover:text-gold-foreground hover:border-gold transition-smooth"
             >
               {categoryName(cat, i18n.language)}
             </Link>
@@ -109,33 +110,34 @@ const FeaturedArticle = ({ item, lang, ctaLabel }: { item: Row; lang: string; ct
   if (!tr) return null;
   const url = articleUrl(item);
   return (
-    <article className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-soft hover:shadow-elegant hover:border-accent/40 transition-smooth mb-8">
-      <Link to={url} className="grid md:grid-cols-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-xl">
-        <div className="aspect-[16/9] md:aspect-auto overflow-hidden">
+    <article className="group card-premium mb-10">
+      <Link to={url} className="grid md:grid-cols-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xl">
+        <div className="relative aspect-[16/9] md:aspect-auto overflow-hidden">
           <img
             src={item.cover_image_url ?? fallback}
             alt=""
             loading="lazy"
-            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
-        </div>
-        <div className="p-6 md:p-8 flex flex-col justify-center">
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
           {item.news_categories && (
-            <span className="inline-block self-start px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-wider mb-3">
+            <span className="absolute top-4 start-4 inline-block px-3 py-1.5 rounded-sm bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-[0.2em] shadow-gold">
               {categoryName(item.news_categories, lang)}
             </span>
           )}
-          <div className="text-xs text-muted-foreground mb-2">
+        </div>
+        <div className="p-6 md:p-10 flex flex-col justify-center">
+          <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground font-semibold mb-3">
             {formatDate(item.published_at, lang)}
           </div>
-          <h3 className="font-display text-xl md:text-2xl font-bold leading-tight group-hover:text-accent transition-smooth">
+          <h3 className="font-display text-2xl md:text-3xl font-bold leading-[1.1] uppercase group-hover:text-gold transition-colors duration-300">
             {tr.title}
           </h3>
           {tr.excerpt && (
-            <p className="mt-3 text-xs md:text-sm text-muted-foreground line-clamp-3">{tr.excerpt}</p>
+            <p className="mt-4 text-sm text-muted-foreground line-clamp-3 leading-relaxed">{tr.excerpt}</p>
           )}
-          <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-accent">
-            {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+          <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-gold">
+            {ctaLabel} <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
           </span>
         </div>
       </Link>
@@ -163,33 +165,32 @@ const NewsCarousel = ({ items, lang, ctaLabel, dir }: { items: Row[]; lang: stri
             return (
               <article
                 key={item.id}
-                className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-soft hover:shadow-elegant hover:border-accent/40 transition-smooth min-w-0 shrink-0 grow-0 basis-[85%] sm:basis-[45%] lg:basis-[30%]"
+                className="group card-premium flex flex-col min-w-0 shrink-0 grow-0 basis-[85%] sm:basis-[45%] lg:basis-[30%]"
               >
-                <Link to={url} className="flex flex-col h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-xl">
-                  <div className="aspect-[4/3] overflow-hidden shrink-0">
+                <Link to={url} className="flex flex-col h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xl">
+                  <div className="relative aspect-[4/3] overflow-hidden shrink-0">
                     <img
                       src={item.cover_image_url ?? fallback}
                       alt=""
                       loading="lazy"
-                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                  </div>
-                  {item.news_categories && (
-                    <div className="absolute top-3 start-3">
-                      <span className="px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-wider">
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-80" />
+                    {item.news_categories && (
+                      <span className="absolute top-3 start-3 px-2.5 py-1 rounded-sm bg-gradient-gold text-gold-foreground text-[9px] font-bold uppercase tracking-[0.2em]">
                         {categoryName(item.news_categories, lang)}
                       </span>
-                    </div>
-                  )}
+                    )}
+                  </div>
                   <div className="p-5 flex flex-col flex-1">
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold">
                       {formatDate(item.published_at, lang)}
                     </div>
-                    <h3 className="font-display text-base font-bold mt-2 leading-tight group-hover:text-accent transition-smooth">
+                    <h3 className="font-display text-base font-bold mt-2 leading-tight uppercase group-hover:text-gold transition-colors">
                       {tr.title}
                     </h3>
-                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-accent">
-                      {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+                    <span className="mt-auto pt-3 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold">
+                      {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                     </span>
                   </div>
                 </Link>
@@ -202,14 +203,14 @@ const NewsCarousel = ({ items, lang, ctaLabel, dir }: { items: Row[]; lang: stri
       <div className="flex items-center justify-center gap-4 mt-6">
         <button
           onClick={() => embla?.scrollPrev()}
-          className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
+          className="grid h-10 w-10 place-items-center rounded-full border border-gold/30 text-foreground/70 hover:text-gold-foreground hover:bg-gold hover:border-gold transition-smooth"
         >
           <ChevronLeft className="h-5 w-5 rtl:hidden" />
           <ChevronRight className="h-5 w-5 hidden rtl:block" />
         </button>
         <button
           onClick={() => embla?.scrollNext()}
-          className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
+          className="grid h-10 w-10 place-items-center rounded-full border border-gold/30 text-foreground/70 hover:text-gold-foreground hover:bg-gold hover:border-gold transition-smooth"
         >
           <ChevronRight className="h-5 w-5 rtl:hidden" />
           <ChevronLeft className="h-5 w-5 hidden rtl:block" />
