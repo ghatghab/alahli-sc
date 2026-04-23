@@ -62,6 +62,31 @@ export const formatDate = (iso: string | null, lang: string): string => {
   });
 };
 
+export const timeAgo = (iso: string | null, lang: string): string => {
+  if (!iso) return "";
+  const diffMs = Date.now() - new Date(iso).getTime();
+  const sec = Math.max(1, Math.floor(diffMs / 1000));
+  const min = Math.floor(sec / 60);
+  const hr = Math.floor(min / 60);
+  const day = Math.floor(hr / 24);
+  const mo = Math.floor(day / 30);
+  const yr = Math.floor(day / 365);
+
+  const L = (lang === "fr" ? "fr" : lang === "ar" ? "ar" : "en") as "fr" | "ar" | "en";
+  const dict = {
+    fr: { now: "à l'instant", m: (n: number) => `il y a ${n} min`, h: (n: number) => `il y a ${n} h`, d: (n: number) => `il y a ${n} j`, mo: (n: number) => `il y a ${n} mois`, y: (n: number) => `il y a ${n} an${n > 1 ? "s" : ""}` },
+    en: { now: "just now", m: (n: number) => `${n}m ago`, h: (n: number) => `${n}h ago`, d: (n: number) => `${n}d ago`, mo: (n: number) => `${n}mo ago`, y: (n: number) => `${n}y ago` },
+    ar: { now: "الآن", m: (n: number) => `منذ ${n} د`, h: (n: number) => `منذ ${n} س`, d: (n: number) => `منذ ${n} يوم`, mo: (n: number) => `منذ ${n} شهر`, y: (n: number) => `منذ ${n} سنة` },
+  }[L];
+
+  if (yr >= 1) return dict.y(yr);
+  if (mo >= 1) return dict.mo(mo);
+  if (day >= 1) return dict.d(day);
+  if (hr >= 1) return dict.h(hr);
+  if (min >= 1) return dict.m(min);
+  return dict.now;
+};
+
 export const slugify = (text: string): string =>
   text
     .toString()
