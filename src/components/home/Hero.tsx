@@ -15,6 +15,7 @@ import {
   timeAgo,
 } from "@/lib/news";
 import heroImg from "@/assets/hero-stadium.jpg";
+import { HeroSkeleton } from "./HeroSkeleton";
 
 type Row = NewsArticleRow & {
   news_translations: NewsTranslationRow[];
@@ -41,6 +42,7 @@ const articleUrl = (a: NewsArticleRow): string => {
 export const Hero = () => {
   const { t, i18n } = useTranslation();
   const [items, setItems] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(0);
   const [playing, setPlaying] = useState(true);
   const autoplay = useRef(
@@ -61,7 +63,10 @@ export const Hero = () => {
         .not("cover_image_url", "is", null)
         .order("published_at", { ascending: false })
         .limit(3);
-      if (!cancelled) setItems((data as unknown as Row[]) ?? []);
+      if (!cancelled) {
+        setItems((data as unknown as Row[]) ?? []);
+        setLoading(false);
+      }
     })();
     return () => { cancelled = true; };
   }, []);
@@ -113,6 +118,8 @@ export const Hero = () => {
   };
 
   const slides: Slide[] = newsSlides.length > 0 ? newsSlides : [fallbackSlide];
+
+  if (loading) return <HeroSkeleton />;
 
   return (
     <section className="relative overflow-hidden bg-background">

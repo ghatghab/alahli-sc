@@ -13,6 +13,7 @@ import {
   pickTranslation,
 } from "@/lib/news";
 import fallback from "@/assets/stadium-aerial.jpg";
+import { LatestNewsSkeleton } from "./LatestNewsSkeleton";
 
 type Row = NewsArticleRow & {
   news_translations: NewsTranslationRow[];
@@ -29,6 +30,7 @@ const articleUrl = (a: NewsArticleRow): string => {
 export const LatestNews = () => {
   const { t, i18n } = useTranslation();
   const [items, setItems] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -39,11 +41,15 @@ export const LatestNews = () => {
         .eq("published", true)
         .order("published_at", { ascending: false })
         .limit(3);
-      if (!cancelled) setItems((data as unknown as Row[]) ?? []);
+      if (!cancelled) {
+        setItems((data as unknown as Row[]) ?? []);
+        setLoading(false);
+      }
     })();
     return () => { cancelled = true; };
   }, []);
 
+  if (loading) return <LatestNewsSkeleton />;
   if (items.length === 0) return null;
 
   return (

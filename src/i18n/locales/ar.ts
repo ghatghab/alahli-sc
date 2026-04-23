@@ -141,6 +141,18 @@ export const ar = {
     contact: { title: "اتصل بنا", intro: "يسعدنا التواصل معك." },
     notFound: { title: "الصفحة غير موجودة", back: "العودة إلى الرئيسية" },
   },
+  breadcrumb: {
+    home: "الرئيسية",
+  },
+  club: {
+    overview: "نظرة عامة",
+    history: "التاريخ",
+    identity: "الهوية",
+    leadership: "الإدارة",
+    partners: "الشركاء",
+    sustainability: "الاستدامة",
+    museum: "المتحف",
+  },
   comingSoon: "محتوى كامل قادم قريباً — هذه النسخة الأولى من موقعنا الجديد.",
   news: {
     empty: "لا توجد مقالات بعد. عد لاحقاً!",
