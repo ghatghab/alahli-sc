@@ -16,6 +16,7 @@ import Auth from "./pages/Auth";
 import { NewsList } from "./pages/news/NewsList";
 import { NewsArticle } from "./pages/news/NewsArticle";
 import MatchDetail from "./pages/MatchDetail";
+import Schedule from "./pages/Schedule";
 import { ProtectedAdmin } from "./components/admin/ProtectedAdmin";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -57,7 +58,7 @@ const App = () => (
               <Route path="/news/:year/:month/:slug" element={<NewsArticle />} />
               <Route path="/match-center" element={<MatchCenterPage />} />
               <Route path="/match/:id" element={<MatchDetail />} />
-              <Route path="/schedule" element={<SchedulePage />} />
+              <Route path="/schedule" element={<Schedule />} />
               <Route path="/tickets" element={<TicketsPage />} />
               <Route path="/academy" element={<AcademyPage />} />
               <Route path="/contact" element={<ContactPage />} />
