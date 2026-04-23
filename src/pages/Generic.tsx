@@ -1,7 +1,15 @@
 import { ComingSoon } from "@/components/ComingSoon";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 
-export const makePage = (_key: "club" | "teams" | "matchCenter" | "schedule" | "tickets" | "academy" | "contact") => {
-  const Page = () => <ComingSoon />;
+export const makePage = (key: "club" | "teams" | "matchCenter" | "schedule" | "tickets" | "academy" | "contact") => {
+  const noBreadcrumb = key === "matchCenter";
+  const Page = () => (
+    <>
+      {!noBreadcrumb && <Breadcrumbs className="pt-20" />}
+      {noBreadcrumb && <div className="pt-20" />}
+      <ComingSoon />
+    </>
+  );
   return Page;
 };
 
