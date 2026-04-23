@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.jpg";
 import { fixtures, nextFixtureIndex, type Fixture } from "@/lib/fixtures";
+import { LiveBadge } from "@/components/match/LiveBadge";
 
 const useCountdown = (target: Date) => {
   const [now, setNow] = useState(() => new Date());
@@ -25,7 +26,9 @@ const pad = (n: number) => n.toString().padStart(2, "0");
 
 export const NextMatch = () => {
   const { t, i18n } = useTranslation();
-  const nextIdx = nextFixtureIndex();
+  // Prefer the live fixture if any; otherwise next upcoming.
+  const liveIdx = fixtures.findIndex(f => f.status === "live");
+  const nextIdx = liveIdx >= 0 ? liveIdx : nextFixtureIndex();
   const next = fixtures[nextIdx];
   const { days, hours, minutes, seconds } = useCountdown(next.date);
 
@@ -220,6 +223,7 @@ const FixtureCard = ({
 }: FixtureCardProps) => {
   const opponent = fixture.opponentName[lang];
   const isHome = fixture.homeAway === "home";
+  const isLive = fixture.status === "live";
   return (
     <div
       id={`fixture-slide-${fixture.id}`}
@@ -239,7 +243,12 @@ const FixtureCard = ({
             : "border-border shadow-soft scale-[0.97] opacity-70 hover:opacity-100"
         }`}
       >
-        {isActive && fixture.isNext && (
+        {isActive && isLive && (
+          <div className="absolute start-3 top-3 z-10">
+            <LiveBadge minute={fixture.liveMinute} size="md" />
+          </div>
+        )}
+        {isActive && !isLive && fixture.isNext && (
           <div className="absolute left-1/2 -translate-x-1/2 -top-px z-10">
             <span className="block px-4 py-1 bg-accent text-accent-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-b-md">
               {nextLabel}

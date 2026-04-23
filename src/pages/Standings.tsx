@@ -93,11 +93,11 @@ const Standings = () => {
         <div className="rounded-xl border border-border bg-card p-4 md:p-5 shadow-soft mb-6">
           <div className="grid gap-3 md:grid-cols-12 items-end">
             <div className="md:col-span-5">
-              <label className="block text-xs uppercase tracking-wider text-muted-foreground mb-1">
+              <label htmlFor="standings-comp" className="block text-xs uppercase tracking-wider text-muted-foreground mb-1 text-start">
                 {t("schedule.competition")}
               </label>
               <Select value={comp} onValueChange={setComp}>
-                <SelectTrigger>
+                <SelectTrigger id="standings-comp" aria-label={t("schedule.competition")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -115,7 +115,7 @@ const Standings = () => {
             <TableHeader>
               <TableRow className="bg-muted/40">
                 <TableHead className="w-12 text-center">#</TableHead>
-                <TableHead>{t("standings.team")}</TableHead>
+                <TableHead className="text-start">{t("standings.team")}</TableHead>
                 <TableHead className="text-center">{t("standings.p")}</TableHead>
                 <TableHead className="text-center">{t("standings.w")}</TableHead>
                 <TableHead className="text-center">{t("standings.d")}</TableHead>
@@ -130,10 +130,13 @@ const Standings = () => {
               {rows.map((r, i) => (
                 <TableRow
                   key={r.team}
-                  className={cn(r.isUs && "bg-accent/10 font-semibold")}
+                  className={cn(
+                    "focus-within:ring-2 focus-within:ring-accent",
+                    r.isUs && "bg-accent/10 font-semibold",
+                  )}
                 >
                   <TableCell className="text-center font-bold tabular-nums">{i + 1}</TableCell>
-                  <TableCell>
+                  <TableCell className="text-start">
                     <span className={cn(r.isUs && "text-accent")}>{r.team}</span>
                   </TableCell>
                   <TableCell className="text-center tabular-nums">{r.played}</TableCell>
