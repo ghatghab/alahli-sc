@@ -1,20 +1,14 @@
 import logo from "@/assets/logo-alahli.jpg";
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
-export const Logo = ({ compact = false }: { compact?: boolean }) => {
-  const { t } = useTranslation();
+export const Logo = ({ size = "sm" }: { size?: "sm" | "lg" }) => {
+  const dimensions = size === "lg" ? "h-12 w-12" : "h-9 w-9";
   return (
-    <Link to="/" className="flex items-center gap-3 group">
-      <div className="relative h-11 w-11 rounded-full overflow-hidden ring-2 ring-gold/40 shadow-gold transition-smooth group-hover:scale-105">
-        <img src={logo} alt="Alahli SC crest" className="h-full w-full object-cover" />
+    <Link to="/" aria-label="Alahli SC" className="flex items-center group">
+      <div className={cn("relative overflow-hidden transition-smooth group-hover:scale-105", dimensions)}>
+        <img src={logo} alt="Alahli SC crest" className="h-full w-full object-contain" />
       </div>
-      {!compact && (
-        <div className="leading-tight hidden sm:block">
-          <div className="font-display text-base font-bold uppercase tracking-wider">{t("brand.name")}</div>
-          <div className="text-[11px] text-muted-foreground tracking-wide">{t("brand.tagline")}</div>
-        </div>
-      )}
     </Link>
   );
 };
