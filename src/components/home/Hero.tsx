@@ -123,11 +123,11 @@ export const Hero = () => {
               <img
                 src={slide.image}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover scale-105"
+                className="absolute inset-0 h-full w-full object-cover object-[center_25%] scale-105"
                 loading="eager"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent rtl:bg-gradient-to-l" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-transparent to-transparent rtl:bg-gradient-to-l" />
 
               <Link
                 to={slide.href}
