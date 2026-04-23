@@ -50,17 +50,33 @@ export const NextMatch = () => {
     return () => { embla.off("select", onSelect); };
   }, [embla, nextIdx]);
 
+  const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localeTag = lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB";
   const fmtDate = (d: Date) =>
-    new Intl.DateTimeFormat(lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB", {
-      weekday: "short",
-      day: "2-digit",
-      month: "2-digit",
+    new Intl.DateTimeFormat(localeTag, {
+      weekday: "short", day: "2-digit", month: "2-digit", timeZone: userTZ,
     }).format(d);
   const fmtTime = (d: Date) =>
-    new Intl.DateTimeFormat(lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
+    new Intl.DateTimeFormat(localeTag, {
+      hour: "2-digit", minute: "2-digit", timeZone: userTZ,
     }).format(d);
+
+  const onCarouselKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!embla) return;
+    // Logical prev/next: in RTL, ArrowLeft = next visually, but Embla in RTL mode
+    // already inverts; so just call prev/next directly based on intent.
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      isRtl ? embla.scrollPrev() : embla.scrollNext();
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      isRtl ? embla.scrollNext() : embla.scrollPrev();
+    } else if (e.key === "Home") {
+      e.preventDefault(); embla.scrollTo(0);
+    } else if (e.key === "End") {
+      e.preventDefault(); embla.scrollTo(fixtures.length - 1);
+    }
+  };
 
   return (
     <section className="relative bg-background py-14 lg:py-20 overflow-hidden">
@@ -101,16 +117,29 @@ export const NextMatch = () => {
               ))}
             </div>
           </div>
-          <div className="lg:w-32 flex lg:justify-end">
+          <div className="lg:w-40 flex lg:justify-end">
             <Button asChild variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
-              <Link to="/schedule">{t("nextMatch.schedule")}</Link>
+              <Link to="/schedule" aria-label={t("nextMatch.schedule")}>
+                {t("nextMatch.schedule")}
+              </Link>
             </Button>
           </div>
         </div>
 
         {/* Fixtures carousel */}
-        <div className="relative">
-          <div ref={emblaRef} className="overflow-hidden">
+        <div
+          className="relative"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={t("a11y.matchesCarousel")}
+        >
+          <div
+            ref={emblaRef}
+            className="overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
+            tabIndex={0}
+            onKeyDown={onCarouselKey}
+            aria-live="polite"
+          >
             <div className="flex gap-4 sm:gap-6">
               {fixtures.map((f, idx) => (
                 <FixtureCard
@@ -132,19 +161,25 @@ export const NextMatch = () => {
           {/* Nav controls */}
           <div className="mt-8 flex items-center justify-center gap-4">
             <button
+              type="button"
               onClick={() => embla?.scrollPrev()}
-              aria-label="Previous"
+              aria-label={t("a11y.prevMatch")}
+              aria-controls="matches-carousel"
               className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
             >
               <ChevronLeft className="h-5 w-5 rtl:hidden" />
               <ChevronRight className="h-5 w-5 hidden rtl:block" />
             </button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2" role="tablist" aria-label={t("a11y.matchesCarousel")}>
               {fixtures.map((f, i) => (
                 <button
                   key={f.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === selected}
+                  aria-controls={`fixture-slide-${f.id}`}
                   onClick={() => embla?.scrollTo(i)}
-                  aria-label={`Go to match ${i + 1}`}
+                  aria-label={t("a11y.goToMatch", { n: i + 1 })}
                   className={`h-1.5 rounded-full transition-all ${
                     i === selected ? "w-10 bg-accent" : "w-5 bg-border hover:bg-muted-foreground/40"
                   }`}
@@ -152,8 +187,10 @@ export const NextMatch = () => {
               ))}
             </div>
             <button
+              type="button"
               onClick={() => embla?.scrollNext()}
-              aria-label="Next"
+              aria-label={t("a11y.nextMatchBtn")}
+              aria-controls="matches-carousel"
               className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
             >
               <ChevronRight className="h-5 w-5 rtl:hidden" />
@@ -184,10 +221,18 @@ const FixtureCard = ({
   const opponent = fixture.opponentName[lang];
   const isHome = fixture.homeAway === "home";
   return (
-    <div className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[80%] md:basis-[55%] lg:basis-[42%]">
+    <div
+      id={`fixture-slide-${fixture.id}`}
+      role="group"
+      aria-roledescription="slide"
+      aria-label={`${isHome ? "Alahli SC" : opponent} vs ${isHome ? opponent : "Alahli SC"} — ${fmtDate(fixture.date)} ${fmtTime(fixture.date)}`}
+      aria-hidden={!isActive}
+      className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[80%] md:basis-[55%] lg:basis-[42%]"
+    >
       <Link
         to={`/match/${fixture.id}`}
         aria-label={`${isHome ? "Alahli SC" : opponent} vs ${isHome ? opponent : "Alahli SC"}`}
+        tabIndex={isActive ? 0 : -1}
         className={`block relative rounded-xl overflow-hidden bg-card border transition-all hover:shadow-elegant hover:border-accent/60 ${
           isActive
             ? "border-accent shadow-elegant scale-100"
