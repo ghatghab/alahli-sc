@@ -14,16 +14,163 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      news_articles: {
+        Row: {
+          author_id: string | null
+          category_id: string | null
+          cover_image_path: string | null
+          cover_image_url: string | null
+          created_at: string
+          id: string
+          published: boolean
+          published_at: string | null
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          category_id?: string | null
+          cover_image_path?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          category_id?: string | null
+          cover_image_path?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "news_articles_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "news_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      news_categories: {
+        Row: {
+          color: string | null
+          created_at: string
+          id: string
+          name_ar: string
+          name_en: string
+          name_fr: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          name_ar: string
+          name_en: string
+          name_fr: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          name_ar?: string
+          name_en?: string
+          name_fr?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      news_translations: {
+        Row: {
+          article_id: string
+          content: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          locale: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          article_id: string
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          locale: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          article_id?: string
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          locale?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "news_translations_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "news_articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +297,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor", "user"],
+    },
   },
 } as const
