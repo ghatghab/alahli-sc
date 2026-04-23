@@ -3,9 +3,10 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 
 export const makePage = (key: "club" | "teams" | "matchCenter" | "schedule" | "tickets" | "academy" | "contact") => {
   const noBreadcrumb = key === "matchCenter";
+  const insideSubNav = key === "club";
   const Page = () => (
     <>
-      {!noBreadcrumb && <Breadcrumbs className="pt-20" />}
+      {!noBreadcrumb && <Breadcrumbs className={insideSubNav ? "" : "pt-20"} />}
       {noBreadcrumb && <div className="pt-20" />}
       <ComingSoon />
     </>
