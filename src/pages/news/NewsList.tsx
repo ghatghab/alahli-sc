@@ -79,56 +79,99 @@ export const NewsList = () => {
             {t("news.empty")}
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {items.map(item => {
-              const tr = pickTranslation(item.news_translations, i18n.language);
-              if (!tr) return null;
-              const url = articleUrl(item);
-              return (
-                <article
-                  key={item.id}
-                  className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-soft hover:shadow-elegant transition-smooth"
-                >
-                  <Link to={url} className="block">
-                    <div className="aspect-[4/3] overflow-hidden">
-                      <img
-                        src={item.cover_image_url ?? fallback}
-                        alt=""
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-smooth group-hover:scale-110"
-                      />
-                    </div>
-                    {item.news_categories && (
-                      <div className="absolute top-3 left-3 rtl:left-auto rtl:right-3">
-                        <span className="px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-wider">
-                          {categoryName(item.news_categories, i18n.language)}
-                        </span>
-                      </div>
-                    )}
-                    <div className="p-5">
-                      <div className="text-xs text-muted-foreground">
-                        {formatDate(item.published_at, i18n.language)}
-                      </div>
-                      <h3 className="font-display text-lg font-bold mt-2 leading-tight group-hover:text-accent transition-smooth">
-                        {tr.title}
-                      </h3>
-                      {tr.excerpt && (
-                        <p className="text-sm text-muted-foreground mt-2 line-clamp-3">
-                          {tr.excerpt}
-                        </p>
-                      )}
-                      <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                        {t("sections.cta")} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
-                      </span>
-                    </div>
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
+          <NewsLayout items={items} lang={i18n.language} ctaLabel={t("sections.cta")} />
         )}
       </section>
     </>
+  );
+};
+
+const NewsLayout = ({
+  items,
+  lang,
+  ctaLabel,
+}: {
+  items: Row[];
+  lang: string;
+  ctaLabel: string;
+}) => {
+  const [featured, ...rest] = items;
+  const featuredTr = pickTranslation(featured.news_translations, lang);
+  const featuredUrl = articleUrl(featured);
+
+  return (
+    <div className="grid gap-8 lg:grid-cols-3">
+      {featuredTr && (
+        <article className="group lg:col-span-2 relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft hover:shadow-elegant hover:border-accent/40 transition-smooth">
+          <Link
+            to={featuredUrl}
+            className="grid md:grid-cols-2 h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl"
+          >
+            <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
+              <img
+                src={featured.cover_image_url ?? fallback}
+                alt=""
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="p-6 md:p-8 flex flex-col justify-center">
+              {featured.news_categories && (
+                <span className="self-start px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-wider mb-3">
+                  {categoryName(featured.news_categories, lang)}
+                </span>
+              )}
+              <div className="text-xs text-muted-foreground">
+                {formatDate(featured.published_at, lang)}
+              </div>
+              <h2 className="font-display text-2xl md:text-3xl font-bold mt-2 leading-tight group-hover:text-accent transition-smooth">
+                {featuredTr.title}
+              </h2>
+              {featuredTr.excerpt && (
+                <p className="text-muted-foreground mt-3 line-clamp-4">
+                  {featuredTr.excerpt}
+                </p>
+              )}
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+                {ctaLabel} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+              </span>
+            </div>
+          </Link>
+        </article>
+      )}
+
+      <ul className="flex flex-col gap-4">
+        {rest.map(item => {
+          const tr = pickTranslation(item.news_translations, lang);
+          if (!tr) return null;
+          const url = articleUrl(item);
+          return (
+            <li key={item.id}>
+              <Link
+                to={url}
+                className="group flex gap-4 rounded-xl border border-border bg-card p-3 shadow-soft hover:shadow-elegant hover:border-accent/40 transition-smooth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                <div className="w-28 h-24 shrink-0 overflow-hidden rounded-lg">
+                  <img
+                    src={item.cover_image_url ?? fallback}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[11px] text-muted-foreground">
+                    {formatDate(item.published_at, lang)}
+                  </div>
+                  <h3 className="font-display text-sm md:text-base font-bold mt-1 leading-snug line-clamp-3 group-hover:text-accent transition-smooth">
+                    {tr.title}
+                  </h3>
+                </div>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 
