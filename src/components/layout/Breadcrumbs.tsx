@@ -79,7 +79,7 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
               ) : (
                 <Link
                   to={c.href}
-                  className="rounded-md px-1.5 py-1 capitalize text-gold/80 transition-colors hover:text-gold focus-
+                  className="rounded-md px-1.5 py-1 capitalize text-gold/80 transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
                   {c.label}
                 </Link>
