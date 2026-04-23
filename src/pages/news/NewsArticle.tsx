@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Clock, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   NewsArticleRow,
@@ -10,6 +10,7 @@ import {
   categoryName,
   formatDate,
   pickTranslation,
+  timeAgo,
 } from "@/lib/news";
 
 type Row = NewsArticleRow & {
@@ -71,31 +72,36 @@ export const NewsArticle = () => {
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
           {t("news.backToList")}
         </Link>
-        <div className="mt-6 flex items-center gap-3 text-xs uppercase tracking-wider">
-          {article.news_categories && (
-            <span className="px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground font-bold">
-              {categoryName(article.news_categories, i18n.language)}
-            </span>
-          )}
-          <span className="text-muted-foreground">
-            {formatDate(article.published_at, i18n.language)}
-          </span>
-        </div>
-        <h1 className="font-display text-4xl sm:text-5xl font-bold uppercase mt-4 leading-tight">
+        <h1 className="font-display text-4xl sm:text-5xl font-bold uppercase mt-6 leading-tight">
           {tr.title}
         </h1>
         {tr.excerpt && (
           <p className="mt-4 text-lg text-muted-foreground">{tr.excerpt}</p>
         )}
+        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-bold uppercase tracking-wider">
+          {article.news_categories && (
+            <span className="inline-flex items-center gap-2 text-gold">
+              <span className="inline-block h-2.5 w-2.5 bg-gold" />
+              {categoryName(article.news_categories, i18n.language)}
+            </span>
+          )}
+          <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+            <Clock className="h-3.5 w-3.5" />
+            {timeAgo(article.published_at, i18n.language)}
+          </span>
+          <span className="text-muted-foreground/70">
+            · {formatDate(article.published_at, i18n.language)}
+          </span>
+        </div>
       </header>
 
       {article.cover_image_url && (
         <div className="container-club max-w-5xl mt-10">
-          <div className="aspect-[16/9] overflow-hidden rounded-xl shadow-elegant">
+          <div className="overflow-hidden rounded-xl shadow-elegant bg-primary flex items-center justify-center">
             <img
               src={article.cover_image_url}
-              alt=""
-              className="h-full w-full object-cover"
+              alt={tr.title}
+              className="max-h-[80vh] w-full object-contain"
             />
           </div>
         </div>
