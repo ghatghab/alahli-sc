@@ -63,7 +63,7 @@ export const NextMatch = () => {
     }).format(d);
 
   return (
-    <section className="relative bg-background py-16 lg:py-20 overflow-hidden">
+    <section className="relative bg-background py-14 lg:py-20 overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-60"
@@ -185,11 +185,13 @@ const FixtureCard = ({
   const isHome = fixture.homeAway === "home";
   return (
     <div className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[80%] md:basis-[55%] lg:basis-[42%]">
-      <div
-        className={`relative rounded-xl overflow-hidden bg-card border transition-all ${
+      <Link
+        to={`/match/${fixture.id}`}
+        aria-label={`${isHome ? "Alahli SC" : opponent} vs ${isHome ? opponent : "Alahli SC"}`}
+        className={`block relative rounded-xl overflow-hidden bg-card border transition-all hover:shadow-elegant hover:border-accent/60 ${
           isActive
             ? "border-accent shadow-elegant scale-100"
-            : "border-border shadow-soft scale-[0.97] opacity-70"
+            : "border-border shadow-soft scale-[0.97] opacity-70 hover:opacity-100"
         }`}
       >
         {isActive && fixture.isNext && (
@@ -258,7 +260,7 @@ const FixtureCard = ({
           </div>
           <div className={`${fixture.competitionColor}`} />
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
