@@ -14,7 +14,6 @@ import {
   pickTranslation,
   timeAgo,
 } from "@/lib/news";
-import heroImg from "@/assets/hero-stadium.jpg";
 import { HeroSkeleton } from "./HeroSkeleton";
 
 type Row = NewsArticleRow & {
