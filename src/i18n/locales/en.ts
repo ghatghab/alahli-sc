@@ -28,6 +28,13 @@ export const en = {
     venue: "Tripoli International Stadium",
     cta: "Match details",
     vs: "vs",
+    days: "Days",
+    hours: "Hrs",
+    minutes: "Min",
+    seconds: "Sec",
+    schedule: "Full schedule",
+    home: "Home",
+    away: "Away",
   },
   sections: {
     latestNews: "Latest News",

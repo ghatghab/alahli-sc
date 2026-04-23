@@ -28,6 +28,13 @@ export const fr = {
     venue: "Stade International de Tripoli",
     cta: "Détails du match",
     vs: "vs",
+    days: "Jours",
+    hours: "Hrs",
+    minutes: "Min",
+    seconds: "Sec",
+    schedule: "Calendrier complet",
+    home: "Domicile",
+    away: "Extérieur",
   },
   sections: {
     latestNews: "Dernières actualités",
