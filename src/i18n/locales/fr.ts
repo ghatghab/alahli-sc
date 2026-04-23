@@ -123,6 +123,7 @@ export const fr = {
     terms: "Conditions d'utilisation",
     accessibility: "Accessibilité",
     address: "Tripoli, Libye",
+    partners: "Partenaires",
   },
   pages: {
     club: { title: "Le Club", intro: "Découvrez l'histoire, les valeurs et les hommes derrière l'Alahli SC." },

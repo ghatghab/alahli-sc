@@ -123,6 +123,7 @@ export const ar = {
     terms: "شروط الاستخدام",
     accessibility: "إمكانية الوصول",
     address: "طرابلس، ليبيا",
+    partners: "الشركاء",
   },
   pages: {
     club: { title: "النادي", intro: "اكتشف القصة والقيم والأشخاص وراء النادي الأهلي." },

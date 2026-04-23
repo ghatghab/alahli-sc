@@ -2,11 +2,43 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Facebook, Instagram, Twitter, Youtube, MapPin, Mail, Phone } from "lucide-react";
 import { Logo } from "./Logo";
+import partner1 from "@/assets/partners/partner-1.jpg";
+import partner2 from "@/assets/partners/partner-2.jpg";
+import partner3 from "@/assets/partners/partner-3.jpg";
 
 export const Footer = () => {
   const { t } = useTranslation();
+  const partners = [
+    { src: partner1, alt: "Partner 1" },
+    { src: partner2, alt: "Partner 2" },
+    { src: partner3, alt: "Partner 3" },
+  ];
   return (
     <footer className="bg-primary text-primary-foreground mt-20">
+      <div className="border-b border-primary-foreground/10">
+        <div className="container-club py-10">
+          <h4 className="text-center font-display uppercase tracking-[0.3em] text-sm mb-8 text-gold">
+            {t("footer.partners")}
+          </h4>
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+            {partners.map((p, i) => (
+              <a
+                key={i}
+                href="#"
+                aria-label={p.alt}
+                className="opacity-80 hover:opacity-100 transition-smooth"
+              >
+                <img
+                  src={p.src}
+                  alt={p.alt}
+                  loading="lazy"
+                  className="h-12 md:h-16 w-auto object-contain brightness-0 invert"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
       <div className="container-club py-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-4">
           <Logo />
