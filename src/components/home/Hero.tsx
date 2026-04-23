@@ -107,19 +107,10 @@ export const Hero = () => {
     })
     .filter((s): s is Slide => s !== null);
 
-  const fallbackSlide: Slide = {
-    key: "fallback",
-    image: heroImg,
-    category: t("hero.eyebrow"),
-    publishedAt: null,
-    title: t("hero.title"),
-    href: "/news",
-    cta: t("hero.ctaSecondary"),
-  };
-
-  const slides: Slide[] = newsSlides.length > 0 ? newsSlides : [fallbackSlide];
-
   if (loading) return <HeroSkeleton />;
+  if (newsSlides.length === 0) return <HeroSkeleton />;
+
+  const slides = newsSlides;
 
   return (
     <section className="relative overflow-hidden bg-background">
