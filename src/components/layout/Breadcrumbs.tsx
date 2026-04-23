@@ -56,11 +56,11 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
       )}
     >
       <div className="container-club py-2.5">
-        <ol className="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
+        <ol className="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm text-gold/80">
           <li className="inline-flex items-center">
             <Link
               to="/"
-              className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 text-gold transition-colors hover:text-gold/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               <Home className="h-3.5 w-3.5" />
               <span className="sr-only sm:not-sr-only">{t("breadcrumb.home")}</span>
@@ -68,18 +68,18 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
           </li>
           {crumbs.map((c) => (
             <li key={c.href} className="inline-flex items-center gap-1.5">
-              <ChevronRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground/60 rtl:rotate-180" />
+              <ChevronRight className="h-3.5 w-3.5 shrink-0 text-gold/50 rtl:rotate-180" />
               {c.isLast ? (
                 <span
                   aria-current="page"
-                  className="font-semibold capitalize text-foreground"
+                  className="font-semibold capitalize text-gold"
                 >
                   {c.label}
                 </span>
               ) : (
                 <Link
                   to={c.href}
-                  className="rounded-md px-1.5 py-1 capitalize transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  className="rounded-md px-1.5 py-1 capitalize text-gold/80 transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
                   {c.label}
                 </Link>
