@@ -14,6 +14,7 @@ import {
 import fallback from "@/assets/stadium-aerial.jpg";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 type Row = NewsArticleRow & {
   news_translations: NewsTranslationRow[];
