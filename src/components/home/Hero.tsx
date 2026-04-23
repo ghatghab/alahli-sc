@@ -93,7 +93,8 @@ export const Hero = () => {
       return {
         key: item.id,
         image: item.cover_image_url,
-        eyebrow: cat || t("nav.news"),
+        category: cat || t("nav.news"),
+        publishedAt: item.published_at,
         title: tr.title,
         href: articleUrl(item),
         cta: t("sections.cta"),
@@ -104,7 +105,8 @@ export const Hero = () => {
   const fallbackSlide: Slide = {
     key: "fallback",
     image: heroImg,
-    eyebrow: t("hero.eyebrow"),
+    category: t("hero.eyebrow"),
+    publishedAt: null,
     title: t("hero.title"),
     href: "/news",
     cta: t("hero.ctaSecondary"),
@@ -127,16 +129,31 @@ export const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent rtl:bg-gradient-to-l" />
 
-              <div className="container-club relative z-10 flex h-full flex-col justify-end pb-20 pt-32 lg:pb-32">
-                <div className="max-w-3xl space-y-5 animate-slide-up">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-black/30 backdrop-blur px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold">
-                    <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-                    {slide.eyebrow}
+              <Link
+                to={slide.href}
+                className="absolute inset-0 z-10"
+                aria-label={slide.title}
+              />
+              <div className="container-club pointer-events-none relative z-20 flex h-full flex-col justify-end pb-20 pt-32 lg:pb-28">
+                <div className="max-w-4xl space-y-4 animate-slide-up">
+                  <Link to={slide.href} className="pointer-events-auto inline-block group">
+                    <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[0.95] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] underline decoration-white/90 decoration-[3px] underline-offset-[10px] group-hover:decoration-gold transition-colors">
+                      {slide.title}
+                    </h1>
+                  </Link>
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-bold uppercase tracking-wider">
+                    <span className="inline-flex items-center gap-2 text-gold">
+                      <span className="inline-block h-2.5 w-2.5 bg-gold" />
+                      {slide.category}
+                    </span>
+                    {slide.publishedAt && (
+                      <span className="inline-flex items-center gap-1.5 text-white/85">
+                        <Clock className="h-3.5 w-3.5" />
+                        {timeAgo(slide.publishedAt, i18n.language)}
+                      </span>
+                    )}
                   </div>
-                  <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[0.95] text-white drop-shadow-2xl">
-                    {slide.title}
-                  </h1>
-                  <div className="pt-2">
+                  <div className="pt-3 pointer-events-auto">
                     <Button asChild variant="gold" size="lg">
                       <Link to={slide.href}>
                         {slide.cta} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
