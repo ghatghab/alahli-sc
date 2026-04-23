@@ -80,6 +80,7 @@ const sampleStats: MatchStat[] = [
 export const fixtures: Fixture[] = [
   {
     id: "f1",
+    team: "football",
     competition: "Libyan Premier League",
     competitionColor: "bg-primary",
     date: mk(-3, 19, 0),
@@ -96,6 +97,7 @@ export const fixtures: Fixture[] = [
   },
   {
     id: "f2",
+    team: "football",
     competition: "Libyan Premier League",
     competitionColor: "bg-accent",
     date: mk(2, 17, 30),
@@ -111,6 +113,7 @@ export const fixtures: Fixture[] = [
   },
   {
     id: "f3",
+    team: "football",
     competition: "Libyan Cup",
     competitionColor: "bg-gold",
     date: mk(8, 20, 0),
@@ -125,6 +128,7 @@ export const fixtures: Fixture[] = [
   },
   {
     id: "f4",
+    team: "basketball",
     competition: "Libyan Premier League",
     competitionColor: "bg-primary",
     date: mk(15, 19, 0),
