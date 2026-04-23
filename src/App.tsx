@@ -11,6 +11,7 @@ import {
   ClubPage, TeamsPage, MatchCenterPage, SchedulePage,
   TicketsPage, AcademyPage, ContactPage,
 } from "./pages/Generic";
+import ClubLayout from "./pages/club/ClubLayout";
 import { AuthProvider } from "./contexts/AuthContext";
 import Auth from "./pages/Auth";
 import { NewsList } from "./pages/news/NewsList";
@@ -52,7 +53,15 @@ const App = () => (
             </Route>
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
-              <Route path="/club" element={<ClubPage />} />
+              <Route path="/club" element={<ClubLayout />}>
+                <Route index element={<ClubPage />} />
+                <Route path="history" element={<ClubPage />} />
+                <Route path="identity" element={<ClubPage />} />
+                <Route path="leadership" element={<ClubPage />} />
+                <Route path="partners" element={<ClubPage />} />
+                <Route path="sustainability" element={<ClubPage />} />
+                <Route path="museum" element={<ClubPage />} />
+              </Route>
               <Route path="/teams" element={<TeamsPage />} />
               <Route path="/news" element={<NewsList />} />
               <Route path="/news/:year/:month" element={<NewsList />} />
