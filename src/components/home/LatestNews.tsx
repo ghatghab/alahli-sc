@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -40,7 +41,7 @@ export const LatestNews = () => {
         .select("*, news_translations(*), news_categories(*)")
         .eq("published", true)
         .order("published_at", { ascending: false })
-        .limit(3);
+  .limit(10);
       if (!cancelled) {
         setItems((data as unknown as Row[]) ?? []);
         setLoading(false);
@@ -51,6 +52,17 @@ export const LatestNews = () => {
 
   if (loading) return <LatestNewsSkeleton />;
   if (items.length === 0) return null;
+
+  const featured = items[0];
+  const rest = items.slice(1);
+
+  const categories = Array.from(
+    new Map(
+      items
+        .filter(i => i.news_categories)
+        .map(i => [i.news_categories!.id, i.news_categories!])
+    ).values()
+  );
 
   return (
     <section className="container-club py-14 lg:py-20">
@@ -65,53 +77,144 @@ export const LatestNews = () => {
         </Button>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {items.map(item => {
-          const tr = pickTranslation(item.news_translations, i18n.language);
-          if (!tr) return null;
-          const url = articleUrl(item);
-          return (
-            <article
-              key={item.id}
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-soft hover:shadow-elegant hover:border-accent/40 transition-smooth"
+      {/* Category filter chips */}
+      {categories.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-8">
+          {categories.map(cat => (
+            <Link
+              key={cat.id}
+              to={`/news?category=${cat.slug}`}
+              className="px-4 py-1.5 rounded-full border border-border text-xs font-bold uppercase tracking-wider text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-smooth"
             >
-              <Link to={url} className="flex flex-col h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-xl">
-                <div className="aspect-[4/3] overflow-hidden shrink-0">
-                  <img
-                    src={item.cover_image_url ?? fallback}
-                    alt=""
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                {item.news_categories && (
-                  <div className="absolute top-3 start-3">
-                    <span className="px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-wider">
-                      {categoryName(item.news_categories, i18n.language)}
+              {categoryName(cat, i18n.language)}
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {/* Featured article */}
+      <FeaturedArticle item={featured} lang={i18n.language} ctaLabel={t("sections.cta")} />
+
+      {/* Rest as carousel */}
+      {rest.length > 0 && (
+        <NewsCarousel items={rest} lang={i18n.language} ctaLabel={t("sections.cta")} dir={i18n.dir()} />
+      )}
+    </section>
+  );
+};
+
+/* ── Featured (first article) ── */
+const FeaturedArticle = ({ item, lang, ctaLabel }: { item: Row; lang: string; ctaLabel: string }) => {
+  const tr = pickTranslation(item.news_translations, lang);
+  if (!tr) return null;
+  const url = articleUrl(item);
+  return (
+    <article className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-soft hover:shadow-elegant hover:border-accent/40 transition-smooth mb-8">
+      <Link to={url} className="grid md:grid-cols-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-xl">
+        <div className="aspect-[16/9] md:aspect-auto overflow-hidden">
+          <img
+            src={item.cover_image_url ?? fallback}
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+        <div className="p-6 md:p-8 flex flex-col justify-center">
+          {item.news_categories && (
+            <span className="inline-block self-start px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-wider mb-3">
+              {categoryName(item.news_categories, lang)}
+            </span>
+          )}
+          <div className="text-xs text-muted-foreground mb-2">
+            {formatDate(item.published_at, lang)}
+          </div>
+          <h3 className="font-display text-2xl md:text-3xl font-bold leading-tight group-hover:text-accent transition-smooth">
+            {tr.title}
+          </h3>
+          {tr.excerpt && (
+            <p className="mt-3 text-sm text-muted-foreground line-clamp-3">{tr.excerpt}</p>
+          )}
+          <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+            {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+          </span>
+        </div>
+      </Link>
+    </article>
+  );
+};
+
+/* ── Carousel for remaining articles ── */
+const NewsCarousel = ({ items, lang, ctaLabel, dir }: { items: Row[]; lang: string; ctaLabel: string; dir: string }) => {
+  const [emblaRef, embla] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+    slidesToScroll: 1,
+    direction: dir === "rtl" ? "rtl" : "ltr",
+  });
+
+  return (
+    <div className="relative">
+      <div ref={emblaRef} className="overflow-hidden rounded-xl">
+        <div className="flex gap-6">
+          {items.map(item => {
+            const tr = pickTranslation(item.news_translations, lang);
+            if (!tr) return null;
+            const url = articleUrl(item);
+            return (
+              <article
+                key={item.id}
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-soft hover:shadow-elegant hover:border-accent/40 transition-smooth min-w-0 shrink-0 grow-0 basis-[85%] sm:basis-[45%] lg:basis-[30%]"
+              >
+                <Link to={url} className="flex flex-col h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-xl">
+                  <div className="aspect-[4/3] overflow-hidden shrink-0">
+                    <img
+                      src={item.cover_image_url ?? fallback}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  {item.news_categories && (
+                    <div className="absolute top-3 start-3">
+                      <span className="px-3 py-1 rounded-full bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-wider">
+                        {categoryName(item.news_categories, lang)}
+                      </span>
+                    </div>
+                  )}
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="text-xs text-muted-foreground">
+                      {formatDate(item.published_at, lang)}
+                    </div>
+                    <h3 className="font-display text-lg font-bold mt-2 leading-tight group-hover:text-accent transition-smooth">
+                      {tr.title}
+                    </h3>
+                    <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+                      {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
                     </span>
                   </div>
-                )}
-                <div className="p-5 flex flex-col flex-1 transition-all duration-300 group-hover:pb-7">
-                  <div className="text-xs text-muted-foreground">
-                    {formatDate(item.published_at, i18n.language)}
-                  </div>
-                  <h3 className="font-display text-lg font-bold mt-2 leading-tight group-hover:text-accent transition-smooth">
-                    {tr.title}
-                  </h3>
-                  <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
-                    <p className="overflow-hidden text-sm text-muted-foreground line-clamp-3">
-                      {tr.excerpt}
-                    </p>
-                  </div>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                    {t("sections.cta")} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
-                  </span>
-                </div>
-              </Link>
-            </article>
-          );
-        })}
+                </Link>
+              </article>
+            );
+          })}
+        </div>
       </div>
-    </section>
+      {/* Nav arrows */}
+      <div className="flex items-center justify-center gap-4 mt-6">
+        <button
+          onClick={() => embla?.scrollPrev()}
+          className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
+        >
+          <ChevronLeft className="h-5 w-5 rtl:hidden" />
+          <ChevronRight className="h-5 w-5 hidden rtl:block" />
+        </button>
+        <button
+          onClick={() => embla?.scrollNext()}
+          className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
+        >
+          <ChevronRight className="h-5 w-5 rtl:hidden" />
+          <ChevronLeft className="h-5 w-5 hidden rtl:block" />
+        </button>
+      </div>
+    </div>
   );
 };
