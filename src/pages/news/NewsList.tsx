@@ -246,6 +246,9 @@ const NewsLayout = ({
                       {tr.excerpt}
                     </p>
                   )}
+                  <span className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+                  </span>
                 </div>
               </Link>
             </li>
