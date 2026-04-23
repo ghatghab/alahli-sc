@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { SubNav, SubNavItem } from "@/components/layout/SubNav";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 
 const items: SubNavItem[] = [
   { to: "/club", key: "club.overview", end: true },
@@ -15,7 +14,6 @@ const items: SubNavItem[] = [
 const ClubLayout = () => (
   <div className="pt-20">
     <SubNav items={items} />
-    <Breadcrumbs />
     <Outlet />
   </div>
 );
