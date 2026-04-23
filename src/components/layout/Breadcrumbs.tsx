@@ -56,7 +56,7 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
       )}
     >
       <div className="container-club py-2.5">
-        <ol className="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
+        <ol className="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm text-gold/
           <li className="inline-flex items-center">
             <Link
               to="/"
