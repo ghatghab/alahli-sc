@@ -193,10 +193,33 @@ const MatchDetailContent = ({
             {fixture.lineups ? (
               <div className="space-y-10">
                 <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
-                  <div className="flex items-center justify-between mb-4 text-sm font-display font-bold uppercase">
-                    <span className="text-accent">{homeName}</span>
-                    <span className="text-muted-foreground">{awayName}</span>
-                  </div>
+                  {(() => {
+                    const formation = (players: Player[]) => {
+                      const s = players.filter(p => p.isStarter);
+                      const df = s.filter(p => p.position === "DF").length;
+                      const mf = s.filter(p => p.position === "MF").length;
+                      const fw = s.filter(p => p.position === "FW").length;
+                      return `${df}-${mf}-${fw}`;
+                    };
+                    const homeF = formation(fixture.lineups!.home);
+                    const awayF = formation(fixture.lineups!.away);
+                    return (
+                      <div className="flex items-center justify-between mb-4 text-sm font-display font-bold uppercase gap-3">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-accent truncate">{homeName}</span>
+                          <span className="inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[11px] font-bold text-accent tabular-nums">
+                            {homeF}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-bold text-muted-foreground tabular-nums">
+                            {awayF}
+                          </span>
+                          <span className="text-muted-foreground truncate">{awayName}</span>
+                        </div>
+                      </div>
+                    );
+                  })()}
                   <LineupPitch
                     home={fixture.lineups.home}
                     away={fixture.lineups.away}
