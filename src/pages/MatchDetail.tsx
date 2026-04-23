@@ -71,11 +71,13 @@ const MatchDetailContent = ({
   const venue = fixture.venue[lang];
   const finished = fixture.status === "finished";
 
-  const fmt = new Intl.DateTimeFormat(lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB", {
-    weekday: "long", day: "2-digit", month: "long", year: "numeric",
+  const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localeTag = lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB";
+  const fmt = new Intl.DateTimeFormat(localeTag, {
+    weekday: "long", day: "2-digit", month: "long", year: "numeric", timeZone: userTZ,
   }).format(fixture.date);
-  const time = new Intl.DateTimeFormat(lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB", {
-    hour: "2-digit", minute: "2-digit",
+  const time = new Intl.DateTimeFormat(localeTag, {
+    hour: "2-digit", minute: "2-digit", timeZone: userTZ, timeZoneName: "short",
   }).format(fixture.date);
 
   return (
