@@ -158,11 +158,21 @@ const MatchDetailContent = ({
       {/* Tabs */}
       <div className="container-club mt-10">
         <Tabs defaultValue={finished ? "events" : "lineups"} className="w-full">
-          <TabsList className="w-full justify-start overflow-x-auto">
-            <TabsTrigger value="events">{t("matchDetail.events")}</TabsTrigger>
-            <TabsTrigger value="lineups">{t("matchDetail.lineups")}</TabsTrigger>
-            <TabsTrigger value="stats">{t("matchDetail.stats")}</TabsTrigger>
-            <TabsTrigger value="gallery">{t("matchDetail.gallery")}</TabsTrigger>
+          <TabsList className="w-full h-auto flex-wrap justify-start overflow-x-auto bg-transparent p-0 gap-2 rounded-none">
+            {[
+              { v: "events", l: t("matchDetail.events") },
+              { v: "lineups", l: t("matchDetail.lineups") },
+              { v: "stats", l: t("matchDetail.stats") },
+              { v: "gallery", l: t("matchDetail.gallery") },
+            ].map(tab => (
+              <TabsTrigger
+                key={tab.v}
+                value={tab.v}
+                className="rounded-md border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground shadow-none hover:border-foreground/40 data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:border-foreground data-[state=active]:shadow-none transition-colors"
+              >
+                {tab.l}
+              </TabsTrigger>
+            ))}
           </TabsList>
 
           <TabsContent value="events" className="mt-8">
