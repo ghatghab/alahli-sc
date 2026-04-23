@@ -86,10 +86,10 @@ export const Header = () => {
             </Link>
           </Button>
           <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title={t("nav.tv")}>
-            <Link to="/tv"><Tv className="h-4 w-4 text-foreground" /></Link>
+            <Link to="/tv"><Tv className="h-4 w-4 text-gold" /></Link>
           </Button>
           <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title={t("nav.store")}>
-            <Link to="/store"><ShoppingBag className="h-4 w-4 text-foreground" /></Link>
+            <Link to="/store"><ShoppingBag className="h-4 w-4 text-gold" /></Link>
           </Button>
           <LanguageSwitcher />
           <ThemeToggle />
