@@ -273,7 +273,7 @@ All colors MUST be HSL.
     pointer-events: none;
   }
   .card-premium {
-    @apply relative overflow-hidden rounded-xl border border-border bg-card shadow-soft transition-smooth;
+    @apply relative overflow-hidden rounded-xl border border-border bg-card shadow-soft transition-all duration-300;
   }
   .card-premium:hover {
     @apply shadow-elegant border-gold/40 -translate-y-0.5;
