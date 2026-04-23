@@ -10,7 +10,7 @@ export const Honours = () => {
     { icon: Globe2, num: "20+", labelKey: "honours.continental" },
   ];
   return (
-    <section className="relative py-20 lg:py-28 bg-primary text-primary-foreground overflow-hidden">
+    <section className="relative py-14 lg:py-20 bg-primary text-primary-foreground overflow-hidden">
       <div className="absolute inset-0 opacity-[0.06]" style={{
         backgroundImage: "radial-gradient(circle at 25% 25%, hsl(var(--gold)) 0%, transparent 40%), radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0%, transparent 40%)"
       }} />

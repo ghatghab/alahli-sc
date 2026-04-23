@@ -5,66 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.jpg";
-
-type Fixture = {
-  id: string;
-  competition: string;
-  competitionColor: string; // tailwind bg-* class for the colored stripe
-  date: Date;
-  opponentName: { en: string; fr: string; ar: string };
-  opponentShort: string; // 3-letter code for placeholder crest
-  homeAway: "home" | "away";
-  isNext?: boolean;
-};
-
-const buildFixtures = (): Fixture[] => {
-  const now = new Date();
-  const mk = (offsetDays: number, h: number, m: number) => {
-    const d = new Date(now);
-    d.setDate(d.getDate() + offsetDays);
-    d.setHours(h, m, 0, 0);
-    return d;
-  };
-  return [
-    {
-      id: "f1",
-      competition: "Libyan Premier League",
-      competitionColor: "bg-primary",
-      date: mk(-3, 19, 0),
-      opponentName: { en: "Al-Suwayhli", fr: "Al-Suwayhli", ar: "السويحلي" },
-      opponentShort: "SUW",
-      homeAway: "away",
-    },
-    {
-      id: "f2",
-      competition: "Libyan Premier League",
-      competitionColor: "bg-accent",
-      date: mk(2, 17, 30),
-      opponentName: { en: "Libyan Stadium", fr: "Stade Libyen", ar: "الملعب الليبي" },
-      opponentShort: "LIB",
-      homeAway: "home",
-      isNext: true,
-    },
-    {
-      id: "f3",
-      competition: "Libyan Cup",
-      competitionColor: "bg-gold",
-      date: mk(8, 20, 0),
-      opponentName: { en: "Al-Ittihad", fr: "Al-Ittihad", ar: "الاتحاد" },
-      opponentShort: "ITT",
-      homeAway: "away",
-    },
-    {
-      id: "f4",
-      competition: "Libyan Premier League",
-      competitionColor: "bg-primary",
-      date: mk(15, 19, 0),
-      opponentName: { en: "Al-Madina", fr: "Al-Madina", ar: "المدينة" },
-      opponentShort: "MAD",
-      homeAway: "home",
-    },
-  ];
-};
+import { fixtures, nextFixtureIndex, type Fixture } from "@/lib/fixtures";
 
 const useCountdown = (target: Date) => {
   const [now, setNow] = useState(() => new Date());
@@ -84,8 +25,7 @@ const pad = (n: number) => n.toString().padStart(2, "0");
 
 export const NextMatch = () => {
   const { t, i18n } = useTranslation();
-  const fixtures = useRef(buildFixtures()).current;
-  const nextIdx = Math.max(0, fixtures.findIndex(f => f.isNext));
+  const nextIdx = nextFixtureIndex();
   const next = fixtures[nextIdx];
   const { days, hours, minutes, seconds } = useCountdown(next.date);
 
@@ -105,8 +45,10 @@ export const NextMatch = () => {
     const onSelect = () => setSelected(embla.selectedScrollSnap());
     embla.on("select", onSelect);
     onSelect();
+    // Auto-scroll to upcoming match (handles late init / RTL re-init)
+    embla.scrollTo(nextIdx, true);
     return () => { embla.off("select", onSelect); };
-  }, [embla]);
+  }, [embla, nextIdx]);
 
   const fmtDate = (d: Date) =>
     new Intl.DateTimeFormat(lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB", {
@@ -121,7 +63,7 @@ export const NextMatch = () => {
     }).format(d);
 
   return (
-    <section className="relative bg-background py-16 lg:py-20 overflow-hidden">
+    <section className="relative bg-background py-14 lg:py-20 overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-60"
@@ -243,11 +185,13 @@ const FixtureCard = ({
   const isHome = fixture.homeAway === "home";
   return (
     <div className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[80%] md:basis-[55%] lg:basis-[42%]">
-      <div
-        className={`relative rounded-xl overflow-hidden bg-card border transition-all ${
+      <Link
+        to={`/match/${fixture.id}`}
+        aria-label={`${isHome ? "Alahli SC" : opponent} vs ${isHome ? opponent : "Alahli SC"}`}
+        className={`block relative rounded-xl overflow-hidden bg-card border transition-all hover:shadow-elegant hover:border-accent/60 ${
           isActive
             ? "border-accent shadow-elegant scale-100"
-            : "border-border shadow-soft scale-[0.97] opacity-70"
+            : "border-border shadow-soft scale-[0.97] opacity-70 hover:opacity-100"
         }`}
       >
         {isActive && fixture.isNext && (
@@ -316,7 +260,7 @@ const FixtureCard = ({
           </div>
           <div className={`${fixture.competitionColor}`} />
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

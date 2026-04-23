@@ -47,7 +47,7 @@ export const LatestNews = () => {
   if (items.length === 0) return null;
 
   return (
-    <section className="container-club py-20 lg:py-28">
+    <section className="container-club py-14 lg:py-20">
       <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
         <div>
           <div className="text-xs uppercase tracking-[0.25em] text-accent font-semibold">{t("nav.news")}</div>

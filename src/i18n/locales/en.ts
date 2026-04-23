@@ -36,6 +36,18 @@ export const en = {
     home: "Home",
     away: "Away",
   },
+  matchDetail: {
+    events: "Events",
+    lineups: "Line-ups",
+    stats: "Stats",
+    gallery: "Gallery",
+    starters: "Starting XI",
+    subs: "Substitutes",
+    noEvents: "No events yet.",
+    noLineups: "Line-ups will be announced soon.",
+    noStats: "Stats not available yet.",
+    noGallery: "Gallery coming soon.",
+  },
   sections: {
     latestNews: "Latest News",
     latestNewsSub: "Stay up to date with everything happening at the club",

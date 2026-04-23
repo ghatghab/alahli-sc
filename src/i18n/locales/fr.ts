@@ -36,6 +36,18 @@ export const fr = {
     home: "Domicile",
     away: "Extérieur",
   },
+  matchDetail: {
+    events: "Événements",
+    lineups: "Compositions",
+    stats: "Statistiques",
+    gallery: "Galerie",
+    starters: "Onze de départ",
+    subs: "Remplaçants",
+    noEvents: "Aucun événement pour le moment.",
+    noLineups: "Les compositions seront annoncées bientôt.",
+    noStats: "Statistiques pas encore disponibles.",
+    noGallery: "Galerie bientôt disponible.",
+  },
   sections: {
     latestNews: "Dernières actualités",
     latestNewsSub: "Toute l'actualité du club en temps réel",
