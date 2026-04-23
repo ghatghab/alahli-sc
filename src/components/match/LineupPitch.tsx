@@ -45,14 +45,14 @@ const Jersey = ({
   </div>
 );
 
-const Row = ({
+const Line = ({
   players,
   tone,
 }: {
   players: Player[];
   tone: Side;
 }) => (
-  <div className="flex items-center justify-around w-full">
+  <div className="flex flex-col items-center justify-around h-full gap-2">
     {players.map((p) => (
       <Jersey key={p.number} player={p} tone={tone} />
     ))}
@@ -67,7 +67,8 @@ const HalfPitch = ({
   side: Side;
 }) => {
   const { GK, DF, MF, FW } = groupByPosition(players);
-  // Home: GK on far left → FW near centre. Away: mirror.
+  // Each formation line is a vertical column on the pitch.
+  // Home: GK far left → FW near centre. Away: mirror (FW near centre → GK far right).
   const order = side === "home" ? [GK, DF, MF, FW] : [FW, MF, DF, GK];
 
   return (
@@ -103,11 +104,9 @@ const HalfPitch = ({
         }`}
       />
 
-      <div className="relative grid grid-cols-4 gap-2 py-6 min-h-[420px] items-stretch">
+      <div className="relative grid grid-cols-4 gap-1 py-6 min-h-[460px] items-stretch">
         {order.map((group, i) => (
-          <div key={i} className="flex flex-col justify-around items-center">
-            <Row players={group} tone={side} />
-          </div>
+          <Line key={i} players={group} tone={side} />
         ))}
       </div>
     </div>
