@@ -42,14 +42,9 @@ export const Header = () => {
       )}
     >
       <div className="container-club flex h-20 items-center justify-between gap-4">
-        <div
-          className={cn(
-            "flex items-center transition-all duration-300",
-            scrolled ? "opacity-100 w-auto translate-x-0" : "opacity-0 w-0 -translate-x-2 pointer-events-none overflow-hidden"
-          )}
-        >
+        <Link to="/" aria-label="Alahli SC" className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md">
           <Logo size="sm" />
-        </div>
+        </Link>
 
         <nav className="hidden lg:flex items-center gap-1 flex-1">
           {navItems.map(item => (

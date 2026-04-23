@@ -11,7 +11,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { PageHeader } from "@/components/PageHeader";
 import { LiveBadge } from "@/components/match/LiveBadge";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import logo from "@/assets/logo-alahli.jpg";
@@ -115,9 +114,8 @@ const MatchCenter = () => {
 
   return (
     <>
-      <PageHeader title={t("pages.matchCenter.title")} intro={t("pages.matchCenter.intro")} />
-
-      <section className="container-club py-10">
+      <h1 className="sr-only">{t("pages.matchCenter.title")}</h1>
+      <section className="container-club pt-28 md:pt-32 pb-10">
         {/* Live now */}
         {liveFixtures.length > 0 && (
           <div className="mb-8 rounded-xl border border-destructive/30 bg-destructive/5 p-4 md:p-5">
