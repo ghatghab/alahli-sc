@@ -141,6 +141,18 @@ export const en = {
     contact: { title: "Contact", intro: "We'd love to hear from you." },
     notFound: { title: "Page not found", back: "Back to home" },
   },
+  breadcrumb: {
+    home: "Home",
+  },
+  club: {
+    overview: "Overview",
+    history: "History",
+    identity: "Identity",
+    leadership: "Leadership",
+    partners: "Partners",
+    sustainability: "Sustainability",
+    museum: "Museum",
+  },
   comingSoon: "Full content coming soon — this is the v1 of our new website.",
   news: {
     empty: "No articles yet. Check back soon!",

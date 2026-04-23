@@ -141,6 +141,18 @@ export const fr = {
     contact: { title: "Contact", intro: "Nous serions ravis d'échanger avec vous." },
     notFound: { title: "Page introuvable", back: "Retour à l'accueil" },
   },
+  breadcrumb: {
+    home: "Accueil",
+  },
+  club: {
+    overview: "Présentation",
+    history: "Histoire",
+    identity: "Identité",
+    leadership: "Direction",
+    partners: "Partenaires",
+    sustainability: "Durabilité",
+    museum: "Musée",
+  },
   comingSoon: "Contenu complet bientôt disponible — il s'agit de la v1 de notre nouveau site.",
   news: {
     empty: "Aucun article pour l'instant. Revenez bientôt !",
