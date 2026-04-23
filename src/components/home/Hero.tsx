@@ -107,15 +107,13 @@ export const Hero = () => {
     .filter((s): s is Slide => s !== null);
 
   if (loading) return <HeroSkeleton />;
-  if (newsSlides.length === 0) return <HeroSkeleton />;
-
-  const slides = newsSlides;
+  if (newsSlides.length === 0) return <HeroSkeleton empty />;
 
   return (
     <section className="relative overflow-hidden bg-background">
       <div ref={emblaRef} className="overflow-hidden">
         <div className="flex">
-          {slides.map(slide => (
+          {newsSlides.map(slide => (
             <div key={slide.key} className="relative min-w-0 shrink-0 grow-0 basis-full">
               <img
                 src={slide.image}
@@ -165,11 +163,11 @@ export const Hero = () => {
         </div>
       </div>
 
-      {slides.length > 1 && (
+      {newsSlides.length > 1 && (
         <div className="absolute bottom-6 left-0 right-0 z-20">
           <div className="container-club flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              {slides.map((s, i) => (
+              {newsSlides.map((s, i) => (
                 <button
                   key={s.key}
                   onClick={() => embla?.scrollTo(i)}

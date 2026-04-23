@@ -151,6 +151,9 @@ export const en = {
   news: {
     empty: "No articles yet. Check back soon!",
     backToList: "Back to all news",
+    emptyHero: "No news available at the moment.",
+    search: "Search News",
+    allCategories: "All",
   },
   auth: {
     title: "Sign in",

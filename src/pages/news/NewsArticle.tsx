@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Clock, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import {
   NewsArticleRow,
   NewsCategoryRow,
@@ -63,8 +64,9 @@ export const NewsArticle = () => {
   if (!tr) return null;
 
   return (
-    <article className="pt-32">
-      <header className="container-club max-w-4xl">
+    <article>
+      <Breadcrumbs className="pt-20" />
+      <header className="container-club max-w-4xl pt-8">
         <Link
           to="/news"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-accent transition-smooth"

@@ -151,6 +151,9 @@ export const ar = {
   news: {
     empty: "لا توجد مقالات بعد. عد لاحقاً!",
     backToList: "العودة إلى الأخبار",
+    emptyHero: "لا توجد أخبار حالياً.",
+    search: "بحث في الأخبار",
+    allCategories: "الكل",
   },
   auth: {
     title: "تسجيل الدخول",

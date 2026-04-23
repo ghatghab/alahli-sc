@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Ticket, Settings } from "lucide-react";
+import { Menu, X, Ticket, Settings, Tv, ShoppingBag } from "lucide-react";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
@@ -16,7 +16,6 @@ const navItems = [
   { to: "/news", key: "nav.news" },
   { to: "/standings", key: "nav.standings" },
   { to: "/academy", key: "nav.academy" },
-  { to: "/contact", key: "nav.contact" },
 ];
 
 export const Header = () => {
@@ -54,7 +53,7 @@ export const Header = () => {
               className={({ isActive }) =>
                 cn(
                   "relative px-3 py-2 text-sm font-medium uppercase tracking-wider transition-smooth",
-                  "text-foreground/80 hover:text-accent",
+                  "text-gold font-bold hover:text-accent",
                   isActive && "text-accent"
                 )
               }
@@ -85,6 +84,12 @@ export const Header = () => {
               <Ticket className="h-4 w-4" />
               {t("nav.tickets")}
             </Link>
+          </Button>
+          <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title={t("nav.tv")}>
+            <Link to="/tv"><Tv className="h-4 w-4" /></Link>
+          </Button>
+          <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title={t("nav.store")}>
+            <Link to="/store"><ShoppingBag className="h-4 w-4" /></Link>
           </Button>
           <LanguageSwitcher />
           <ThemeToggle />
@@ -124,6 +129,14 @@ export const Header = () => {
                 {t("nav.tickets")}
               </Link>
             </Button>
+            <div className="flex gap-2 mt-2">
+              <Button asChild variant="outline" className="flex-1" onClick={() => setOpen(false)}>
+                <Link to="/tv"><Tv className="h-4 w-4" /> {t("nav.tv")}</Link>
+              </Button>
+              <Button asChild variant="outline" className="flex-1" onClick={() => setOpen(false)}>
+                <Link to="/store"><ShoppingBag className="h-4 w-4" /> {t("nav.store")}</Link>
+              </Button>
+            </div>
           </nav>
         </div>
       )}
