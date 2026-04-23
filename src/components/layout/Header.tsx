@@ -100,7 +100,7 @@ export const Header = () => {
             onClick={() => setOpen(o => !o)}
             aria-label="Menu"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-5 w-5 text-gold" /> : <Menu className="h-5 w-5 text-gold" />}
           </Button>
         </div>
       </div>
