@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/PageHeader";
 import { ComingSoon } from "@/components/ComingSoon";
 
-export const makePage = (key: "club" | "teams" | "news" | "matchCenter" | "schedule" | "tickets" | "academy" | "contact") => {
+export const makePage = (key: "club" | "teams" | "matchCenter" | "schedule" | "tickets" | "academy" | "contact") => {
   const Page = () => {
     const { t } = useTranslation();
     return (
@@ -17,7 +17,6 @@ export const makePage = (key: "club" | "teams" | "news" | "matchCenter" | "sched
 
 export const ClubPage = makePage("club");
 export const TeamsPage = makePage("teams");
-export const NewsPage = makePage("news");
 export const MatchCenterPage = makePage("matchCenter");
 export const SchedulePage = makePage("schedule");
 export const TicketsPage = makePage("tickets");
