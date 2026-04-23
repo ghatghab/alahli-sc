@@ -42,9 +42,16 @@ export const Header = () => {
       )}
     >
       <div className="container-club flex h-20 items-center justify-between gap-4">
-        <Logo />
+        <div
+          className={cn(
+            "flex items-center transition-all duration-300",
+            scrolled ? "opacity-100 w-auto translate-x-0" : "opacity-0 w-0 -translate-x-2 pointer-events-none overflow-hidden"
+          )}
+        >
+          <Logo size="sm" />
+        </div>
 
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1 flex-1">
           {navItems.map(item => (
             <NavLink
               key={item.to}
