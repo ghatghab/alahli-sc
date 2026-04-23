@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { getFixtureById, type Fixture, type MatchEvent, type Player } from "@/lib/fixtures";
 import logo from "@/assets/logo-alahli.jpg";
+import { LineupPitch } from "@/components/match/LineupPitch";
 
 const EventIcon = ({ type }: { type: MatchEvent["type"] }) => {
   switch (type) {
@@ -190,20 +191,31 @@ const MatchDetailContent = ({
 
           <TabsContent value="lineups" className="mt-8">
             {fixture.lineups ? (
-              <div className="grid md:grid-cols-2 gap-8">
-                {(["home", "away"] as const).map(side => {
-                  const players = fixture.lineups![side];
-                  const name = side === "home" ? homeName : awayName;
-                  return (
-                    <div key={side} className="rounded-xl border border-border bg-card p-5">
-                      <h3 className="font-display font-bold uppercase text-sm mb-3 text-accent">{name}</h3>
-                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{t("matchDetail.starters")}</div>
-                      <ul>{players.filter(p => p.isStarter).map(p => <PlayerRow key={p.number} p={p} />)}</ul>
-                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-4 mb-1">{t("matchDetail.subs")}</div>
-                      <ul>{players.filter(p => !p.isStarter).map(p => <PlayerRow key={p.number} p={p} />)}</ul>
-                    </div>
-                  );
-                })}
+              <div className="space-y-10">
+                <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
+                  <div className="flex items-center justify-between mb-4 text-sm font-display font-bold uppercase">
+                    <span className="text-accent">{homeName}</span>
+                    <span className="text-muted-foreground">{awayName}</span>
+                  </div>
+                  <LineupPitch
+                    home={fixture.lineups.home}
+                    away={fixture.lineups.away}
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8">
+                  {(["home", "away"] as const).map(side => {
+                    const players = fixture.lineups![side];
+                    const name = side === "home" ? homeName : awayName;
+                    return (
+                      <div key={side} className="rounded-xl border border-border bg-card p-5">
+                        <h3 className="font-display font-bold uppercase text-sm mb-3 text-accent">{name}</h3>
+                        <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-2 mb-1">{t("matchDetail.subs")}</div>
+                        <ul>{players.filter(p => !p.isStarter).map(p => <PlayerRow key={p.number} p={p} />)}</ul>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             ) : (
               <p className="text-center text-muted-foreground">{t("matchDetail.noLineups")}</p>
