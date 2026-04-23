@@ -97,12 +97,14 @@ export const NewsList = () => {
     <>
       <Breadcrumbs className="pt-20" />
       <section className="container-club pt-8 pb-16">
-        <header className="mb-10">
-          <h1 className="font-display text-3xl sm:text-5xl font-bold uppercase">
+        <header className="mb-12">
+          <div className="eyebrow mb-3">{t("nav.news")}</div>
+          <h1 className="font-display text-4xl sm:text-6xl font-bold uppercase leading-[0.95]">
             {archiveTitle ?? t("pages.news.title")}
           </h1>
+          <div className="mt-4 h-[3px] w-20 bg-gradient-to-r from-gold to-transparent rtl:bg-gradient-to-l" />
           {!archiveTitle && (
-            <p className="mt-3 max-w-2xl text-muted-foreground">{t("pages.news.intro")}</p>
+            <p className="mt-5 max-w-2xl text-muted-foreground leading-relaxed">{t("pages.news.intro")}</p>
           )}
         </header>
 
@@ -112,10 +114,10 @@ export const NewsList = () => {
             <button
               onClick={() => setActiveCategory(null)}
               className={cn(
-                "px-4 py-2 rounded-md text-sm font-bold border transition-smooth",
+                "px-4 py-2 rounded-md text-xs font-bold uppercase tracking-[0.15em] border transition-smooth",
                 !activeCategory
-                  ? "bg-foreground text-background border-foreground"
-                  : "bg-background text-foreground border-border hover:border-foreground"
+                  ? "bg-gold text-gold-foreground border-gold shadow-gold"
+                  : "bg-background text-foreground border-border hover:border-gold hover:text-gold"
               )}
             >
               {t("news.allCategories")}
@@ -125,10 +127,10 @@ export const NewsList = () => {
                 key={cat.id}
                 onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
                 className={cn(
-                  "px-4 py-2 rounded-md text-sm font-bold border transition-smooth",
+                  "px-4 py-2 rounded-md text-xs font-bold uppercase tracking-[0.15em] border transition-smooth",
                   activeCategory === cat.id
-                    ? "bg-foreground text-background border-foreground"
-                    : "bg-background text-foreground border-border hover:border-foreground"
+                    ? "bg-gold text-gold-foreground border-gold shadow-gold"
+                    : "bg-background text-foreground border-border hover:border-gold hover:text-gold"
                 )}
               >
                 {categoryName(cat, i18n.language)}

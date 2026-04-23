@@ -57,10 +57,10 @@ export const Footer = () => {
     },
   ];
   return (
-    <footer className="bg-primary text-primary-foreground mt-20">
+    <footer className="relative bg-primary text-primary-foreground mt-20 border-t-2 border-gold/40">
       <div className="border-b border-primary-foreground/10">
         <div className="container-club py-10">
-          <h4 className="text-center font-display uppercase tracking-[0.3em] text-sm mb-8 text-gold">
+          <h4 className="text-center font-display uppercase tracking-[0.3em] text-xs mb-8 text-gold">
             {t("footer.partners")}
           </h4>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
