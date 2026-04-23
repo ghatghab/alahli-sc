@@ -123,6 +123,7 @@ export const en = {
     terms: "Terms of Use",
     accessibility: "Accessibility",
     address: "Tripoli, Libya",
+    partners: "Partners",
   },
   pages: {
     club: { title: "The Club", intro: "Discover the story, the values and the people behind Alahli SC." },
