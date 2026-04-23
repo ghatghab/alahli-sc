@@ -128,13 +128,13 @@ const FeaturedArticle = ({ item, lang, ctaLabel }: { item: Row; lang: string; ct
           <div className="text-xs text-muted-foreground mb-2">
             {formatDate(item.published_at, lang)}
           </div>
-          <h3 className="font-display text-2xl md:text-3xl font-bold leading-tight group-hover:text-accent transition-smooth">
+          <h3 className="font-display text-xl md:text-2xl font-bold leading-tight group-hover:text-accent transition-smooth">
             {tr.title}
           </h3>
           {tr.excerpt && (
-            <p className="mt-3 text-sm text-muted-foreground line-clamp-3">{tr.excerpt}</p>
+            <p className="mt-3 text-xs md:text-sm text-muted-foreground line-clamp-3">{tr.excerpt}</p>
           )}
-          <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+          <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-accent">
             {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
           </span>
         </div>
@@ -185,10 +185,10 @@ const NewsCarousel = ({ items, lang, ctaLabel, dir }: { items: Row[]; lang: stri
                     <div className="text-xs text-muted-foreground">
                       {formatDate(item.published_at, lang)}
                     </div>
-                    <h3 className="font-display text-lg font-bold mt-2 leading-tight group-hover:text-accent transition-smooth">
+                    <h3 className="font-display text-base font-bold mt-2 leading-tight group-hover:text-accent transition-smooth">
                       {tr.title}
                     </h3>
-                    <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-accent">
                       {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
                     </span>
                   </div>
