@@ -53,8 +53,8 @@ export const Header = () => {
               className={({ isActive }) =>
                 cn(
                   "relative px-3 py-2 text-sm font-medium uppercase tracking-wider transition-smooth",
-                  "text-gold font-bold hover:text-accent",
-                  isActive && "text-accent"
+                  "text-gold font-bold hover:text-gold/70",
+                  isActive && "text-gold"
                 )
               }
             >
@@ -86,10 +86,10 @@ export const Header = () => {
             </Link>
           </Button>
           <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title={t("nav.tv")}>
-            <Link to="/tv"><Tv className="h-4 w-4" /></Link>
+            <Link to="/tv"><Tv className="h-4 w-4 text-foreground" /></Link>
           </Button>
           <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title={t("nav.store")}>
-            <Link to="/store"><ShoppingBag className="h-4 w-4" /></Link>
+            <Link to="/store"><ShoppingBag className="h-4 w-4 text-foreground" /></Link>
           </Button>
           <LanguageSwitcher />
           <ThemeToggle />
