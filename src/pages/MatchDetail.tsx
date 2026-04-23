@@ -158,7 +158,7 @@ const MatchDetailContent = ({
       {/* Tabs */}
       <div className="container-club mt-10">
         <Tabs defaultValue={finished ? "events" : "lineups"} className="w-full">
-          <TabsList className="w-full h-auto flex-wrap justify-start overflow-x-auto bg-transparent p-0 gap-2 rounded-none">
+          <TabsList className="w-full h-auto flex-wrap justify-center overflow-x-auto bg-transparent p-0 gap-2 rounded-none">
             {[
               { v: "events", l: t("matchDetail.events") },
               { v: "lineups", l: t("matchDetail.lineups") },
