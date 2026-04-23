@@ -254,6 +254,33 @@ All colors MUST be HSL.
     background: hsl(var(--background) / 0.7);
     border: 1px solid hsl(var(--border));
   }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.3em] text-gold;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-px w-8 bg-gold;
+  }
+  .section-dark {
+    @apply relative bg-primary text-primary-foreground overflow-hidden;
+  }
+  .section-dark::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(60% 60% at 0% 0%, hsl(var(--gold) / 0.10) 0%, transparent 60%),
+      radial-gradient(60% 60% at 100% 100%, hsl(var(--accent) / 0.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .card-premium {
+    @apply relative overflow-hidden rounded-xl border border-border bg-card shadow-soft transition-smooth;
+  }
+  .card-premium:hover {
+    @apply shadow-elegant border-gold/40 -translate-y-0.5;
+  }
+  .gold-divider {
+    @apply h-px w-12 bg-gradient-to-r from-gold to-transparent rtl:bg-gradient-to-l;
+  }
 }
 
 @layer utilities {
@@ -270,5 +297,13 @@ All colors MUST be HSL.
   @keyframes slide-up {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+  .text-shadow-elegant {
+    text-shadow: 0 2px 12px hsl(0 0% 0% / 0.45);
+  }
+  .bg-noise {
+    background-image:
+      radial-gradient(hsl(0 0% 100% / 0.03) 1px, transparent 1px);
+    background-size: 4px 4px;
   }
 }
