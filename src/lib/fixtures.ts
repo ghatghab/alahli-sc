@@ -13,6 +13,7 @@ export type Fixture = {
   isNext?: boolean;
   status?: "upcoming" | "live" | "finished";
   score?: { home: number; away: number };
+  liveMinute?: number; // current minute (only for status === "live")
   events?: MatchEvent[];
   lineups?: { home: Player[]; away: Player[] };
   stats?: MatchStat[];
@@ -94,6 +95,24 @@ export const fixtures: Fixture[] = [
     lineups: { home: samplePlayers("Suwayhli"), away: samplePlayers("Alahli") },
     stats: sampleStats,
     gallery: [stadium1, stadium2, stadium1, stadium2],
+  },
+  {
+    id: "live1",
+    team: "football",
+    competition: "Libyan Premier League",
+    competitionColor: "bg-primary",
+    date: (() => { const d = new Date(); d.setMinutes(d.getMinutes() - 38); return d; })(),
+    opponentName: { en: "Al-Nasr", fr: "Al-Nasr", ar: "النصر" },
+    opponentShort: "NSR",
+    homeAway: "home",
+    venue: { en: "Tripoli International Stadium", fr: "Stade International de Tripoli", ar: "ملعب طرابلس الدولي" },
+    status: "live",
+    score: { home: 2, away: 1 },
+    liveMinute: 38,
+    events: sampleEvents.slice(0, 3),
+    lineups: { home: samplePlayers("Alahli"), away: samplePlayers("Nasr") },
+    stats: sampleStats,
+    gallery: [stadium1],
   },
   {
     id: "f2",
