@@ -27,6 +27,11 @@ const pad = (n: number) => n.toString().padStart(2, "0");
 
 export const NextMatch = () => {
   const { t, i18n } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const id = setTimeout(() => setMounted(true), 350);
+    return () => clearTimeout(id);
+  }, []);
   // Prefer the live fixture if any; otherwise next upcoming.
   const liveIdx = fixtures.findIndex(f => f.status === "live");
   const nextIdx = liveIdx >= 0 ? liveIdx : nextFixtureIndex();
@@ -53,6 +58,8 @@ export const NextMatch = () => {
     embla.scrollTo(nextIdx, true);
     return () => { embla.off("select", onSelect); };
   }, [embla, nextIdx]);
+
+  if (!mounted) return <NextMatchSkeleton />;
 
   const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const localeTag = lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB";
