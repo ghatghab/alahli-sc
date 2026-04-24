@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Globe } from "lucide-react";
+import { Languages } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -36,7 +36,7 @@ export const LanguageSwitcher = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="gap-2 font-medium">
-          <Globe className={cn("h-4 w-4", colorClass)} />
+          <Languages className={cn("h-4 w-4", colorClass)} />
           <span className={cn("uppercase text-xs tracking-wider", colorClass)}>{current.code}</span>
         </Button>
       </DropdownMenuTrigger>
