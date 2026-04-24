@@ -2,16 +2,16 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import logoCrest from "@/assets/logo-alahli.png";
-import partner1 from "@/assets/partners/partner-1.jpg";
-import partner2 from "@/assets/partners/partner-2.jpg";
-import partner3 from "@/assets/partners/partner-3.jpg";
+import partner1 from "@/assets/partners/partner-1.png";
+import partner2 from "@/assets/partners/partner-2.png";
+import partner3 from "@/assets/partners/partner-3.png";
 
 export const Footer = () => {
   const { t } = useTranslation();
   const partners = [
-    { src: partner1, alt: "Partner 1" },
-    { src: partner2, alt: "Partner 2" },
-    { src: partner3, alt: "Partner 3" },
+    { src: partner1, alt: "Libyana" },
+    { src: partner2, alt: "Skynet" },
+    { src: partner3, alt: "Sultan" },
   ];
   const columns: { title: string; links: { label: string; to: string }[] }[] = [
     {
