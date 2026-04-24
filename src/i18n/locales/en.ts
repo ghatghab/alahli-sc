@@ -125,9 +125,10 @@ export const en = {
     formation: "Academy (الفئات السنية)",
     squad: "Squad",
     staff: "Staff",
-    schedule: "Schedule & Results",
+    schedule: "Schedule",
     standings: "Standings",
     honours: "Honours",
+    back: "Back",
     categories: {
       all: "All categories",
       braem: "البراعم",

@@ -125,9 +125,10 @@ export const ar = {
     formation: "الفئات السنية",
     squad: "التشكيلة",
     staff: "الجهاز الفني",
-    schedule: "المباريات والنتائج",
+    schedule: "المباريات",
     standings: "الترتيب",
     honours: "الإنجازات",
+    back: "رجوع",
     categories: {
       all: "جميع الفئات",
       braem: "البراعم",

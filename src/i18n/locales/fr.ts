@@ -125,9 +125,10 @@ export const fr = {
     formation: "Formation",
     squad: "Effectif",
     staff: "Staff",
-    schedule: "Calendrier & Résultats",
+    schedule: "Calendrier",
     standings: "Classements",
     honours: "Palmarès",
+    back: "Retour",
     categories: {
       all: "Toutes les catégories",
       braem: "البراعم",
