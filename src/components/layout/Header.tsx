@@ -41,6 +41,16 @@ export const Header = () => {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  // Close drawer on Escape key
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   // Track scroll to switch between transparent (over hero) and solid state
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -71,7 +81,16 @@ export const Header = () => {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            aria-label="Open menu"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setOpen(true);
+              }
+            }}
+            aria-label={t("nav.menu", "Menu")}
+            aria-expanded={open}
+            aria-controls="primary-navigation-drawer"
+            aria-haspopup="dialog"
             className={cn(
               "flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
               scrolled
@@ -178,6 +197,10 @@ export const Header = () => {
 
       {/* Full-screen drawer */}
       <div
+        id="primary-navigation-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label={t("nav.menu", "Menu")}
         className={cn(
           "fixed inset-0 z-[60] transition-opacity duration-300",
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
