@@ -135,7 +135,9 @@ const Standings = () => {
                 >
                   <TableCell className="text-center font-bold tabular-nums">{i + 1}</TableCell>
                   <TableCell className="text-start">
-                    <span className={cn(r.isUs && "text-accent")}>{r.team}</span>
+                    <span className={cn(r.isUs && "text-accent")}>
+                      {r.isUs ? t("brand.name") : r.team}
+                    </span>
                   </TableCell>
                   <TableCell className="text-center tabular-nums">{r.played}</TableCell>
                   <TableCell className="text-center tabular-nums">{r.won}</TableCell>
