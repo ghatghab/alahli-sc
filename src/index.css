@@ -50,9 +50,9 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Al Ahli SC — Light theme. Greens calibrated on the official crest. */
+    /* Al Ahli SC — Light theme (Real Madrid–inspired editorial) */
     --background: 0 0% 100%;
-    --foreground: 138 55% 8%;
+    --foreground: 158 60% 8%;
 
     --card: 0 0% 100%;
     --card-foreground: 158 60% 8%;
@@ -60,43 +60,42 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 158 60% 8%;
 
-    --primary: 138 75% 16%;            /* deep crest green for nav, match center */
+    --primary: 158 70% 12%;            /* near-black evergreen for headlines */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 138 70% 24%;
+    --primary-hover: 158 60% 20%;
 
     --secondary: 150 25% 96%;
     --secondary-foreground: 158 70% 10%;
 
-    --muted: 138 18% 97%;
-    --muted-foreground: 138 12% 32%;
+    --muted: 150 18% 97%;
+    --muted-foreground: 158 12% 36%;
 
-    --accent: 138 75% 32%;             /* emerald green from the crest */
+    --accent: 152 72% 28%;             /* club green */
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 138 50% 65%;
+    --accent-soft: 145 40% 60%;
 
-    --highlight: 138 80% 82%;
+    --highlight: 152 80% 80%;
 
-    --gold: 45 60% 70%;                /* champagne — soft gold accent (CTA, highlights) */
-    --gold-foreground: 138 75% 12%;
-    --gold-deep: 45 75% 55%;           /* hover/active for gold buttons */
+    --gold: 152 72% 28%;               /* unified to green so legacy "gold-" classes match */
+    --gold-foreground: 0 0% 100%;
 
     --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 138 12% 90%;
-    --input: 138 12% 90%;
-    --ring: 138 75% 32%;
+    --border: 150 12% 90%;
+    --input: 150 12% 90%;
+    --ring: 152 72% 28%;
 
     --radius: 0.75rem;
 
-    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0% / 0) 40%, hsl(138 80% 8% / 0.88) 100%);
-    --gradient-primary: linear-gradient(135deg, hsl(138 80% 12%), hsl(138 65% 22%));
-    --gradient-gold: linear-gradient(135deg, hsl(45 70% 65%), hsl(45 80% 78%));
-    --gradient-accent: linear-gradient(135deg, hsl(138 75% 28%), hsl(138 60% 42%));
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0% / 0) 40%, hsl(158 70% 8% / 0.85) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(158 70% 10%), hsl(152 60% 22%));
+    --gradient-gold: linear-gradient(135deg, hsl(152 72% 28%), hsl(145 60% 40%));
+    --gradient-accent: linear-gradient(135deg, hsl(152 72% 28%), hsl(145 55% 45%));
 
-    --shadow-soft: 0 1px 2px hsl(138 30% 12% / 0.06), 0 4px 16px hsl(138 30% 12% / 0.06);
-    --shadow-elegant: 0 8px 30px -10px hsl(138 40% 12% / 0.18);
-    --shadow-gold: 0 6px 24px hsl(45 70% 55% / 0.30);
+    --shadow-soft: 0 1px 2px hsl(158 30% 12% / 0.06), 0 4px 16px hsl(158 30% 12% / 0.06);
+    --shadow-elegant: 0 8px 30px -10px hsl(158 40% 12% / 0.18);
+    --shadow-gold: 0 6px 24px hsl(152 72% 28% / 0.30);
 
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -281,20 +280,6 @@ All colors MUST be HSL.
   }
   .gold-divider {
     @apply h-px w-12 bg-gradient-to-r from-accent to-transparent rtl:bg-gradient-to-l;
-  }
-  .chevrons-overlay {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><path d='M0 36 L24 12 L48 36' fill='none' stroke='white' stroke-opacity='0.08' stroke-width='1.5'/><path d='M0 48 L24 24 L48 48' fill='none' stroke='white' stroke-opacity='0.08' stroke-width='1.5'/></svg>");
-    background-repeat: repeat;
-  }
-  .chevrons-overlay-dark {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><path d='M0 36 L24 12 L48 36' fill='none' stroke='black' stroke-opacity='0.05' stroke-width='1.5'/><path d='M0 48 L24 24 L48 48' fill='none' stroke='black' stroke-opacity='0.05' stroke-width='1.5'/></svg>");
-    background-repeat: repeat;
-  }
-  .gold-button {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full
-           text-[12px] font-bold uppercase tracking-[0.18em]
-           bg-gold text-gold-foreground hover:bg-gold-deep transition-colors duration-300
-           shadow-gold;
   }
 }
 

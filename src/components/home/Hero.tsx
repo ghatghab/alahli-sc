@@ -126,13 +126,9 @@ export const Hero = () => {
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
                   loading="eager"
                 />
-                {/* Subtle emerald color filter to harmonise with brand */}
-                <div className="absolute inset-0 bg-primary/15 mix-blend-multiply" aria-hidden />
-                {/* Readability overlay — strong bottom-left fade */}
+                {/* Readability overlay — strong bottom-left fade like PSG */}
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/50 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/65 via-transparent to-transparent" />
-                {/* Chevrons watermark on the edges */}
-                <div className="absolute inset-y-0 right-0 w-1/3 chevrons-overlay opacity-60 pointer-events-none [mask-image:linear-gradient(to_left,black,transparent)]" aria-hidden />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-transparent to-transparent" />
 
                 {/* Text over image */}
                 <div className="absolute inset-x-0 bottom-0">
@@ -145,7 +141,7 @@ export const Hero = () => {
                           timeText={slide.publishedAt ? timeAgo(slide.publishedAt, i18n.language) : null}
                         />
                       </div>
-                      <h1 className="font-impact text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] uppercase leading-[0.92] tracking-[0.005em] text-white text-shadow-elegant">
+                      <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white text-shadow-elegant">
                         {slide.title}
                       </h1>
                       <div className="mt-8">

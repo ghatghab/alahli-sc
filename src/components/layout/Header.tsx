@@ -112,7 +112,13 @@ export const Header = () => {
               <User className="h-4 w-4" strokeWidth={2.2} />
               {t("nav.signIn", "Se connecter")}
             </Link>
-            <Link to="/tickets" className="hidden sm:inline-flex gold-button">
+            <Link
+              to="/tickets"
+              className={cn(
+                "hidden sm:inline-flex text-[13px] font-bold uppercase tracking-[0.12em] transition-colors duration-300",
+                linkColor
+              )}
+            >
               {t("nav.tickets")}
             </Link>
             <Link
@@ -143,7 +149,7 @@ export const Header = () => {
         />
         <aside
           className={cn(
-            "absolute top-0 start-0 h-full w-full sm:w-[420px] bg-primary text-primary-foreground shadow-2xl chevrons-overlay",
+            "absolute top-0 start-0 h-full w-full sm:w-[420px] bg-primary text-primary-foreground shadow-2xl",
             "transition-transform duration-400 ease-out",
             open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
           )}

@@ -45,7 +45,6 @@ export default {
         gold: {
           DEFAULT: "hsl(var(--gold))",
           foreground: "hsl(var(--gold-foreground))",
-          deep: "hsl(var(--gold-deep))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -68,8 +67,7 @@ export default {
       },
       fontFamily: {
         sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
-        display: ['"Barlow Condensed"', 'Oswald', 'IBM Plex Sans', 'sans-serif'],
-        impact: ['"Bebas Neue"', '"Barlow Condensed"', 'sans-serif'],
+        display: ['Oswald', 'IBM Plex Sans', 'sans-serif'],
         arabic: ['Tajawal', 'sans-serif'],
       },
       backgroundImage: {
@@ -77,8 +75,6 @@ export default {
         'gradient-primary': 'var(--gradient-primary)',
         'gradient-gold': 'var(--gradient-gold)',
         'gradient-accent': 'var(--gradient-accent)',
-        'chevrons': "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><path d='M0 30 L20 10 L40 30' fill='none' stroke='white' stroke-opacity='0.07' stroke-width='1.5'/><path d='M0 40 L20 20 L40 40' fill='none' stroke='white' stroke-opacity='0.07' stroke-width='1.5'/></svg>\")",
-        'chevrons-soft': "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M0 24 L16 8 L32 24' fill='none' stroke='white' stroke-opacity='0.04' stroke-width='1'/></svg>\")",
       },
       boxShadow: {
         soft: 'var(--shadow-soft)',
