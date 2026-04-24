@@ -64,7 +64,7 @@ export const Header = () => {
       >
         <div
           className={cn(
-            "flex items-stretch transition-[height] duration-300",
+            "flex items-center transition-[height] duration-300",
             scrolled ? "h-14 lg:h-16" : "h-16 lg:h-20"
           )}
         >
@@ -92,7 +92,7 @@ export const Header = () => {
           <Link
             to="/"
             aria-label="Al Ahli Sports Club"
-            className="hidden lg:flex items-center shrink-0 px-4 lg:px-6"
+            className="hidden lg:flex items-center shrink-0 px-4 lg:px-6 self-center"
           >
             <Logo size="sm" />
           </Link>
