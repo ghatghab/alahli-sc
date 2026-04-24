@@ -113,7 +113,7 @@ export const Header = () => {
               to="/auth"
               className="text-[13px] font-bold uppercase tracking-wider text-white/80 italic hover:text-white transition-colors"
             >
-              {t("nav.signIn", "Se connecter")}
+              {t("nav.signIn")}
             </Link>
             <Link
               to="/tickets"
@@ -125,7 +125,7 @@ export const Header = () => {
               to="/store"
               className="text-[13px] font-bold uppercase tracking-wider px-4 py-2 border border-white/40 text-white hover:bg-white hover:text-primary transition-colors"
             >
-              {t("nav.store", "Boutique")}
+              {t("nav.store")}
             </Link>
             <LanguageSwitcher />
           </div>
