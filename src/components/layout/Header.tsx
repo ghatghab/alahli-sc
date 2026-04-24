@@ -92,7 +92,7 @@ export const Header = () => {
           <Link
             to="/"
             aria-label="Al Ahli Sports Club"
-            className="hidden lg:flex items-center shrink-0 px-4 lg:px-6 self-center"
+            className="hidden lg:flex items-center shrink-0 px-4 lg:px-6 self-center -mt-1"
           >
             <Logo size="sm" />
           </Link>
@@ -201,12 +201,12 @@ export const Header = () => {
         aria-hidden={!open}
       >
         <div
-          className="absolute inset-0 bg-primary/70 backdrop-blur-sm"
+          className="absolute inset-0 bg-accent/70 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         />
         <aside
           className={cn(
-            "absolute top-0 start-0 h-full w-full sm:w-[420px] bg-primary text-primary-foreground shadow-2xl",
+            "absolute top-0 start-0 h-full w-full sm:w-[420px] bg-accent text-white shadow-2xl",
             "transition-transform duration-400 ease-out",
             open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
           )}
