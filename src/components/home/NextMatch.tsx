@@ -175,7 +175,7 @@ export const NextMatch = () => {
               onClick={() => embla?.scrollPrev()}
               aria-label={t("a11y.prevMatch")}
               aria-controls="matches-carousel"
-              className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
+              className="grid h-9 w-9 place-items-center rounded-full border border-white/30 text-white/80 hover:text-gold hover:border-gold transition"
             >
               <ChevronLeft className="h-5 w-5 rtl:hidden" />
               <ChevronRight className="h-5 w-5 hidden rtl:block" />
@@ -191,7 +191,7 @@ export const NextMatch = () => {
                   onClick={() => embla?.scrollTo(i)}
                   aria-label={t("a11y.goToMatch", { n: i + 1 })}
                   className={`h-1.5 rounded-full transition-all ${
-                    i === selected ? "w-10 bg-accent" : "w-5 bg-border hover:bg-muted-foreground/40"
+                    i === selected ? "w-10 bg-gold" : "w-5 bg-white/25 hover:bg-white/50"
                   }`}
                 />
               ))}
@@ -201,7 +201,7 @@ export const NextMatch = () => {
               onClick={() => embla?.scrollNext()}
               aria-label={t("a11y.nextMatchBtn")}
               aria-controls="matches-carousel"
-              className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
+              className="grid h-9 w-9 place-items-center rounded-full border border-white/30 text-white/80 hover:text-gold hover:border-gold transition"
             >
               <ChevronRight className="h-5 w-5 rtl:hidden" />
               <ChevronLeft className="h-5 w-5 hidden rtl:block" />
