@@ -121,7 +121,7 @@ export const fr = {
     basketball: "Basketball",
     handball: "Handball",
     volleyball: "Volleyball",
-    mensFirst: "Équipe première masculine",
+    mensFirst: "Équipe Première",
     formation: "Formation",
     squad: "Effectif",
     staff: "Staff",
