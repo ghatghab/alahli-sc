@@ -18,7 +18,11 @@ export const SubNav = ({
 }) => {
   const { t } = useTranslation();
   const topClass =
-    level === 1 ? "top-20" : level === 2 ? "top-[7.5rem]" : "top-[10rem]";
+    level === 1
+      ? "top-14 lg:top-16"
+      : level === 2
+        ? "top-[7rem] lg:top-[7.5rem]"
+        : "top-[10rem]";
   return (
     <div
       className={cn(
