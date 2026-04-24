@@ -115,6 +115,7 @@ const MatchCenter = () => {
 
   return (
     <>
+      <Seo pageKey="matchCenter" />
       <h1 className="sr-only">{t("pages.matchCenter.title")}</h1>
       <section className="container-club pt-28 md:pt-32 pb-10">
         {/* Live now */}
