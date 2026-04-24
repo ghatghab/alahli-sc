@@ -143,7 +143,6 @@ export const Footer = () => {
         <div className="border-t border-primary-foreground/10">
           <div className="container-club py-5 flex flex-col items-center justify-center gap-2 text-xs text-primary-foreground/60 text-center">
             <p>© {new Date().getFullYear()} {t("brand.name")}. {t("footer.rights")}</p>
-            <p className="uppercase tracking-widest">alahli.ly</p>
           </div>
         </div>
       </div>
