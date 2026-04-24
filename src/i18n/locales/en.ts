@@ -1,5 +1,5 @@
 export const en = {
-  brand: { name: "Alahli SC", tagline: "Green & White since 1950" },
+  brand: { name: "Al Ahli Sports Club", tagline: "Green & White since 1950" },
   nav: {
     club: "Club",
     teams: "Teams",
@@ -44,7 +44,7 @@ export const en = {
   },
   schedule: {
     title: "Full schedule",
-    intro: "All Alahli SC fixtures across every sport.",
+    intro: "All Al Ahli Sports Club fixtures across every sport.",
     search: "Search opponent…",
     competition: "Competition",
     team: "Team",
@@ -69,7 +69,7 @@ export const en = {
   },
   standings: {
     title: "Standings",
-    intro: "League and cup tables across all Alahli SC competitions.",
+    intro: "League and cup tables across all Al Ahli Sports Club competitions.",
     team: "Team",
     p: "P",
     w: "W",
@@ -151,13 +151,13 @@ export const en = {
     },
   },
   pages: {
-    club: { title: "The Club", intro: "Discover the story, the values and the people behind Alahli SC." },
+    club: { title: "The Club", intro: "Discover the story, the values and the people behind Al Ahli Sports Club." },
     teams: { title: "Our Teams", intro: "Football, basketball, handball, volleyball — one club, many champions." },
     news: { title: "News", intro: "Latest stories from inside the club." },
     matchCenter: { title: "Match Center", intro: "Fixtures, results and live match information." },
     schedule: { title: "Schedule", intro: "All upcoming matches across all sports." },
     tickets: { title: "Tickets", intro: "Be there. Live every match from the stands." },
-    academy: { title: "Academy", intro: "The next generation of Alahli." },
+    academy: { title: "Academy", intro: "The next generation of Al Ahli." },
     contact: { title: "Contact", intro: "We'd love to hear from you." },
     notFound: { title: "Page not found", back: "Back to home" },
   },
@@ -183,7 +183,7 @@ export const en = {
   },
   auth: {
     title: "Sign in",
-    subtitle: "Access the Alahli content management system.",
+    subtitle: "Access the Al Ahli Sports Club content management system.",
     signIn: "Sign in",
     signUp: "Create account",
     email: "Email",

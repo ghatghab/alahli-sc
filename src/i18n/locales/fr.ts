@@ -1,5 +1,5 @@
 export const fr = {
-  brand: { name: "Alahli SC", tagline: "Vert & blanc depuis 1950" },
+  brand: { name: "Al Ahli Sports Club", tagline: "Vert & blanc depuis 1950" },
   nav: {
     club: "Club",
     teams: "Équipes",
@@ -44,7 +44,7 @@ export const fr = {
   },
   schedule: {
     title: "Calendrier complet",
-    intro: "Toutes les rencontres de l'Alahli SC, tous sports confondus.",
+    intro: "Toutes les rencontres de l'Al Ahli Sports Club, tous sports confondus.",
     search: "Rechercher un adversaire…",
     competition: "Compétition",
     team: "Équipe",
@@ -69,7 +69,7 @@ export const fr = {
   },
   standings: {
     title: "Classement",
-    intro: "Classements de toutes les compétitions de l'Alahli SC.",
+    intro: "Classements de toutes les compétitions de l'Al Ahli Sports Club.",
     team: "Équipe",
     p: "J",
     w: "G",
@@ -151,13 +151,13 @@ export const fr = {
     },
   },
   pages: {
-    club: { title: "Le Club", intro: "Découvrez l'histoire, les valeurs et les hommes derrière l'Alahli SC." },
+    club: { title: "Le Club", intro: "Découvrez l'histoire, les valeurs et les hommes derrière l'Al Ahli Sports Club." },
     teams: { title: "Nos équipes", intro: "Football, basket, handball, volley — un club, plusieurs champions." },
     news: { title: "Actualités", intro: "Toutes les dernières infos du club." },
     matchCenter: { title: "Centre des matchs", intro: "Calendrier, résultats et informations en direct." },
     schedule: { title: "Calendrier", intro: "Tous les prochains matchs, toutes disciplines." },
     tickets: { title: "Billetterie", intro: "Soyez là. Vivez chaque match dans les tribunes." },
-    academy: { title: "Académie", intro: "La nouvelle génération de l'Alahli." },
+    academy: { title: "Académie", intro: "La nouvelle génération de l'Al Ahli." },
     contact: { title: "Contact", intro: "Nous serions ravis d'échanger avec vous." },
     notFound: { title: "Page introuvable", back: "Retour à l'accueil" },
   },
@@ -183,7 +183,7 @@ export const fr = {
   },
   auth: {
     title: "Connexion",
-    subtitle: "Accédez au CMS de l'Alahli SC.",
+    subtitle: "Accédez au CMS de l'Al Ahli Sports Club.",
     signIn: "Se connecter",
     signUp: "Créer un compte",
     email: "E-mail",
