@@ -14,6 +14,8 @@ export const en = {
     tv: "TV",
     language: "Language",
     theme: "Theme",
+    menu: "Menu",
+    signIn: "Sign in",
   },
 
   nextMatch: {

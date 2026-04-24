@@ -14,6 +14,8 @@ export const ar = {
     tv: "القناة",
     language: "اللغة",
     theme: "السمة",
+    menu: "القائمة",
+    signIn: "تسجيل الدخول",
   },
 
   nextMatch: {

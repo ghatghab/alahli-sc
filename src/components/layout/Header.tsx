@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Menu, X, Settings } from "lucide-react";
 import { Logo } from "./Logo";
@@ -26,6 +26,14 @@ export const Header = () => {
   const { isEditor } = useAuth();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
+  // Home page has the hero — navbar starts transparent over it.
+  // Inner pages don't have a hero, so use a light navbar with green text.
+  const isHome = pathname === "/";
+  const isLight = !isHome && !scrolled ? true : false;
+  // When "light" mode is active (inner pages, top of page) we use a white
+  // background with green (accent) text. When scrolled, fall back to the
+  // solid primary bar with white text on every route.
 
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -45,10 +53,12 @@ export const Header = () => {
     <>
       <header
         className={cn(
-          "fixed top-0 inset-x-0 z-50 text-primary-foreground transition-[background-color,box-shadow,backdrop-filter] duration-300",
+          "fixed top-0 inset-x-0 z-50 transition-[background-color,box-shadow,backdrop-filter,color] duration-300",
           scrolled
-            ? "bg-primary shadow-soft"
-            : "bg-transparent"
+            ? "bg-primary shadow-soft text-primary-foreground"
+            : isHome
+              ? "bg-transparent text-primary-foreground"
+              : "bg-white shadow-soft text-accent"
         )}
       >
         <div
@@ -63,8 +73,12 @@ export const Header = () => {
             onClick={() => setOpen(true)}
             aria-label="Open menu"
             className={cn(
-              "flex flex-col items-center justify-center gap-1 px-5 text-white transition-colors shrink-0",
-              scrolled ? "bg-accent hover:bg-accent/90" : "bg-[#147b4b]/0"
+              "flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
+              scrolled
+                ? "bg-accent hover:bg-accent/90 text-white"
+                : isHome
+                  ? "bg-transparent text-white"
+                  : "bg-transparent text-accent hover:bg-accent/10"
             )}
           >
             <Menu className="h-5 w-5" strokeWidth={2.5} />
@@ -91,9 +105,14 @@ export const Header = () => {
                 className={({ isActive }) =>
                   cn(
                     "relative text-[15px] font-bold uppercase tracking-wide transition-colors duration-200 py-1",
-                    "text-white/90 hover:text-white",
+                    isLight
+                      ? "text-accent/80 hover:text-accent"
+                      : "text-white/90 hover:text-white",
                     isActive &&
-                      "text-white after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:bg-accent"
+                      cn(
+                        "after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:bg-accent",
+                        isLight ? "text-accent" : "text-white"
+                      )
                   )
                 }
               >
@@ -105,25 +124,45 @@ export const Header = () => {
           {/* Right side actions */}
           <div className="hidden lg:flex items-center gap-3 ms-auto pr-4 lg:pr-6">
             {isEditor && (
-              <Link to="/admin" title="Admin" className="text-white/90 hover:text-white">
+              <Link
+                to="/admin"
+                title="Admin"
+                className={cn(
+                  "transition-colors",
+                  isLight ? "text-accent/80 hover:text-accent" : "text-white/90 hover:text-white"
+                )}
+              >
                 <Settings className="h-4 w-4" />
               </Link>
             )}
             <Link
               to="/auth"
-              className="text-[13px] font-bold uppercase tracking-wider text-white/80 italic hover:text-white transition-colors"
+              className={cn(
+                "text-[13px] font-bold uppercase tracking-wider italic transition-colors whitespace-nowrap",
+                isLight ? "text-accent/80 hover:text-accent" : "text-white/80 hover:text-white"
+              )}
             >
               {t("nav.signIn")}
             </Link>
             <Link
               to="/tickets"
-              className="text-[13px] font-bold uppercase tracking-wider px-4 py-2 border border-white/40 text-white hover:bg-white hover:text-primary transition-colors"
+              className={cn(
+                "text-[13px] font-bold uppercase tracking-wider px-4 py-2 border transition-colors whitespace-nowrap",
+                isLight
+                  ? "border-accent/40 text-accent hover:bg-accent hover:text-white"
+                  : "border-white/40 text-white hover:bg-white hover:text-primary"
+              )}
             >
               {t("nav.tickets")}
             </Link>
             <Link
               to="/store"
-              className="text-[13px] font-bold uppercase tracking-wider px-4 py-2 border border-white/40 text-white hover:bg-white hover:text-primary transition-colors"
+              className={cn(
+                "text-[13px] font-bold uppercase tracking-wider px-4 py-2 border transition-colors whitespace-nowrap",
+                isLight
+                  ? "border-accent/40 text-accent hover:bg-accent hover:text-white"
+                  : "border-white/40 text-white hover:bg-white hover:text-primary"
+              )}
             >
               {t("nav.store")}
             </Link>
@@ -184,6 +223,19 @@ export const Header = () => {
                 {t(item.key)}
               </NavLink>
             ))}
+            <NavLink
+              to="/auth"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b border-white/10",
+                  "text-white/90 hover:text-accent",
+                  isActive && "text-accent"
+                )
+              }
+            >
+              {t("nav.signIn")}
+            </NavLink>
           </nav>
         </aside>
       </div>
