@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 export const Logo = ({ size = "sm" }: { size?: "sm" | "lg" }) => {
-  const dimensions = size === "lg" ? "h-28 w-28" : "h-20 w-20";
+  const dimensions = size === "lg" ? "h-32 w-32" : "h-24 w-24";
   return (
     <Link to="/" aria-label="Alahli SC" className="flex items-center group">
       <div className={cn("relative overflow-hidden transition-smooth group-hover:scale-105", dimensions)}>
