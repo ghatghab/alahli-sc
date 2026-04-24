@@ -132,20 +132,27 @@ export const Hero = () => {
               <Link
                 to={slide.href}
                 aria-label={slide.title}
-                className="relative block h-[75vh] min-h-[560px] lg:h-[88vh] w-full overflow-hidden group"
+                className="relative block h-[88vh] min-h-[640px] w-full overflow-hidden group bg-primary"
               >
+                {/* Blurred background fill so full image can show without cropping */}
                 <img
                   src={slide.image}
                   alt=""
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-[1.06]"
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full object-cover scale-110 blur-2xl opacity-50"
+                />
+                <img
+                  src={slide.image}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-contain transition-transform duration-[1500ms] ease-out group-hover:scale-[1.03]"
                   loading="eager"
                 />
                 {/* Layered gradients for depth + readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/40" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
 
                 {/* Text over image */}
-                <div className="absolute inset-x-0 bottom-0">
+                <div className="absolute inset-x-0 bottom-0 pt-24 lg:pt-32">
                   <div className="container-club pb-16 lg:pb-24">
                     <div className="max-w-4xl animate-fade-in">
                       {/* Category badge + date */}
