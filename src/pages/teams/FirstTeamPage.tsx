@@ -17,11 +17,11 @@ type Section = {
 };
 
 const sections: Section[] = [
-  { titleKey: "teamsNav.squad", descKey: "firstTeam.squadDesc", to: "/teams/football/mens-first/squad", image: teamFootball },
-  { titleKey: "teamsNav.staff", descKey: "firstTeam.staffDesc", to: "/teams/football/mens-first/staff", image: training },
-  { titleKey: "teamsNav.schedule", descKey: "firstTeam.scheduleDesc", to: "/teams/football/mens-first/schedule", image: heroStadium },
-  { titleKey: "teamsNav.standings", descKey: "firstTeam.standingsDesc", to: "/teams/football/mens-first/standings", image: stadiumAerial },
-  { titleKey: "teamsNav.honours", descKey: "firstTeam.honoursDesc", to: "/teams/football/mens-first/honours", image: playerCelebration },
+  { titleKey: "teamsNav.squad", descKey: "firstTeam.squadDesc", to: "/teams/football/first-team/squad", image: teamFootball },
+  { titleKey: "teamsNav.staff", descKey: "firstTeam.staffDesc", to: "/teams/football/first-team/staff", image: training },
+  { titleKey: "teamsNav.schedule", descKey: "firstTeam.scheduleDesc", to: "/teams/football/first-team/schedule", image: heroStadium },
+  { titleKey: "teamsNav.standings", descKey: "firstTeam.standingsDesc", to: "/teams/football/first-team/standings", image: stadiumAerial },
+  { titleKey: "teamsNav.honours", descKey: "firstTeam.honoursDesc", to: "/teams/football/first-team/honours", image: playerCelebration },
 ];
 
 const FirstTeamPage = () => {
