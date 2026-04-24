@@ -64,7 +64,7 @@ export const Header = () => {
             aria-label="Open menu"
             className={cn(
               "flex flex-col items-center justify-center gap-1 px-5 text-white transition-colors shrink-0",
-              "bg-accent hover:bg-accent/90"
+              scrolled ? "bg-accent hover:bg-accent/90" : "bg-[#147b4b]/0"
             )}
           >
             <Menu className="h-5 w-5" strokeWidth={2.5} />
