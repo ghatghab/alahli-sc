@@ -16,6 +16,7 @@ import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import logo from "@/assets/logo-alahli.jpg";
 import { cn } from "@/lib/utils";
 import { useLocalStorageState } from "@/hooks/useLocalStorageState";
+import { Seo } from "@/components/Seo";
 
 const TEAMS: Team[] = ["football", "basketball", "handball", "volleyball"];
 const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;

@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { Hero } from "@/components/home/Hero";
 import { NextMatch } from "@/components/home/NextMatch";
 import { LatestNews } from "@/components/home/LatestNews";
@@ -8,6 +9,7 @@ import { JoinCTA } from "@/components/home/JoinCTA";
 
 const Index = () => (
   <>
+    <Seo pageKey="home" />
     <Hero />
     <NextMatch />
     <LatestNews />
