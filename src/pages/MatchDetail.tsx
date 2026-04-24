@@ -67,8 +67,9 @@ const MatchDetailContent = ({
 }: { fixture: Fixture; lang: "en" | "fr" | "ar"; t: (k: string) => string }) => {
   const isHome = fixture.homeAway === "home";
   const opponent = fixture.opponentName[lang];
-  const homeName = isHome ? "Alahli SC" : opponent;
-  const awayName = isHome ? opponent : "Alahli SC";
+  const clubName = t("brand.name");
+  const homeName = isHome ? clubName : opponent;
+  const awayName = isHome ? opponent : clubName;
   const venue = fixture.venue[lang];
   const finished = fixture.status === "finished";
 
