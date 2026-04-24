@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { RubricTabs, RubricItem } from "@/components/layout/RubricTabs";
 
 const items: RubricItem[] = [
@@ -9,14 +9,23 @@ const items: RubricItem[] = [
   { to: "/teams/football/first-team/honours", key: "teamsNav.honours" },
 ];
 
-const MensFirstLayout = () => (
-  <>
-    <RubricTabs
-      parent={{ to: "/teams/football", labelKey: "teamsNav.mensFirst" }}
-      items={items}
-    />
-    <Outlet />
-  </>
-);
+const MensFirstLayout = () => {
+  const { pathname } = useLocation();
+  // Hide tabs on the hub page (index). Only show after clicking a sub-rubric.
+  const isHub =
+    pathname === "/teams/football/first-team" ||
+    pathname === "/teams/football/first-team/";
+  return (
+    <>
+      {!isHub && (
+        <RubricTabs
+          parent={{ to: "/teams/football", labelKey: "teamsNav.mensFirst" }}
+          items={items}
+        />
+      )}
+      <Outlet />
+    </>
+  );
+};
 
 export default MensFirstLayout;
