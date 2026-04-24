@@ -136,6 +136,7 @@ export const Hero = () => {
                     <div className="max-w-3xl">
                       <div className="mb-4">
                         <NewsTag
+                          onDark
                           category={slide.category}
                           timeText={slide.publishedAt ? timeAgo(slide.publishedAt, i18n.language) : null}
                         />
