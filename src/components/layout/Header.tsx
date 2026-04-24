@@ -91,7 +91,7 @@ export const Header = () => {
           <Link
             to="/"
             aria-label="Al Ahli Sports Club"
-            className="flex items-center shrink-0 px-4 lg:px-6"
+            className="hidden lg:flex items-center shrink-0 px-4 lg:px-6"
           >
             <Logo size="sm" />
           </Link>
