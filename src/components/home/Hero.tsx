@@ -110,66 +110,62 @@ export const Hero = () => {
   if (newsSlides.length === 0) return <HeroSkeleton empty />;
 
   return (
-    <section className="relative bg-background pt-20 lg:pt-24">
-      <div className="container-club">
-        <div ref={emblaRef} className="overflow-hidden rounded-2xl">
-          <div className="flex">
-            {newsSlides.map(slide => (
-              <div key={slide.key} className="relative min-w-0 shrink-0 grow-0 basis-full">
-                <div className="grid lg:grid-cols-[1.6fr_1fr] bg-secondary rounded-2xl overflow-hidden">
-                  {/* Image */}
-                  <Link
-                    to={slide.href}
-                    aria-label={slide.title}
-                    className="relative block aspect-[16/10] lg:aspect-auto lg:min-h-[460px] overflow-hidden group"
-                  >
-                    <img
-                      src={slide.image}
-                      alt=""
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      loading="eager"
-                    />
-                    {/* Mobile readable overlay */}
-                    <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-primary/85 via-primary/30 to-transparent" />
-                    <div className="absolute bottom-4 start-4 lg:hidden">
-                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 text-accent text-[10px] font-bold uppercase tracking-[0.2em]">
-                        {slide.category}
-                      </span>
-                    </div>
-                  </Link>
+    <section className="relative bg-background">
+      <div ref={emblaRef} className="overflow-hidden">
+        <div className="flex">
+          {newsSlides.map(slide => (
+            <div key={slide.key} className="relative min-w-0 shrink-0 grow-0 basis-full">
+              <Link
+                to={slide.href}
+                aria-label={slide.title}
+                className="relative block h-[70vh] min-h-[500px] lg:h-[85vh] w-full overflow-hidden group"
+              >
+                <img
+                  src={slide.image}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  loading="eager"
+                />
+                {/* Readability overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-primary/10" />
 
-                  {/* Editorial panel */}
-                  <div className="flex flex-col justify-center p-8 lg:p-12 bg-secondary">
-                    <div className="hidden lg:flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.3em] text-accent mb-5">
-                      <span className="inline-block h-px w-8 bg-accent" />
-                      {slide.category}
-                    </div>
-                    <Link to={slide.href} className="group">
-                      <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-[1.1] text-foreground group-hover:text-accent transition-colors">
+                {/* Text over image */}
+                <div className="absolute inset-x-0 bottom-0">
+                  <div className="container-club pb-10 lg:pb-16">
+                    <div className="max-w-3xl">
+                      <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.3em] text-white mb-4">
+                        <span className="inline-block h-px w-8 bg-accent" />
+                        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent text-accent-foreground">
+                          {slide.category}
+                        </span>
+                      </div>
+                      <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.05] text-white text-shadow-elegant">
                         {slide.title}
                       </h1>
-                    </Link>
-                    {slide.publishedAt && (
-                      <div className="mt-5 inline-flex items-center gap-1.5 text-xs text-muted-foreground font-semibold">
-                        <Clock className="h-3.5 w-3.5" />
-                        {timeAgo(slide.publishedAt, i18n.language)}
+                      {slide.publishedAt && (
+                        <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-white/80 font-semibold">
+                          <Clock className="h-3.5 w-3.5" />
+                          {timeAgo(slide.publishedAt, i18n.language)}
+                        </div>
+                      )}
+                      <div className="mt-6">
+                        <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full">
+                          <span className="inline-flex items-center">
+                            {slide.cta} <ArrowRight className="h-4 w-4 rtl:rotate-180 ms-2" />
+                          </span>
+                        </Button>
                       </div>
-                    )}
-                    <div className="mt-6">
-                      <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full">
-                        <Link to={slide.href}>
-                          {slide.cta} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-                        </Link>
-                      </Button>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              </Link>
+            </div>
+          ))}
         </div>
+      </div>
 
-        {newsSlides.length > 1 && (
+      {newsSlides.length > 1 && (
+        <div className="container-club">
           <div className="mt-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               {newsSlides.map((s, i) => (
@@ -191,8 +187,8 @@ export const Hero = () => {
               {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
             </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </section>
   );
 };
