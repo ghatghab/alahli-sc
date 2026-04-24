@@ -37,7 +37,8 @@ export const pickTranslation = (
   lang: string
 ): NewsTranslationRow | null => {
   if (!translations || translations.length === 0) return null;
-  const target = (["en", "fr", "ar"].includes(lang) ? lang : "en") as Locale;
+  const short = (lang || "en").slice(0, 2).toLowerCase();
+  const target = (["en", "fr", "ar"].includes(short) ? short : "en") as Locale;
   return (
     translations.find(t => t.locale === target) ??
     translations.find(t => t.locale === "en") ??
@@ -47,8 +48,9 @@ export const pickTranslation = (
 
 export const categoryName = (cat: NewsCategoryRow | null | undefined, lang: string): string => {
   if (!cat) return "";
-  if (lang === "fr") return cat.name_fr;
-  if (lang === "ar") return cat.name_ar;
+  const short = (lang || "en").slice(0, 2).toLowerCase();
+  if (short === "fr") return cat.name_fr;
+  if (short === "ar") return cat.name_ar;
   return cat.name_en;
 };
 
@@ -72,7 +74,8 @@ export const timeAgo = (iso: string | null, lang: string): string => {
   const mo = Math.floor(day / 30);
   const yr = Math.floor(day / 365);
 
-  const L = (lang === "fr" ? "fr" : lang === "ar" ? "ar" : "en") as "fr" | "ar" | "en";
+  const short = (lang || "en").slice(0, 2).toLowerCase();
+  const L = (short === "fr" ? "fr" : short === "ar" ? "ar" : "en") as "fr" | "ar" | "en";
   const dict = {
     fr: { now: "à l'instant", m: (n: number) => `il y a ${n} min`, h: (n: number) => `il y a ${n} h`, d: (n: number) => `il y a ${n} j`, mo: (n: number) => `il y a ${n} mois`, y: (n: number) => `il y a ${n} an${n > 1 ? "s" : ""}` },
     en: { now: "just now", m: (n: number) => `${n}m ago`, h: (n: number) => `${n}h ago`, d: (n: number) => `${n}d ago`, mo: (n: number) => `${n}mo ago`, y: (n: number) => `${n}y ago` },
