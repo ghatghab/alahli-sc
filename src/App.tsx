@@ -19,31 +19,7 @@ import FormationPage from "./pages/teams/FormationPage";
 import SportLayout from "./pages/teams/SportLayout";
 import RubricPage from "./pages/teams/RubricPage";
 import TeamsHome from "./pages/teams/TeamsHome";
-import RubricCards from "./pages/teams/RubricCards";
-import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { Navigate } from "react-router-dom";
-
-const SportHome = () => {
-  const { sport } = useParams();
-  const { t } = useTranslation();
-  return (
-    <RubricCards
-      basePath={`/teams/${sport}`}
-      title={t(`teamsNav.${sport}`)}
-    />
-  );
-};
-
-const MensFirstHome = () => {
-  const { t } = useTranslation();
-  return (
-    <RubricCards
-      basePath="/teams/football/mens-first"
-      title={t("teamsNav.mensFirst")}
-    />
-  );
-};
 import { AuthProvider } from "./contexts/AuthContext";
 import Auth from "./pages/Auth";
 import { NewsList } from "./pages/news/NewsList";
@@ -99,7 +75,7 @@ const App = () => (
                 <Route path="football" element={<FootballLayout />}>
                   <Route index element={<Navigate to="/teams/football/mens-first" replace />} />
                   <Route path="mens-first" element={<MensFirstLayout />}>
-                    <Route index element={<MensFirstHome />} />
+                    <Route index element={<Navigate to="squad" replace />} />
                     <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
                     <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
                     <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
@@ -109,7 +85,7 @@ const App = () => (
                   <Route path="formation" element={<FormationPage />} />
                 </Route>
                 <Route path=":sport" element={<SportLayout />}>
-                  <Route index element={<SportHome />} />
+                  <Route index element={<Navigate to="squad" replace />} />
                   <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
                   <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
                   <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
