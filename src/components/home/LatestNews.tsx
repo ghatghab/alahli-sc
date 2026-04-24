@@ -69,11 +69,11 @@ export const LatestNews = () => {
       <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
         <div>
           <div className="eyebrow">{t("nav.news")}</div>
-          <h2 className="font-display text-3xl sm:text-5xl font-bold uppercase mt-3 leading-[0.95]">{t("sections.latestNews")}</h2>
-          <div className="mt-3 h-[3px] w-16 bg-gradient-to-r from-gold to-transparent rtl:bg-gradient-to-l" />
+          <h2 className="font-display text-3xl sm:text-5xl font-bold mt-3 leading-[0.95] text-foreground">{t("sections.latestNews")}</h2>
+          <div className="mt-3 h-[2px] w-16 bg-accent" />
           <p className="text-muted-foreground mt-4 max-w-md">{t("sections.latestNewsSub")}</p>
         </div>
-        <Button asChild variant="outline" className="border-gold/40 text-foreground hover:bg-gold hover:text-gold-foreground hover:border-gold">
+        <Button asChild variant="outline" className="rounded-full border-border text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent">
           <Link to="/news">{t("sections.viewAll")} <ArrowRight className="h-4 w-4 rtl:rotate-180" /></Link>
         </Button>
       </div>
@@ -85,7 +85,7 @@ export const LatestNews = () => {
             <Link
               key={cat.id}
               to={`/news?category=${cat.slug}`}
-              className="px-4 py-1.5 rounded-full border border-border text-xs font-bold uppercase tracking-[0.15em] text-foreground hover:bg-gold hover:text-gold-foreground hover:border-gold transition-smooth"
+              className="px-4 py-1.5 rounded-full border border-border text-xs font-bold uppercase tracking-[0.15em] text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-smooth"
             >
               {categoryName(cat, i18n.language)}
             </Link>
