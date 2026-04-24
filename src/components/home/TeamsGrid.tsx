@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import training from "@/assets/training.jpg";
-import basket from "@/assets/basketball.jpg";
-import handball from "@/assets/handball.jpg";
-import volley from "@/assets/volleyball.jpg";
+import training from "@/assets/team-football.jpg";
+import basket from "@/assets/team-basketball.jpg";
+import handball from "@/assets/team-handball.jpg";
+import volley from "@/assets/team-volleyball.jpg";
 
 export const TeamsGrid = () => {
   const { t } = useTranslation();
