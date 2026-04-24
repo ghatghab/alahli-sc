@@ -137,6 +137,14 @@ export const en = {
       awasit: "أواسط",
     },
   },
+  firstTeam: {
+    discover: "Discover",
+    squadDesc: "Meet the players of Al Ahli's first team.",
+    staffDesc: "The coaching and medical staff of the first team.",
+    scheduleDesc: "Fixtures and results of the men's first football team.",
+    standingsDesc: "Follow the team's position in league and cup competitions.",
+    honoursDesc: "Trophies and titles won by the first team.",
+  },
   footer: {
     rights: "All rights reserved.",
     follow: "Follow us",

@@ -137,6 +137,14 @@ export const fr = {
       awasit: "أواسط",
     },
   },
+  firstTeam: {
+    discover: "Découvrir",
+    squadDesc: "Découvrez les joueurs qui composent l'équipe première de l'Al Ahli.",
+    staffDesc: "L'encadrement technique et le staff médical de l'équipe première.",
+    scheduleDesc: "Le calendrier et les résultats de l'équipe première de Football.",
+    standingsDesc: "Suivez le classement de l'équipe en championnat et en coupes.",
+    honoursDesc: "Les trophées et titres remportés par l'équipe première.",
+  },
   footer: {
     rights: "Tous droits réservés.",
     follow: "Suivez-nous",
