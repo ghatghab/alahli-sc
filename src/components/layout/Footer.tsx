@@ -2,16 +2,19 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import logoCrest from "@/assets/logo-alahli.png";
-import partner1 from "@/assets/partners/partner-1.png";
-import partner2 from "@/assets/partners/partner-2.png";
-import partner3 from "@/assets/partners/partner-3.png";
+import partner1Webp from "@/assets/partners/partner-1.webp";
+import partner2Webp from "@/assets/partners/partner-2.webp";
+import partner3Webp from "@/assets/partners/partner-3.webp";
+import partner1Png from "@/assets/partners/partner-1.png";
+import partner2Png from "@/assets/partners/partner-2.png";
+import partner3Png from "@/assets/partners/partner-3.png";
 
 export const Footer = () => {
   const { t } = useTranslation();
   const partners = [
-    { src: partner1, alt: "Libyana" },
-    { src: partner2, alt: "Skynet" },
-    { src: partner3, alt: "Sultan" },
+    { webp: partner1Webp, png: partner1Png, alt: "Libyana" },
+    { webp: partner2Webp, png: partner2Png, alt: "Skynet" },
+    { webp: partner3Webp, png: partner3Png, alt: "Sultan" },
   ];
   const columns: { title: string; links: { label: string; to: string }[] }[] = [
     {
@@ -69,12 +72,18 @@ export const Footer = () => {
                 aria-label={p.alt}
                 className="opacity-70 hover:opacity-100 transition-smooth"
               >
-                <img
-                  src={p.src}
-                  alt={p.alt}
-                  loading="lazy"
-                  className="h-20 md:h-28 w-auto object-contain dark:brightness-0 dark:invert"
-                />
+                <picture>
+                  <source srcSet={p.webp} type="image/webp" />
+                  <img
+                    src={p.png}
+                    alt={p.alt}
+                    loading="lazy"
+                    decoding="async"
+                    width="320"
+                    height="320"
+                    className="h-16 md:h-20 w-auto object-contain dark:brightness-0 dark:invert"
+                  />
+                </picture>
               </a>
             ))}
           </div>
