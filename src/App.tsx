@@ -18,6 +18,7 @@ import MensFirstLayout from "./pages/teams/MensFirstLayout";
 import FormationPage from "./pages/teams/FormationPage";
 import SportLayout from "./pages/teams/SportLayout";
 import RubricPage from "./pages/teams/RubricPage";
+import TeamsHome from "./pages/teams/TeamsHome";
 import { Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Auth from "./pages/Auth";
@@ -70,7 +71,7 @@ const App = () => (
                 <Route path="museum" element={<ClubPage />} />
               </Route>
               <Route path="/teams" element={<TeamsLayout />}>
-                <Route index element={<Navigate to="/teams/football" replace />} />
+                <Route index element={<TeamsHome />} />
                 <Route path="football" element={<FootballLayout />}>
                   <Route index element={<Navigate to="/teams/football/mens-first" replace />} />
                   <Route path="mens-first" element={<MensFirstLayout />}>
