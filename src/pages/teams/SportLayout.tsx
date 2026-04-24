@@ -1,16 +1,29 @@
-import { Outlet } from "react-router-dom";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { Outlet, useParams } from "react-router-dom";
+import { RubricTabs, RubricItem } from "@/components/layout/RubricTabs";
 
 /**
  * Wrapper for a single sport (basketball, handball, volleyball).
- * The rubric navigation lives in the sport's index page (RubricCards);
- * once the visitor enters a rubric the breadcrumb tells them where they are.
+ * Shows a "back to Teams" link plus the rubric tab bar.
  */
-const SportLayout = () => (
-  <>
-    <Breadcrumbs />
-    <Outlet />
-  </>
-);
+const SportLayout = () => {
+  const { sport } = useParams();
+  const base = `/teams/${sport}`;
+  const items: RubricItem[] = [
+    { to: `${base}/squad`, key: "teamsNav.squad" },
+    { to: `${base}/staff`, key: "teamsNav.staff" },
+    { to: `${base}/schedule`, key: "teamsNav.schedule" },
+    { to: `${base}/standings`, key: "teamsNav.standings" },
+    { to: `${base}/honours`, key: "teamsNav.honours" },
+  ];
+  return (
+    <>
+      <RubricTabs
+        parent={{ to: "/teams", labelKey: `teamsNav.${sport}` }}
+        items={items}
+      />
+      <Outlet />
+    </>
+  );
+};
 
 export default SportLayout;
