@@ -77,7 +77,7 @@ export const Header = () => {
             onClick={() => setOpen(true)}
             aria-label="Open menu"
             className={cn(
-              "flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
+              "self-stretch flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
               isHome && !scrolled
                 ? "bg-transparent text-white"
                 : "bg-accent hover:bg-accent/90 text-white"
