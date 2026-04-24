@@ -116,6 +116,12 @@ export const fr = {
     volleyball: "Volleyball",
     explore: "Voir l'effectif",
   },
+  teamsAlt: {
+    football: "Joueurs de l'équipe de football de l'Al Ahli Sports Club à l'entraînement",
+    basketball: "Action de l'équipe de basket-ball de l'Al Ahli Sports Club",
+    handball: "Action de l'équipe de handball de l'Al Ahli Sports Club",
+    volleyball: "Action de l'équipe de volley-ball de l'Al Ahli Sports Club",
+  },
   teamsNav: {
     football: "Football",
     basketball: "Basketball",
@@ -206,6 +212,22 @@ export const fr = {
     teams: {
       title: "Nos équipes | Al Ahli Sports Club",
       description: "Football, basket, handball, volley — toutes les équipes officielles de l'Al Ahli Sports Club.",
+    },
+    teams_football: {
+      title: "Équipe de football | Al Ahli Sports Club",
+      description: "Effectif, staff, calendrier, classement et palmarès de la section football vert et blanc de l'Al Ahli Sports Club.",
+    },
+    teams_basketball: {
+      title: "Équipe de basket-ball | Al Ahli Sports Club",
+      description: "Joueurs, encadrement, matchs et titres de la section basket-ball de l'Al Ahli Sports Club.",
+    },
+    teams_handball: {
+      title: "Équipe de handball | Al Ahli Sports Club",
+      description: "Effectif, staff technique, calendrier et palmarès de la section handball de l'Al Ahli Sports Club.",
+    },
+    teams_volleyball: {
+      title: "Équipe de volley-ball | Al Ahli Sports Club",
+      description: "Joueurs, staff, rencontres et trophées de la section volley-ball de l'Al Ahli Sports Club.",
     },
     news: {
       title: "Actualités | Al Ahli Sports Club",

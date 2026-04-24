@@ -116,6 +116,12 @@ export const en = {
     volleyball: "Volleyball",
     explore: "Explore squad",
   },
+  teamsAlt: {
+    football: "Al Ahli Sports Club football players in training",
+    basketball: "Al Ahli Sports Club basketball team in action",
+    handball: "Al Ahli Sports Club handball team in action",
+    volleyball: "Al Ahli Sports Club volleyball team in action",
+  },
   teamsNav: {
     football: "Football",
     basketball: "Basketball",
@@ -206,6 +212,22 @@ export const en = {
     teams: {
       title: "Our Teams | Al Ahli Sports Club",
       description: "Football, basketball, handball, volleyball — all official Al Ahli Sports Club squads in one place.",
+    },
+    teams_football: {
+      title: "Football Team | Al Ahli Sports Club",
+      description: "Squad, staff, fixtures, standings and honours of the green-and-white Al Ahli Sports Club football team.",
+    },
+    teams_basketball: {
+      title: "Basketball Team | Al Ahli Sports Club",
+      description: "Players, coaching staff, schedule and silverware of the Al Ahli Sports Club basketball team.",
+    },
+    teams_handball: {
+      title: "Handball Team | Al Ahli Sports Club",
+      description: "Squad, technical staff, fixtures and honours of the Al Ahli Sports Club handball team.",
+    },
+    teams_volleyball: {
+      title: "Volleyball Team | Al Ahli Sports Club",
+      description: "Players, staff, fixtures and trophies of the Al Ahli Sports Club volleyball team.",
     },
     news: {
       title: "News | Al Ahli Sports Club",
