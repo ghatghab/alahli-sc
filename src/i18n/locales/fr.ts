@@ -159,7 +159,7 @@ export const fr = {
       tvPlus: "Alahli TV PLUS",
       standings: "Classement",
       tickets: "Billetterie",
-      mensFirst: "Équipe première masculine",
+      mensFirst: "Équipe Première",
       legends: "Légendes",
       kits: "Maillots / Entraînement",
       clothing: "Vêtements",
