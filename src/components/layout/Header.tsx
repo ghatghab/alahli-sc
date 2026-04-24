@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ChevronDown, X, Settings } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { cn } from "@/lib/utils";
@@ -41,16 +41,6 @@ export const Header = () => {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  // Close drawer on Escape key
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
-
   // Track scroll to switch between transparent (over hero) and solid state
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -81,26 +71,17 @@ export const Header = () => {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setOpen(true);
-              }
-            }}
-            aria-label={t("nav.menu", "Menu")}
-            aria-expanded={open}
-            aria-controls="primary-navigation-drawer"
-            aria-haspopup="dialog"
+            aria-label="Open menu"
             className={cn(
               "flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
               scrolled
-                ? "bg-white hover:bg-white/90 text-accent"
+                ? "bg-accent hover:bg-accent/90 text-white"
                 : isHome
                   ? "bg-transparent text-white"
                   : "bg-transparent text-accent hover:bg-accent/10"
             )}
           >
-            <ChevronDown className="h-5 w-5" strokeWidth={2.5} />
+            <Menu className="h-5 w-5" strokeWidth={2.5} />
             <span className="text-[10px] font-bold uppercase tracking-wider">
               {t("nav.menu", "Menu")}
             </span>
@@ -197,10 +178,6 @@ export const Header = () => {
 
       {/* Full-screen drawer */}
       <div
-        id="primary-navigation-drawer"
-        role="dialog"
-        aria-modal="true"
-        aria-label={t("nav.menu", "Menu")}
         className={cn(
           "fixed inset-0 z-[60] transition-opacity duration-300",
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
