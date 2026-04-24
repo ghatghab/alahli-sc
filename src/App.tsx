@@ -73,17 +73,17 @@ const App = () => (
               </Route>
               <Route path="/teams" element={<TeamsLayout />}>
                 <Route index element={<TeamsHome />} />
-                <Route path="first-team" element={<FirstTeamPage />} />
                 <Route path="football" element={<FootballLayout />}>
-                  <Route index element={<Navigate to="/teams/football/mens-first" replace />} />
-                  <Route path="mens-first" element={<MensFirstLayout />}>
-                    <Route index element={<Navigate to="squad" replace />} />
+                  <Route index element={<Navigate to="/teams/football/first-team" replace />} />
+                  <Route path="first-team" element={<MensFirstLayout />}>
+                    <Route index element={<FirstTeamPage />} />
                     <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
                     <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
                     <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
                     <Route path="standings" element={<RubricPage titleKey="teamsNav.standings" />} />
                     <Route path="honours" element={<RubricPage titleKey="teamsNav.honours" />} />
                   </Route>
+                  <Route path="mens-first/*" element={<Navigate to="/teams/football/first-team" replace />} />
                   <Route path="formation" element={<FormationPage />} />
                 </Route>
                 <Route path=":sport" element={<SportLayout />}>

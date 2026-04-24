@@ -34,6 +34,7 @@ const labelFor = (
       handball: "teamsNav.handball",
       volleyball: "teamsNav.volleyball",
       "mens-first": "teamsNav.mensFirst",
+      "first-team": "teamsNav.mensFirst",
       formation: "teamsNav.formation",
       squad: "teamsNav.squad",
       staff: "teamsNav.staff",
