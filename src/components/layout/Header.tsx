@@ -31,6 +31,7 @@ export const Header = () => {
   // Inner pages don't have a hero, so use a light navbar with green text.
   const isHome = pathname === "/";
   const isLight = !isHome && !scrolled ? true : false;
+  const isScrolled = scrolled;
   // When "light" mode is active (inner pages, top of page) we use a white
   // background with green (accent) text. When scrolled, fall back to the
   // solid primary bar with white text on every route.
@@ -55,7 +56,7 @@ export const Header = () => {
         className={cn(
           "fixed top-0 inset-x-0 z-50 transition-[background-color,box-shadow,backdrop-filter,color] duration-300",
           scrolled
-            ? "bg-accent shadow-soft text-white"
+            ? "bg-accent shadow-md text-white"
             : isHome
               ? "bg-transparent text-primary-foreground"
               : "bg-white shadow-soft text-accent"
@@ -75,7 +76,7 @@ export const Header = () => {
             className={cn(
               "flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
               scrolled
-                ? "bg-accent hover:bg-accent/90 text-white"
+                ? "bg-white/15 hover:bg-white/25 text-white"
                 : isHome
                   ? "bg-transparent text-white"
                   : "bg-transparent text-accent hover:bg-accent/10"
@@ -107,11 +108,14 @@ export const Header = () => {
                     "relative text-[15px] font-bold uppercase tracking-wide transition-colors duration-200 py-1",
                     isLight
                       ? "text-accent/80 hover:text-accent"
-                      : "text-white/90 hover:text-white",
+                      : isScrolled
+                        ? "text-white hover:text-white"
+                        : "text-white/90 hover:text-white",
                     isActive &&
                       cn(
                         "after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:bg-accent",
-                        isLight ? "text-accent" : "text-white"
+                        isLight ? "text-accent" : "text-white",
+                        isScrolled && "after:bg-white"
                       )
                   )
                 }
@@ -129,7 +133,11 @@ export const Header = () => {
                 title="Admin"
                 className={cn(
                   "transition-colors",
-                  isLight ? "text-accent/80 hover:text-accent" : "text-white/90 hover:text-white"
+                  isLight
+                    ? "text-accent/80 hover:text-accent"
+                    : isScrolled
+                      ? "text-white hover:text-white/90"
+                      : "text-white/90 hover:text-white"
                 )}
               >
                 <Settings className="h-4 w-4" />
@@ -139,7 +147,11 @@ export const Header = () => {
               to="/auth"
               className={cn(
                 "text-[13px] font-bold uppercase tracking-wider italic transition-colors whitespace-nowrap",
-                isLight ? "text-accent/80 hover:text-accent" : "text-white/80 hover:text-white"
+                isLight
+                  ? "text-accent/80 hover:text-accent"
+                  : isScrolled
+                    ? "text-white hover:text-white/90"
+                    : "text-white/80 hover:text-white"
               )}
             >
               {t("nav.signIn")}
@@ -150,7 +162,9 @@ export const Header = () => {
                 "text-[13px] font-bold uppercase tracking-wider px-4 py-2 border transition-colors whitespace-nowrap",
                 isLight
                   ? "border-accent/40 text-accent hover:bg-accent hover:text-white"
-                  : "border-white/40 text-white hover:bg-white hover:text-primary"
+                  : isScrolled
+                    ? "border-white text-white hover:bg-white hover:text-accent"
+                    : "border-white/40 text-white hover:bg-white hover:text-primary"
               )}
             >
               {t("nav.tickets")}
@@ -161,7 +175,9 @@ export const Header = () => {
                 "text-[13px] font-bold uppercase tracking-wider px-4 py-2 border transition-colors whitespace-nowrap",
                 isLight
                   ? "border-accent/40 text-accent hover:bg-accent hover:text-white"
-                  : "border-white/40 text-white hover:bg-white hover:text-primary"
+                  : isScrolled
+                    ? "border-white text-white hover:bg-white hover:text-accent"
+                    : "border-white/40 text-white hover:bg-white hover:text-primary"
               )}
             >
               {t("nav.store")}
