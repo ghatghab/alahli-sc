@@ -33,10 +33,11 @@ export const Header = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 inset-x-0 z-50 transition-smooth",
+        "fixed top-0 inset-x-0 z-50",
+        "transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ease-out",
         scrolled
-          ? "bg-background/95 backdrop-blur-xl border-b border-border shadow-soft"
-          : "bg-background/90 backdrop-blur border-b border-transparent"
+          ? "bg-background/90 backdrop-blur-xl border-b border-border/60 shadow-soft"
+          : "bg-transparent backdrop-blur-0 border-b border-transparent shadow-none"
       )}
     >
       <div className="container-club flex h-12 lg:h-14 items-center justify-between gap-4">
@@ -51,9 +52,9 @@ export const Header = () => {
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  "relative px-3 py-2 text-[13px] font-bold transition-smooth",
-                  "text-foreground/80 hover:text-accent",
-                  isActive && "text-accent"
+                  "relative px-3 py-2 text-[13px] font-bold transition-colors duration-300",
+                  scrolled ? "text-foreground/80 hover:text-accent" : "text-white/90 hover:text-white",
+                  isActive && (scrolled ? "text-accent" : "text-white")
                 )
               }
             >
