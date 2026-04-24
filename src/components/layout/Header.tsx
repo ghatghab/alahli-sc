@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { Menu, X, Ticket, Settings, Tv, ShoppingBag } from "lucide-react";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
@@ -92,7 +91,6 @@ export const Header = () => {
             <Link to="/store"><ShoppingBag className="h-4 w-4 text-foreground/80" /></Link>
           </Button>
           <LanguageSwitcher />
-          <ThemeToggle />
           <Button
             variant="ghost"
             size="icon"
