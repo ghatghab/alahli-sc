@@ -30,7 +30,10 @@ export const Header = () => {
   // Home page has the hero — navbar starts transparent over it.
   // Inner pages don't have a hero, so use a light navbar with green text.
   const isHome = pathname === "/";
-  const isLight = !isHome && !scrolled ? true : false;
+  // Scrolled => white bg with green text (everywhere).
+  // Home top => transparent with white text.
+  // Inner pages top => white bg with green text.
+  const isLight = scrolled || !isHome;
   const isScrolled = scrolled;
   // When "light" mode is active (inner pages, top of page) we use a white
   // background with green (accent) text. When scrolled, fall back to the
@@ -56,7 +59,7 @@ export const Header = () => {
         className={cn(
           "fixed top-0 inset-x-0 z-50 transition-[background-color,box-shadow,backdrop-filter,color] duration-300",
           scrolled
-            ? "bg-accent shadow-md text-white"
+            ? "bg-white shadow-md text-accent"
             : isHome
               ? "bg-transparent text-primary-foreground"
               : "bg-white shadow-soft text-accent"
@@ -75,11 +78,9 @@ export const Header = () => {
             aria-label="Open menu"
             className={cn(
               "flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
-              scrolled
-                ? "bg-white/15 hover:bg-white/25 text-white"
-                : isHome
-                  ? "bg-transparent text-white"
-                  : "bg-transparent text-accent hover:bg-accent/10"
+              isHome && !scrolled
+                ? "bg-transparent text-white"
+                : "bg-accent hover:bg-accent/90 text-white"
             )}
           >
             <Menu className="h-5 w-5" strokeWidth={2.5} />
@@ -108,14 +109,11 @@ export const Header = () => {
                     "relative text-[15px] font-bold uppercase tracking-wide transition-colors duration-200 py-1",
                     isLight
                       ? "text-accent/80 hover:text-accent"
-                      : isScrolled
-                        ? "text-white hover:text-white"
-                        : "text-white/90 hover:text-white",
+                    : "text-white/90 hover:text-white",
                     isActive &&
                       cn(
                         "after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:bg-accent",
-                        isLight ? "text-accent" : "text-white",
-                        isScrolled && "after:bg-white"
+                      isLight ? "text-accent" : "text-white"
                       )
                   )
                 }
@@ -135,9 +133,7 @@ export const Header = () => {
                   "transition-colors",
                   isLight
                     ? "text-accent/80 hover:text-accent"
-                    : isScrolled
-                      ? "text-white hover:text-white/90"
-                      : "text-white/90 hover:text-white"
+                    : "text-white/90 hover:text-white"
                 )}
               >
                 <Settings className="h-4 w-4" />
@@ -149,9 +145,7 @@ export const Header = () => {
                 "text-[13px] font-bold uppercase tracking-wider italic transition-colors whitespace-nowrap",
                 isLight
                   ? "text-accent/80 hover:text-accent"
-                  : isScrolled
-                    ? "text-white hover:text-white/90"
-                    : "text-white/80 hover:text-white"
+                  : "text-white/80 hover:text-white"
               )}
             >
               {t("nav.signIn")}
@@ -162,9 +156,7 @@ export const Header = () => {
                 "text-[13px] font-bold uppercase tracking-wider px-4 py-2 border transition-colors whitespace-nowrap",
                 isLight
                   ? "border-accent/40 text-accent hover:bg-accent hover:text-white"
-                  : isScrolled
-                    ? "border-white text-white hover:bg-white hover:text-accent"
-                    : "border-white/40 text-white hover:bg-white hover:text-primary"
+                  : "border-white/40 text-white hover:bg-white hover:text-primary"
               )}
             >
               {t("nav.tickets")}
@@ -175,9 +167,7 @@ export const Header = () => {
                 "text-[13px] font-bold uppercase tracking-wider px-4 py-2 border transition-colors whitespace-nowrap",
                 isLight
                   ? "border-accent/40 text-accent hover:bg-accent hover:text-white"
-                  : isScrolled
-                    ? "border-white text-white hover:bg-white hover:text-accent"
-                    : "border-white/40 text-white hover:bg-white hover:text-primary"
+                  : "border-white/40 text-white hover:bg-white hover:text-primary"
               )}
             >
               {t("nav.store")}
@@ -203,18 +193,16 @@ export const Header = () => {
         <div
           className={cn(
             "absolute inset-0 backdrop-blur-sm",
-            scrolled ? "bg-accent/70" : isHome ? "bg-primary/70" : "bg-white/70"
+            isHome && !scrolled ? "bg-primary/70" : "bg-accent/70"
           )}
           onClick={() => setOpen(false)}
         />
         <aside
           className={cn(
             "absolute top-0 start-0 h-full w-full sm:w-[420px] shadow-2xl",
-            scrolled
-              ? "bg-accent text-white"
-              : isHome
-                ? "bg-primary text-primary-foreground"
-                : "bg-white text-accent",
+            isHome && !scrolled
+              ? "bg-primary text-primary-foreground"
+              : "bg-accent text-white",
             "transition-transform duration-400 ease-out",
             open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
           )}
@@ -222,7 +210,7 @@ export const Header = () => {
           <div
             className={cn(
               "flex items-center justify-between px-6 h-14 lg:h-16 border-b",
-              isLight ? "border-accent/10" : "border-white/10"
+              "border-white/10"
             )}
           >
             <Logo size="sm" />
@@ -230,9 +218,7 @@ export const Header = () => {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className={cn(
-                isLight ? "text-accent/80 hover:text-accent" : "text-white/90 hover:text-white"
-              )}
+              className="text-white/90 hover:text-white"
             >
               <X className="h-6 w-6" strokeWidth={2.5} />
             </button>
@@ -246,10 +232,8 @@ export const Header = () => {
                 className={({ isActive }) =>
                   cn(
                     "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
-                    isLight
-                      ? "border-accent/10 text-accent/80 hover:text-accent"
-                      : "border-white/10 text-white/90 hover:text-white",
-                    isActive && (isLight ? "text-accent" : "text-white")
+                    "border-white/10 text-white/90 hover:text-white",
+                    isActive && "text-white"
                   )
                 }
               >
@@ -262,10 +246,8 @@ export const Header = () => {
               className={({ isActive }) =>
                 cn(
                   "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
-                  isLight
-                    ? "border-accent/10 text-accent/80 hover:text-accent"
-                    : "border-white/10 text-white/90 hover:text-white",
-                  isActive && (isLight ? "text-accent" : "text-white")
+                  "border-white/10 text-white/90 hover:text-white",
+                  isActive && "text-white"
                 )
               }
             >
