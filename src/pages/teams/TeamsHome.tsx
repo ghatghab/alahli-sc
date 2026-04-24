@@ -37,7 +37,7 @@ const TeamsHome = () => {
           <li key={s.key}>
             <Link
               to={`/teams/${s.key}`}
-              className="group relative block aspect-[3/4] overflow-hidden rounded-2xl shadow-soft transition-smooth ring-1 ring-border hover:ring-accent/60 hover:-translate-y-1 hover:shadow-elegant bg-card"
+              className="group relative block aspect-[3/4] overflow-hidden rounded-2xl shadow-soft transition-transform duration-300 ring-1 ring-border hover:ring-accent/60 hover:scale-[1.02] hover:shadow-elegant bg-black"
             >
               <ImageWithSkeleton
                 src={s.img}
