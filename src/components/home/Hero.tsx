@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, Pause, Play } from "lucide-react";
+import { ArrowRight, Pause, Play } from "lucide-react";
+import { NewsTag } from "@/components/news/NewsTag";
 import { supabase } from "@/integrations/supabase/client";
 import {
   NewsArticleRow,
@@ -133,21 +134,15 @@ export const Hero = () => {
                 <div className="absolute inset-x-0 bottom-0">
                   <div className="container-club pb-10 lg:pb-16">
                     <div className="max-w-3xl">
-                      <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.3em] text-white mb-4">
-                        <span className="inline-block h-px w-8 bg-accent" />
-                        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent text-accent-foreground">
-                          {slide.category}
-                        </span>
+                      <div className="mb-4">
+                        <NewsTag
+                          category={slide.category}
+                          timeText={slide.publishedAt ? timeAgo(slide.publishedAt, i18n.language) : null}
+                        />
                       </div>
                       <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.05] text-white text-shadow-elegant">
                         {slide.title}
                       </h1>
-                      {slide.publishedAt && (
-                        <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-white/80 font-semibold">
-                          <Clock className="h-3.5 w-3.5" />
-                          {timeAgo(slide.publishedAt, i18n.language)}
-                        </div>
-                      )}
                       <div className="mt-6">
                         <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full">
                           <span className="inline-flex items-center">
