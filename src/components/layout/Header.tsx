@@ -48,7 +48,7 @@ export const Header = () => {
           "fixed top-0 inset-x-0 z-50 text-primary-foreground transition-[background-color,box-shadow,backdrop-filter] duration-300",
           scrolled
             ? "bg-primary shadow-soft"
-            : "bg-gradient-to-b from-black/40 to-transparent"
+            : "bg-transparent"
         )}
       >
         <div
