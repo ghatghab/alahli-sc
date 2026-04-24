@@ -5,6 +5,8 @@ import football from "@/assets/team-football.jpg";
 import basketball from "@/assets/team-basketball.jpg";
 import handball from "@/assets/team-handball.jpg";
 import volleyball from "@/assets/team-volleyball.jpg";
+import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
+import Seo from "@/components/Seo";
 
 const SPORTS = [
   { key: "football", img: football },
@@ -21,6 +23,7 @@ const TeamsHome = () => {
   const { t } = useTranslation();
   return (
     <div className="container-club py-16">
+      <Seo pageKey="teams" />
       <div className="text-center max-w-2xl mx-auto mb-10">
         <div className="eyebrow justify-center">{t("nav.teams")}</div>
         <h1 className="font-display text-3xl sm:text-5xl font-bold mt-3 leading-[0.95] text-foreground">
@@ -36,10 +39,11 @@ const TeamsHome = () => {
               to={`/teams/${s.key}`}
               className="group relative block aspect-[3/4] overflow-hidden rounded-2xl shadow-soft transition-smooth ring-1 ring-border hover:ring-accent/60 hover:-translate-y-1 hover:shadow-elegant bg-card"
             >
-              <img
+              <ImageWithSkeleton
                 src={s.img}
-                alt={t(`teamsNav.${s.key}`)}
+                alt={t(`teamsAlt.${s.key}`)}
                 loading="lazy"
+                wrapperClassName="absolute inset-0 h-full w-full"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/95 via-foreground/40 to-transparent" />

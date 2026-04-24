@@ -1,5 +1,6 @@
 import { Outlet, useParams } from "react-router-dom";
 import { RubricTabs, RubricItem } from "@/components/layout/RubricTabs";
+import Seo from "@/components/Seo";
 
 /**
  * Wrapper for a single sport (basketball, handball, volleyball).
@@ -8,6 +9,9 @@ import { RubricTabs, RubricItem } from "@/components/layout/RubricTabs";
 const SportLayout = () => {
   const { sport } = useParams();
   const base = `/teams/${sport}`;
+  const seoKey = sport && ["football", "basketball", "handball", "volleyball"].includes(sport)
+    ? `teams_${sport}`
+    : "teams";
   const items: RubricItem[] = [
     { to: `${base}/squad`, key: "teamsNav.squad" },
     { to: `${base}/staff`, key: "teamsNav.staff" },
@@ -17,6 +21,7 @@ const SportLayout = () => {
   ];
   return (
     <>
+      <Seo pageKey={seoKey} />
       <RubricTabs
         parent={{ to: "/teams", labelKey: `teamsNav.${sport}` }}
         items={items}
