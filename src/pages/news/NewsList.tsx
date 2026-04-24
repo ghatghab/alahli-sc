@@ -15,6 +15,7 @@ import fallback from "@/assets/stadium-aerial.jpg";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { Seo } from "@/components/Seo";
 
 type Row = NewsArticleRow & {
   news_translations: NewsTranslationRow[];
@@ -95,6 +96,7 @@ export const NewsList = () => {
 
   return (
     <>
+      <Seo pageKey="news" />
       <Breadcrumbs className="pt-20" />
       <section className="container-club pt-8 pb-16">
         <header className="mb-12">

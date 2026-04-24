@@ -16,6 +16,7 @@ import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import logo from "@/assets/logo-alahli.jpg";
 import { cn } from "@/lib/utils";
 import { useLocalStorageState } from "@/hooks/useLocalStorageState";
+import { Seo } from "@/components/Seo";
 
 const TEAMS: Team[] = ["football", "basketball", "handball", "volleyball"];
 const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -114,6 +115,7 @@ const MatchCenter = () => {
 
   return (
     <>
+      <Seo pageKey="matchCenter" />
       <h1 className="sr-only">{t("pages.matchCenter.title")}</h1>
       <section className="container-club pt-28 md:pt-32 pb-10">
         {/* Live now */}

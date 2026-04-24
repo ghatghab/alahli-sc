@@ -8,6 +8,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { Seo } from "@/components/Seo";
 
 type Row = {
   team: string;
@@ -86,6 +87,7 @@ const Standings = () => {
 
   return (
     <>
+      <Seo pageKey="standings" />
       <h1 className="sr-only">{t("standings.title")}</h1>
       <section className="container-club pt-28 md:pt-32 pb-10">
         <div className="rounded-xl border border-border bg-card p-4 md:p-5 shadow-soft mb-6">

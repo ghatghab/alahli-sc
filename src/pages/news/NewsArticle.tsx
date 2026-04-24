@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Clock, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { Seo } from "@/components/Seo";
 import {
   NewsArticleRow,
   NewsCategoryRow,
@@ -63,8 +64,18 @@ export const NewsArticle = () => {
   const tr = pickTranslation(article.news_translations, i18n.language);
   if (!tr) return null;
 
+  const seoTitle = `${tr.title} | ${t("seo.siteName")}`;
+  const seoDesc = tr.excerpt ?? (tr.content ? tr.content.slice(0, 155) : "");
+
   return (
     <article>
+      <Seo
+        pageKey="news"
+        title={seoTitle}
+        description={seoDesc}
+        image={article.cover_image_url ?? undefined}
+        type="article"
+      />
       <Breadcrumbs className="pt-20" />
       <header className="container-club max-w-4xl pt-8">
         <Link

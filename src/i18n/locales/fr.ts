@@ -1,5 +1,5 @@
 export const fr = {
-  brand: { name: "Alahli SC", tagline: "Vert & blanc depuis 1950" },
+  brand: { name: "Al Ahli Sports Club", tagline: "Vert & blanc depuis 1950" },
   nav: {
     club: "Club",
     teams: "Équipes",
@@ -44,7 +44,7 @@ export const fr = {
   },
   schedule: {
     title: "Calendrier complet",
-    intro: "Toutes les rencontres de l'Alahli SC, tous sports confondus.",
+    intro: "Toutes les rencontres de l'Al Ahli Sports Club, tous sports confondus.",
     search: "Rechercher un adversaire…",
     competition: "Compétition",
     team: "Équipe",
@@ -69,7 +69,7 @@ export const fr = {
   },
   standings: {
     title: "Classement",
-    intro: "Classements de toutes les compétitions de l'Alahli SC.",
+    intro: "Classements de toutes les compétitions de l'Al Ahli Sports Club.",
     team: "Équipe",
     p: "J",
     w: "G",
@@ -151,15 +151,59 @@ export const fr = {
     },
   },
   pages: {
-    club: { title: "Le Club", intro: "Découvrez l'histoire, les valeurs et les hommes derrière l'Alahli SC." },
+    club: { title: "Le Club", intro: "Découvrez l'histoire, les valeurs et les hommes derrière l'Al Ahli Sports Club." },
     teams: { title: "Nos équipes", intro: "Football, basket, handball, volley — un club, plusieurs champions." },
     news: { title: "Actualités", intro: "Toutes les dernières infos du club." },
     matchCenter: { title: "Centre des matchs", intro: "Calendrier, résultats et informations en direct." },
     schedule: { title: "Calendrier", intro: "Tous les prochains matchs, toutes disciplines." },
     tickets: { title: "Billetterie", intro: "Soyez là. Vivez chaque match dans les tribunes." },
-    academy: { title: "Académie", intro: "La nouvelle génération de l'Alahli." },
+    academy: { title: "Académie", intro: "La nouvelle génération de l'Al Ahli." },
     contact: { title: "Contact", intro: "Nous serions ravis d'échanger avec vous." },
     notFound: { title: "Page introuvable", back: "Retour à l'accueil" },
+  },
+  seo: {
+    siteName: "Al Ahli Sports Club",
+    titleSuffix: "Al Ahli Sports Club | Officiel",
+    home: {
+      title: "Al Ahli Sports Club — Site officiel",
+      description: "Site officiel de l'Al Ahli Sports Club (النادي الأهلي الرياضي). Actualités, matchs, équipes et billetterie — vert et blanc depuis 1950.",
+    },
+    club: {
+      title: "Le Club | Al Ahli Sports Club",
+      description: "Découvrez l'histoire, l'identité et la direction de l'Al Ahli Sports Club, fondé en 1950.",
+    },
+    teams: {
+      title: "Nos équipes | Al Ahli Sports Club",
+      description: "Football, basket, handball, volley — toutes les équipes officielles de l'Al Ahli Sports Club.",
+    },
+    news: {
+      title: "Actualités | Al Ahli Sports Club",
+      description: "Toutes les dernières actualités, transferts et annonces de l'Al Ahli Sports Club.",
+    },
+    matchCenter: {
+      title: "Centre des matchs | Al Ahli Sports Club",
+      description: "Scores en direct, calendrier et résultats de toutes les compétitions de l'Al Ahli Sports Club.",
+    },
+    standings: {
+      title: "Classement | Al Ahli Sports Club",
+      description: "Classements actuels en championnat et coupe pour l'Al Ahli Sports Club, tous sports confondus.",
+    },
+    tickets: {
+      title: "Billetterie | Al Ahli Sports Club",
+      description: "Achetez vos billets et vivez chaque match de l'Al Ahli Sports Club depuis les tribunes.",
+    },
+    academy: {
+      title: "Académie | Al Ahli Sports Club",
+      description: "L'académie de l'Al Ahli Sports Club — former la nouvelle génération vert et blanc.",
+    },
+    contact: {
+      title: "Contact | Al Ahli Sports Club",
+      description: "Contactez l'Al Ahli Sports Club — demandes officielles, médias et partenariats.",
+    },
+    notFound: {
+      title: "Page introuvable | Al Ahli Sports Club",
+      description: "La page que vous cherchez n'existe pas sur le site de l'Al Ahli Sports Club.",
+    },
   },
   breadcrumb: {
     home: "Accueil",
@@ -183,7 +227,7 @@ export const fr = {
   },
   auth: {
     title: "Connexion",
-    subtitle: "Accédez au CMS de l'Alahli SC.",
+    subtitle: "Accédez au CMS de l'Al Ahli Sports Club.",
     signIn: "Se connecter",
     signUp: "Créer un compte",
     email: "E-mail",

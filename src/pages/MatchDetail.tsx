@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getFixtureById, type Fixture, type MatchEvent, type Player } from "@/lib/fixtures";
 import logo from "@/assets/logo-alahli.jpg";
 import { LineupPitch } from "@/components/match/LineupPitch";
+import { Seo } from "@/components/Seo";
 
 const EventIcon = ({ type }: { type: MatchEvent["type"] }) => {
   switch (type) {
@@ -73,6 +74,9 @@ const MatchDetailContent = ({
   const venue = fixture.venue[lang];
   const finished = fixture.status === "finished";
 
+  const matchTitle = `${homeName} vs ${awayName} | ${t("seo.siteName")}`;
+  const matchDesc = `${fixture.competition} — ${homeName} vs ${awayName} · ${venue}.`;
+
   const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const localeTag = lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB";
   const fmt = new Intl.DateTimeFormat(localeTag, {
@@ -84,6 +88,7 @@ const MatchDetailContent = ({
 
   return (
     <article className="pb-20">
+      <Seo pageKey="matchCenter" title={matchTitle} description={matchDesc} type="article" />
       {/* Hero */}
       <header className="relative bg-gradient-primary text-primary-foreground pt-32 pb-12">
         <div
