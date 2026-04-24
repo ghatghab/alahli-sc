@@ -17,7 +17,7 @@ export const RubricTabs = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="border-b border-border/70 bg-background/90 backdrop-blur-xl">
+    <div className="sticky top-14 lg:top-16 z-40 border-b border-border/70 bg-background/95 backdrop-blur-xl">
       <nav
         aria-label="Section"
         className="container-club overflow-x-auto sm:overflow-x-visible"
