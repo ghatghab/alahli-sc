@@ -201,9 +201,7 @@ export const Header = () => {
         <aside
           className={cn(
             "absolute top-0 start-0 h-full w-full sm:w-[420px] shadow-2xl",
-            isHome && !scrolled
-              ? "bg-primary text-primary-foreground"
-              : "bg-accent text-white",
+            "bg-white text-accent",
             "transition-transform duration-400 ease-out",
             open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
           )}
@@ -211,7 +209,7 @@ export const Header = () => {
           <div
             className={cn(
               "flex items-center justify-between px-6 h-14 lg:h-16 border-b",
-              "border-white/10"
+              "border-accent/10"
             )}
           >
             <Logo size="sm" />
@@ -219,7 +217,7 @@ export const Header = () => {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="text-white/90 hover:text-white"
+              className="text-accent/80 hover:text-accent"
             >
               <X className="h-6 w-6" strokeWidth={2.5} />
             </button>
@@ -233,8 +231,8 @@ export const Header = () => {
                 className={({ isActive }) =>
                   cn(
                     "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
-                    "border-white/10 text-white/90 hover:text-white",
-                    isActive && "text-white"
+                    "border-accent/10 text-accent/80 hover:text-accent",
+                    isActive && "text-accent"
                   )
                 }
               >
@@ -247,8 +245,8 @@ export const Header = () => {
               className={({ isActive }) =>
                 cn(
                   "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
-                  "border-white/10 text-white/90 hover:text-white",
-                  isActive && "text-white"
+                  "border-accent/10 text-accent/80 hover:text-accent",
+                  isActive && "text-accent"
                 )
               }
             >
