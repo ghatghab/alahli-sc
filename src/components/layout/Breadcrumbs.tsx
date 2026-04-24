@@ -66,7 +66,7 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
     href: "/" + segments.slice(0, i + 1).join("/"),
     label: labelFor(seg, i, segments, t),
     isLast: i === segments.length - 1,
-  }));
+  })).slice(0, -1);
 
   return (
     <nav
