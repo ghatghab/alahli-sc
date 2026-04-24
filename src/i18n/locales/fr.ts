@@ -116,6 +116,12 @@ export const fr = {
     volleyball: "Volleyball",
     explore: "Voir l'effectif",
   },
+  teamsAlt: {
+    football: "Joueurs de l'équipe de football de l'Al Ahli Sports Club à l'entraînement",
+    basketball: "Action de l'équipe de basket-ball de l'Al Ahli Sports Club",
+    handball: "Action de l'équipe de handball de l'Al Ahli Sports Club",
+    volleyball: "Action de l'équipe de volley-ball de l'Al Ahli Sports Club",
+  },
   teamsNav: {
     football: "Football",
     basketball: "Basketball",
