@@ -26,6 +26,27 @@ const labelFor = (
     const clubLabel = t(clubKey);
     if (clubLabel && clubLabel !== clubKey) return clubLabel;
   }
+  if (root === "teams" && index >= 1) {
+    // Map known segments to teamsNav.* labels.
+    const map: Record<string, string> = {
+      football: "teamsNav.football",
+      basketball: "teamsNav.basketball",
+      handball: "teamsNav.handball",
+      volleyball: "teamsNav.volleyball",
+      "mens-first": "teamsNav.mensFirst",
+      formation: "teamsNav.formation",
+      squad: "teamsNav.squad",
+      staff: "teamsNav.staff",
+      schedule: "teamsNav.schedule",
+      standings: "teamsNav.standings",
+      honours: "teamsNav.honours",
+    };
+    const key = map[segment];
+    if (key) {
+      const label = t(key);
+      if (label && label !== key) return label;
+    }
+  }
   // Humanize fallback
   return decodeURIComponent(segment).replace(/-/g, " ");
 };
