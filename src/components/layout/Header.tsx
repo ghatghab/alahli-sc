@@ -201,23 +201,38 @@ export const Header = () => {
         aria-hidden={!open}
       >
         <div
-          className="absolute inset-0 bg-accent/70 backdrop-blur-sm"
+          className={cn(
+            "absolute inset-0 backdrop-blur-sm",
+            scrolled ? "bg-accent/70" : isHome ? "bg-primary/70" : "bg-white/70"
+          )}
           onClick={() => setOpen(false)}
         />
         <aside
           className={cn(
-            "absolute top-0 start-0 h-full w-full sm:w-[420px] bg-accent text-white shadow-2xl",
+            "absolute top-0 start-0 h-full w-full sm:w-[420px] shadow-2xl",
+            scrolled
+              ? "bg-accent text-white"
+              : isHome
+                ? "bg-primary text-primary-foreground"
+                : "bg-white text-accent",
             "transition-transform duration-400 ease-out",
             open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
           )}
         >
-          <div className="flex items-center justify-between px-6 h-14 lg:h-16 border-b border-white/10">
+          <div
+            className={cn(
+              "flex items-center justify-between px-6 h-14 lg:h-16 border-b",
+              isLight ? "border-accent/10" : "border-white/10"
+            )}
+          >
             <Logo size="sm" />
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="text-white/90 hover:text-white"
+              className={cn(
+                isLight ? "text-accent/80 hover:text-accent" : "text-white/90 hover:text-white"
+              )}
             >
               <X className="h-6 w-6" strokeWidth={2.5} />
             </button>
@@ -230,9 +245,11 @@ export const Header = () => {
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   cn(
-                    "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b border-white/10",
-                    "text-white/90 hover:text-accent",
-                    isActive && "text-accent"
+                    "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
+                    isLight
+                      ? "border-accent/10 text-accent/80 hover:text-accent"
+                      : "border-white/10 text-white/90 hover:text-white",
+                    isActive && (isLight ? "text-accent" : "text-white")
                   )
                 }
               >
@@ -244,9 +261,11 @@ export const Header = () => {
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
                 cn(
-                  "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b border-white/10",
-                  "text-white/90 hover:text-accent",
-                  isActive && "text-accent"
+                  "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
+                  isLight
+                    ? "border-accent/10 text-accent/80 hover:text-accent"
+                    : "border-white/10 text-white/90 hover:text-white",
+                  isActive && (isLight ? "text-accent" : "text-white")
                 )
               }
             >
