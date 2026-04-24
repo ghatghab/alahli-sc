@@ -124,32 +124,34 @@ export const Hero = () => {
                 <img
                   src={slide.image}
                   alt=""
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
                   loading="eager"
                 />
-                {/* Readability overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-primary/10" />
+                {/* Readability overlay — strong bottom-left fade like PSG */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-transparent to-transparent" />
 
                 {/* Text over image */}
                 <div className="absolute inset-x-0 bottom-0">
-                  <div className="container-club pb-10 lg:pb-16">
-                    <div className="max-w-3xl">
-                      <div className="mb-4">
+                  <div className="container-club pb-12 lg:pb-20">
+                    <div className="max-w-4xl">
+                      <div className="mb-5">
                         <NewsTag
                           onDark
                           category={slide.category}
                           timeText={slide.publishedAt ? timeAgo(slide.publishedAt, i18n.language) : null}
                         />
                       </div>
-                      <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.05] text-white text-shadow-elegant">
+                      <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white text-shadow-elegant">
                         {slide.title}
                       </h1>
-                      <div className="mt-6">
-                        <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full">
-                          <span className="inline-flex items-center">
-                            {slide.cta} <ArrowRight className="h-4 w-4 rtl:rotate-180 ms-2" />
+                      <div className="mt-8">
+                        <span className="group/cta inline-flex items-center gap-3 text-white text-sm font-bold uppercase tracking-[0.2em]">
+                          <span className="relative pb-1 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-white after:origin-left after:scale-x-100 after:transition-transform">
+                            {slide.cta}
                           </span>
-                        </Button>
+                          <ArrowRight className="h-4 w-4 rtl:rotate-180 transition-transform group-hover/cta:translate-x-1" />
+                        </span>
                       </div>
                     </div>
                   </div>
