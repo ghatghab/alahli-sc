@@ -282,6 +282,20 @@ All colors MUST be HSL.
   .gold-divider {
     @apply h-px w-12 bg-gradient-to-r from-accent to-transparent rtl:bg-gradient-to-l;
   }
+  .chevrons-overlay {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><path d='M0 36 L24 12 L48 36' fill='none' stroke='white' stroke-opacity='0.08' stroke-width='1.5'/><path d='M0 48 L24 24 L48 48' fill='none' stroke='white' stroke-opacity='0.08' stroke-width='1.5'/></svg>");
+    background-repeat: repeat;
+  }
+  .chevrons-overlay-dark {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><path d='M0 36 L24 12 L48 36' fill='none' stroke='black' stroke-opacity='0.05' stroke-width='1.5'/><path d='M0 48 L24 24 L48 48' fill='none' stroke='black' stroke-opacity='0.05' stroke-width='1.5'/></svg>");
+    background-repeat: repeat;
+  }
+  .gold-button {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full
+           text-[12px] font-bold uppercase tracking-[0.18em]
+           bg-gold text-gold-foreground hover:bg-gold-deep transition-colors duration-300
+           shadow-gold;
+  }
 }
 
 @layer utilities {
