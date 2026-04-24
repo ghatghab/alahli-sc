@@ -12,7 +12,7 @@ const items: SubNavItem[] = [
 ];
 
 const ClubLayout = () => (
-  <div className="pt-20">
+  <div>
     <SubNav items={items} />
     <Outlet />
   </div>
