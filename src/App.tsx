@@ -15,6 +15,7 @@ import ClubLayout from "./pages/club/ClubLayout";
 import TeamsLayout from "./pages/teams/TeamsLayout";
 import FootballLayout from "./pages/teams/FootballLayout";
 import MensFirstLayout from "./pages/teams/MensFirstLayout";
+import FirstTeamPage from "./pages/teams/FirstTeamPage";
 import FormationPage from "./pages/teams/FormationPage";
 import SportLayout from "./pages/teams/SportLayout";
 import RubricPage from "./pages/teams/RubricPage";
@@ -72,6 +73,7 @@ const App = () => (
               </Route>
               <Route path="/teams" element={<TeamsLayout />}>
                 <Route index element={<TeamsHome />} />
+                <Route path="first-team" element={<FirstTeamPage />} />
                 <Route path="football" element={<FootballLayout />}>
                   <Route index element={<Navigate to="/teams/football/mens-first" replace />} />
                   <Route path="mens-first" element={<MensFirstLayout />}>
