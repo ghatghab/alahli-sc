@@ -308,8 +308,9 @@ const MatchRow = ({
   const isHome = fixture.homeAway === "home";
   const finished = fixture.status === "finished";
   const isLive = fixture.status === "live";
-  const homeName = isHome ? "Alahli SC" : opp;
-  const awayName = isHome ? opp : "Alahli SC";
+  const clubName = t("brand.name");
+  const homeName = isHome ? clubName : opp;
+  const awayName = isHome ? opp : clubName;
   const homeLogo = isHome ? logo : null;
   const awayLogo = isHome ? null : logo;
 
