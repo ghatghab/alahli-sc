@@ -116,6 +116,12 @@ export const en = {
     volleyball: "Volleyball",
     explore: "Explore squad",
   },
+  teamsAlt: {
+    football: "Al Ahli Sports Club football players in training",
+    basketball: "Al Ahli Sports Club basketball team in action",
+    handball: "Al Ahli Sports Club handball team in action",
+    volleyball: "Al Ahli Sports Club volleyball team in action",
+  },
   teamsNav: {
     football: "Football",
     basketball: "Basketball",
