@@ -161,6 +161,50 @@ export const fr = {
     contact: { title: "Contact", intro: "Nous serions ravis d'échanger avec vous." },
     notFound: { title: "Page introuvable", back: "Retour à l'accueil" },
   },
+  seo: {
+    siteName: "Al Ahli Sports Club",
+    titleSuffix: "Al Ahli Sports Club | Officiel",
+    home: {
+      title: "Al Ahli Sports Club — Site officiel",
+      description: "Site officiel de l'Al Ahli Sports Club (النادي الأهلي الرياضي). Actualités, matchs, équipes et billetterie — vert et blanc depuis 1950.",
+    },
+    club: {
+      title: "Le Club | Al Ahli Sports Club",
+      description: "Découvrez l'histoire, l'identité et la direction de l'Al Ahli Sports Club, fondé en 1950.",
+    },
+    teams: {
+      title: "Nos équipes | Al Ahli Sports Club",
+      description: "Football, basket, handball, volley — toutes les équipes officielles de l'Al Ahli Sports Club.",
+    },
+    news: {
+      title: "Actualités | Al Ahli Sports Club",
+      description: "Toutes les dernières actualités, transferts et annonces de l'Al Ahli Sports Club.",
+    },
+    matchCenter: {
+      title: "Centre des matchs | Al Ahli Sports Club",
+      description: "Scores en direct, calendrier et résultats de toutes les compétitions de l'Al Ahli Sports Club.",
+    },
+    standings: {
+      title: "Classement | Al Ahli Sports Club",
+      description: "Classements actuels en championnat et coupe pour l'Al Ahli Sports Club, tous sports confondus.",
+    },
+    tickets: {
+      title: "Billetterie | Al Ahli Sports Club",
+      description: "Achetez vos billets et vivez chaque match de l'Al Ahli Sports Club depuis les tribunes.",
+    },
+    academy: {
+      title: "Académie | Al Ahli Sports Club",
+      description: "L'académie de l'Al Ahli Sports Club — former la nouvelle génération vert et blanc.",
+    },
+    contact: {
+      title: "Contact | Al Ahli Sports Club",
+      description: "Contactez l'Al Ahli Sports Club — demandes officielles, médias et partenariats.",
+    },
+    notFound: {
+      title: "Page introuvable | Al Ahli Sports Club",
+      description: "La page que vous cherchez n'existe pas sur le site de l'Al Ahli Sports Club.",
+    },
+  },
   breadcrumb: {
     home: "Accueil",
   },

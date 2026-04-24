@@ -161,6 +161,50 @@ export const en = {
     contact: { title: "Contact", intro: "We'd love to hear from you." },
     notFound: { title: "Page not found", back: "Back to home" },
   },
+  seo: {
+    siteName: "Al Ahli Sports Club",
+    titleSuffix: "Al Ahli Sports Club | Official",
+    home: {
+      title: "Al Ahli Sports Club — Official Website",
+      description: "Official website of Al Ahli Sports Club (النادي الأهلي الرياضي). News, fixtures, teams and tickets — green and white since 1950.",
+    },
+    club: {
+      title: "The Club | Al Ahli Sports Club",
+      description: "Discover the history, identity and leadership of Al Ahli Sports Club, founded in 1950.",
+    },
+    teams: {
+      title: "Our Teams | Al Ahli Sports Club",
+      description: "Football, basketball, handball, volleyball — all official Al Ahli Sports Club squads in one place.",
+    },
+    news: {
+      title: "News | Al Ahli Sports Club",
+      description: "All the latest stories, transfers and announcements from Al Ahli Sports Club.",
+    },
+    matchCenter: {
+      title: "Match Center | Al Ahli Sports Club",
+      description: "Live scores, fixtures and results for every Al Ahli Sports Club competition.",
+    },
+    standings: {
+      title: "Standings | Al Ahli Sports Club",
+      description: "Current league and cup standings for Al Ahli Sports Club across all sports.",
+    },
+    tickets: {
+      title: "Tickets | Al Ahli Sports Club",
+      description: "Buy your tickets and live every Al Ahli Sports Club match from the stands.",
+    },
+    academy: {
+      title: "Academy | Al Ahli Sports Club",
+      description: "The Al Ahli Sports Club academy — training the next generation of green-and-white champions.",
+    },
+    contact: {
+      title: "Contact | Al Ahli Sports Club",
+      description: "Get in touch with Al Ahli Sports Club — official enquiries, media and partnerships.",
+    },
+    notFound: {
+      title: "Page not found | Al Ahli Sports Club",
+      description: "The page you are looking for does not exist on the Al Ahli Sports Club website.",
+    },
+  },
   breadcrumb: {
     home: "Home",
   },
