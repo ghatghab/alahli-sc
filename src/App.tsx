@@ -8,10 +8,17 @@ import NotFound from "./pages/NotFound.tsx";
 import "./i18n";
 import { Layout } from "./components/layout/Layout";
 import {
-  ClubPage, TeamsPage, MatchCenterPage, SchedulePage,
+  ClubPage, MatchCenterPage, SchedulePage,
   TicketsPage, AcademyPage, ContactPage,
 } from "./pages/Generic";
 import ClubLayout from "./pages/club/ClubLayout";
+import TeamsLayout from "./pages/teams/TeamsLayout";
+import FootballLayout from "./pages/teams/FootballLayout";
+import MensFirstLayout from "./pages/teams/MensFirstLayout";
+import FormationPage from "./pages/teams/FormationPage";
+import SportLayout from "./pages/teams/SportLayout";
+import RubricPage from "./pages/teams/RubricPage";
+import { Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Auth from "./pages/Auth";
 import { NewsList } from "./pages/news/NewsList";
@@ -62,7 +69,29 @@ const App = () => (
                 <Route path="sustainability" element={<ClubPage />} />
                 <Route path="museum" element={<ClubPage />} />
               </Route>
-              <Route path="/teams" element={<TeamsPage />} />
+              <Route path="/teams" element={<TeamsLayout />}>
+                <Route index element={<Navigate to="/teams/football" replace />} />
+                <Route path="football" element={<FootballLayout />}>
+                  <Route index element={<Navigate to="/teams/football/mens-first" replace />} />
+                  <Route path="mens-first" element={<MensFirstLayout />}>
+                    <Route index element={<Navigate to="squad" replace />} />
+                    <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
+                    <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
+                    <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
+                    <Route path="standings" element={<RubricPage titleKey="teamsNav.standings" />} />
+                    <Route path="honours" element={<RubricPage titleKey="teamsNav.honours" />} />
+                  </Route>
+                  <Route path="formation" element={<FormationPage />} />
+                </Route>
+                <Route path=":sport" element={<SportLayout />}>
+                  <Route index element={<Navigate to="squad" replace />} />
+                  <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
+                  <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
+                  <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
+                  <Route path="standings" element={<RubricPage titleKey="teamsNav.standings" />} />
+                  <Route path="honours" element={<RubricPage titleKey="teamsNav.honours" />} />
+                </Route>
+              </Route>
               <Route path="/news" element={<NewsList />} />
               <Route path="/news/:year/:month" element={<NewsList />} />
               <Route path="/news/:year/:month/:slug" element={<NewsArticle />} />

@@ -28,7 +28,7 @@ export const TeamsGrid = () => {
           {teams.map(team => (
             <Link
               key={team.key}
-              to="/teams"
+              to={`/teams/${team.key}`}
               className="group relative aspect-[3/4] overflow-hidden rounded-2xl shadow-soft transition-smooth ring-1 ring-border hover:ring-accent/60 hover:-translate-y-1 hover:shadow-elegant bg-card"
             >
               <img
