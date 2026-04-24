@@ -5,31 +5,33 @@ type Props = {
   category: string;
   timeText?: string | null;
   className?: string;
-  variant?: "dark" | "light";
+  /** When true, use white text (e.g. over a dark image background). */
+  onDark?: boolean;
 };
 
 /**
- * News tag — dark pill with yellow square marker, category label, and optional time.
+ * News tag — transparent background, green category label, optional time.
  */
-export const NewsTag = ({ category, timeText, className, variant = "dark" }: Props) => {
-  const base =
-    variant === "dark"
-      ? "bg-primary text-primary-foreground"
-      : "bg-white text-primary border border-border";
+export const NewsTag = ({ category, timeText, className, onDark = false }: Props) => {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 px-3 py-1.5 rounded-sm text-[11px] font-bold uppercase tracking-[0.18em]",
-        base,
+        "inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em]",
         className,
       )}
     >
-      <span className="inline-block h-2.5 w-2.5 bg-[hsl(45_95%_55%)] shrink-0" aria-hidden />
-      <span>{category}</span>
+      <span className="text-accent">{category}</span>
       {timeText && (
         <>
-          <Clock className="h-3 w-3 opacity-70 ms-1" />
-          <span className="font-semibold normal-case tracking-normal opacity-90">{timeText}</span>
+          <Clock className={cn("h-3 w-3", onDark ? "text-white/70" : "text-muted-foreground")} />
+          <span
+            className={cn(
+              "font-semibold normal-case tracking-normal",
+              onDark ? "text-white/90" : "text-muted-foreground",
+            )}
+          >
+            {timeText}
+          </span>
         </>
       )}
     </span>
