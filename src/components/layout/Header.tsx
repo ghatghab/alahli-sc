@@ -55,7 +55,7 @@ export const Header = () => {
         className={cn(
           "fixed top-0 inset-x-0 z-50 transition-[background-color,box-shadow,backdrop-filter,color] duration-300",
           scrolled
-            ? "bg-primary shadow-soft text-primary-foreground"
+            ? "bg-accent shadow-soft text-white"
             : isHome
               ? "bg-transparent text-primary-foreground"
               : "bg-white shadow-soft text-accent"
