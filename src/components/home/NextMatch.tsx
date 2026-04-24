@@ -229,6 +229,8 @@ type FixtureCardProps = {
 const FixtureCard = ({
   fixture, isActive, lang, homeLabel, awayLabel, nextLabel, vsLabel, fmtDate, fmtTime,
 }: FixtureCardProps) => {
+  const { t } = useTranslation();
+  const clubName = t("brand.name");
   const opponent = fixture.opponentName[lang];
   const isHome = fixture.homeAway === "home";
   const isLive = fixture.status === "live";
@@ -237,13 +239,13 @@ const FixtureCard = ({
       id={`fixture-slide-${fixture.id}`}
       role="group"
       aria-roledescription="slide"
-      aria-label={`${isHome ? "Alahli SC" : opponent} vs ${isHome ? opponent : "Alahli SC"} — ${fmtDate(fixture.date)} ${fmtTime(fixture.date)}`}
+      aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName} — ${fmtDate(fixture.date)} ${fmtTime(fixture.date)}`}
       aria-hidden={!isActive}
       className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[80%] md:basis-[55%] lg:basis-[42%]"
     >
       <Link
         to={`/match/${fixture.id}`}
-        aria-label={`${isHome ? "Alahli SC" : opponent} vs ${isHome ? opponent : "Alahli SC"}`}
+        aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName}`}
         tabIndex={isActive ? 0 : -1}
         className={`block relative rounded-xl overflow-hidden bg-card border transition-all hover:shadow-elegant hover:border-accent/60 ${
           isActive
@@ -289,7 +291,7 @@ const FixtureCard = ({
                   )}
                 </div>
                 <div className="mt-2 text-xs sm:text-sm font-display font-bold uppercase text-foreground line-clamp-1">
-                  {isHome ? "Alahli SC" : opponent}
+                  {isHome ? clubName : opponent}
                 </div>
               </div>
 
@@ -309,7 +311,7 @@ const FixtureCard = ({
                   )}
                 </div>
                 <div className="mt-2 text-xs sm:text-sm font-display font-bold uppercase text-foreground line-clamp-1">
-                  {isHome ? opponent : "Alahli SC"}
+                  {isHome ? opponent : clubName}
                 </div>
               </div>
             </div>
