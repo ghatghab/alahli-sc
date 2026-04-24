@@ -88,6 +88,7 @@ const MatchDetailContent = ({
 
   return (
     <article className="pb-20">
+      <Seo pageKey="matchCenter" title={matchTitle} description={matchDesc} type="article" />
       {/* Hero */}
       <header className="relative bg-gradient-primary text-primary-foreground pt-32 pb-12">
         <div
