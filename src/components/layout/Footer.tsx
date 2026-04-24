@@ -70,7 +70,7 @@ export const Footer = () => {
                 key={i}
                 href="#"
                 aria-label={p.alt}
-                className="opacity-70 hover:opacity-100 transition-smooth"
+                className="inline-block opacity-80 hover:opacity-100 transition-transform duration-300 hover:scale-[1.05]"
               >
                 <picture>
                   <source srcSet={p.webp} type="image/webp" />
@@ -81,7 +81,7 @@ export const Footer = () => {
                     decoding="async"
                     width="320"
                     height="320"
-                    className="h-16 md:h-20 w-auto object-contain dark:brightness-0 dark:invert"
+                    className="h-16 md:h-20 w-auto object-contain brightness-0 dark:invert"
                   />
                 </picture>
               </a>
