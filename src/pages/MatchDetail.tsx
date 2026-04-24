@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getFixtureById, type Fixture, type MatchEvent, type Player } from "@/lib/fixtures";
 import logo from "@/assets/logo-alahli.jpg";
 import { LineupPitch } from "@/components/match/LineupPitch";
+import { Seo } from "@/components/Seo";
 
 const EventIcon = ({ type }: { type: MatchEvent["type"] }) => {
   switch (type) {
@@ -72,6 +73,9 @@ const MatchDetailContent = ({
   const awayName = isHome ? opponent : clubName;
   const venue = fixture.venue[lang];
   const finished = fixture.status === "finished";
+
+  const matchTitle = `${homeName} vs ${awayName} | ${t("seo.siteName")}`;
+  const matchDesc = `${fixture.competition} — ${homeName} vs ${awayName} · ${venue}.`;
 
   const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const localeTag = lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB";
