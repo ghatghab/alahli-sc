@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Settings } from "lucide-react";
+import { ChevronDown, X, Settings } from "lucide-react";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { cn } from "@/lib/utils";
@@ -75,13 +75,13 @@ export const Header = () => {
             className={cn(
               "flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
               scrolled
-                ? "bg-accent hover:bg-accent/90 text-white"
+                ? "bg-white hover:bg-white/90 text-accent"
                 : isHome
                   ? "bg-transparent text-white"
                   : "bg-transparent text-accent hover:bg-accent/10"
             )}
           >
-            <Menu className="h-5 w-5" strokeWidth={2.5} />
+            <ChevronDown className="h-5 w-5" strokeWidth={2.5} />
             <span className="text-[10px] font-bold uppercase tracking-wider">
               {t("nav.menu", "Menu")}
             </span>
