@@ -8,10 +8,24 @@ export type SubNavItem = { to: string; key: string; end?: boolean };
  * Sticky secondary navigation bar that sits below the main header.
  * Horizontally scrollable on mobile, fully keyboard accessible.
  */
-export const SubNav = ({ items }: { items: SubNavItem[] }) => {
+export const SubNav = ({
+  items,
+  level = 1,
+}: {
+  items: SubNavItem[];
+  /** 1 = sits right under header, 2 = stacks under another SubNav, 3 = third level */
+  level?: 1 | 2 | 3;
+}) => {
   const { t } = useTranslation();
+  const topClass =
+    level === 1 ? "top-20" : level === 2 ? "top-[7.5rem]" : "top-[10rem]";
   return (
-    <div className="sticky top-20 z-30 border-b border-border/70 bg-background/90 backdrop-blur-xl">
+    <div
+      className={cn(
+        "sticky z-30 border-b border-border/70 bg-background/90 backdrop-blur-xl",
+        topClass,
+      )}
+    >
       <nav
         aria-label="Section"
         className="container-club -mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-x-visible sm:px-0"
