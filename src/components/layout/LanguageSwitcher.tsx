@@ -29,8 +29,8 @@ export const LanguageSwitcher = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const isHome = pathname === "/";
-  // Green on inner pages at top; white over hero or when scrolled (accent bg)
-  const isLight = !isHome && !scrolled;
+  // White only over the home hero (transparent navbar). Otherwise green.
+  const isLight = scrolled || !isHome;
   const colorClass = isLight ? "text-accent" : "text-white";
   return (
     <DropdownMenu>
