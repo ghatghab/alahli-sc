@@ -14,26 +14,28 @@ export const RubricTabs = ({
   parent,
   items,
 }: {
-  parent: { to: string; labelKey: string };
+  parent?: { to: string; labelKey: string };
   items: RubricItem[];
 }) => {
   const { t } = useTranslation();
   return (
     <div className="border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      <div className="container-club py-3">
-        <Link
-          to={parent.to}
-          className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-accent"
-        >
-          <ChevronLeft className="h-3.5 w-3.5 rtl:rotate-180" />
-          {t(parent.labelKey)}
-        </Link>
-      </div>
+      {parent && (
+        <div className="container-club py-3">
+          <Link
+            to={parent.to}
+            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-accent"
+          >
+            <ChevronLeft className="h-3.5 w-3.5 rtl:rotate-180" />
+            {t(parent.labelKey)}
+          </Link>
+        </div>
+      )}
       <nav
         aria-label="Section"
-        className="container-club -mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-x-visible sm:px-0"
+        className="container-club overflow-x-auto sm:overflow-x-visible"
       >
-        <ul className="flex min-w-max items-center gap-6 sm:gap-8 pb-2 sm:min-w-0 sm:flex-wrap">
+        <ul className="flex min-w-max items-center gap-6 py-3 sm:gap-8 sm:min-w-0 sm:flex-wrap">
           {items.map((item) => (
             <li key={item.to}>
               <NavLink
