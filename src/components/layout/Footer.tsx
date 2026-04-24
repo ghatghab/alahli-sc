@@ -58,7 +58,7 @@ export const Footer = () => {
   ];
   return (
     <footer className="relative mt-20">
-      {/* Top: light area with partners + socials, centered */}
+      {/* Partners + socials */}
       <div className="bg-background text-foreground border-t border-border">
         <div className="container-club py-12">
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
@@ -79,36 +79,21 @@ export const Footer = () => {
             ))}
           </div>
         </div>
-
-        <div className="container-club pb-10 border-t border-border pt-8">
-          <div className="flex items-center justify-center gap-6">
-            {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                aria-label="social"
-                className="text-foreground/80 hover:text-foreground transition-smooth"
-              >
-                <Icon className="h-5 w-5" />
-              </a>
-            ))}
-          </div>
-        </div>
       </div>
 
-      {/* Bottom: dark area with link columns + huge slogan */}
-      <div className="bg-primary text-primary-foreground">
+      {/* Link columns */}
+      <div className="bg-secondary text-foreground border-t border-border">
         <div className="container-club pt-16 pb-8">
           <div className="grid gap-10 grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_auto] items-start">
             {columns.slice(0, 4).map((col) => (
               <div key={col.title}>
-                <h4 className="font-display font-bold text-base mb-5 text-gold">
+                <h4 className="font-display font-bold text-sm uppercase tracking-[0.18em] mb-5 text-foreground">
                   {col.title}
                 </h4>
-                <ul className="space-y-3 text-sm text-primary-foreground/90">
+                <ul className="space-y-3 text-sm text-muted-foreground">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <Link to={link.to} className="hover:text-gold transition-smooth">
+                      <Link to={link.to} className="hover:text-accent transition-smooth">
                         {link.label}
                       </Link>
                     </li>
@@ -118,20 +103,32 @@ export const Footer = () => {
             ))}
 
             <div className="hidden lg:flex justify-end">
-              <Link to="/" aria-label="Alahli SC" className="block">
+              <Link to="/" aria-label="Al Ahli Sports Club" className="block">
                 <img
                   src={logoCrest}
                   alt="Alahli SC crest"
-                  className="h-28 w-28 object-contain rounded-full bg-primary-foreground/5 p-2"
+                  className="h-28 w-28 object-contain rounded-full bg-background p-2 shadow-soft"
                 />
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-primary-foreground/10">
-          <div className="container-club py-5 flex flex-col items-center justify-center gap-2 text-xs text-primary-foreground/60 text-center">
+        <div className="border-t border-border">
+          <div className="container-club py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <p>© {new Date().getFullYear()} {t("brand.name")}. {t("footer.rights")}</p>
+            <div className="flex items-center gap-5">
+              {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  aria-label="social"
+                  className="text-foreground/70 hover:text-accent transition-smooth"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

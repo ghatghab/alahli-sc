@@ -50,52 +50,52 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Alahli SC — Light theme */
+    /* Al Ahli SC — Light theme (Real Madrid–inspired editorial) */
     --background: 0 0% 100%;
-    --foreground: 165 60% 10%;
+    --foreground: 158 60% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 165 60% 10%;
+    --card-foreground: 158 60% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 165 60% 10%;
+    --popover-foreground: 158 60% 8%;
 
-    --primary: 165 85% 9%;             /* deep evergreen, slightly lifted for readability */
+    --primary: 158 70% 12%;            /* near-black evergreen for headlines */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 162 70% 16%;
+    --primary-hover: 158 60% 20%;
 
-    --secondary: 150 30% 95%;
-    --secondary-foreground: 165 70% 10%;
+    --secondary: 150 25% 96%;
+    --secondary-foreground: 158 70% 10%;
 
-    --muted: 150 20% 96%;
-    --muted-foreground: 165 15% 32%;   /* darker for AA contrast */
+    --muted: 150 18% 97%;
+    --muted-foreground: 158 12% 36%;
 
-    --accent: 158 55% 32%;             /* richer club green for links/accents */
+    --accent: 152 72% 28%;             /* club green */
     --accent-foreground: 0 0% 100%;
     --accent-soft: 145 40% 60%;
 
     --highlight: 152 80% 80%;
 
-    --gold: 43 78% 45%;                /* deeper, club-style gold */
-    --gold-foreground: 165 90% 8%;
+    --gold: 152 72% 28%;               /* unified to green so legacy "gold-" classes match */
+    --gold-foreground: 0 0% 100%;
 
     --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 15% 88%;
-    --input: 150 15% 88%;
-    --ring: 158 55% 32%;
+    --border: 150 12% 90%;
+    --input: 150 12% 90%;
+    --ring: 152 72% 28%;
 
     --radius: 0.75rem;
 
-    --gradient-hero: linear-gradient(135deg, hsl(165 90% 8% / 0.95), hsl(162 75% 14% / 0.75) 55%, hsl(145 50% 25% / 0.45));
-    --gradient-primary: linear-gradient(135deg, hsl(165 90% 8%), hsl(162 70% 18%));
-    --gradient-gold: linear-gradient(135deg, hsl(43 78% 45%), hsl(45 85% 58%));
-    --gradient-accent: linear-gradient(135deg, hsl(158 55% 32%), hsl(145 50% 50%));
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0% / 0) 40%, hsl(158 70% 8% / 0.85) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(158 70% 10%), hsl(152 60% 22%));
+    --gradient-gold: linear-gradient(135deg, hsl(152 72% 28%), hsl(145 60% 40%));
+    --gradient-accent: linear-gradient(135deg, hsl(152 72% 28%), hsl(145 55% 45%));
 
-    --shadow-soft: 0 4px 20px hsl(165 90% 8% / 0.10);
-    --shadow-elegant: 0 10px 40px -10px hsl(165 90% 8% / 0.30);
-    --shadow-gold: 0 6px 24px hsl(43 78% 45% / 0.40);
+    --shadow-soft: 0 1px 2px hsl(158 30% 12% / 0.06), 0 4px 16px hsl(158 30% 12% / 0.06);
+    --shadow-elegant: 0 8px 30px -10px hsl(158 40% 12% / 0.18);
+    --shadow-gold: 0 6px 24px hsl(152 72% 28% / 0.30);
 
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -112,8 +112,8 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Alahli SC — Dark theme */
-    --background: 165 55% 6%;          /* deep evergreen black */
+    /* Al Ahli SC — Dark theme */
+    --background: 158 45% 6%;
     --foreground: 0 0% 100%;
 
     --card: 165 40% 10%;
@@ -122,7 +122,7 @@ All colors MUST be HSL.
     --popover: 165 40% 10%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 158 60% 18%;
+    --primary: 152 55% 18%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 158 55% 26%;
 
@@ -132,14 +132,14 @@ All colors MUST be HSL.
     --muted: 165 25% 14%;
     --muted-foreground: 150 15% 75%;
 
-    --accent: 145 55% 60%;             /* bright mint, AA on dark */
-    --accent-foreground: 165 90% 8%;
+    --accent: 145 65% 55%;
+    --accent-foreground: 158 70% 8%;
     --accent-soft: 145 35% 45%;
 
     --highlight: 138 64% 74%;
 
-    --gold: 44 85% 58%;                /* brighter gold for dark bg */
-    --gold-foreground: 165 90% 8%;
+    --gold: 145 65% 55%;
+    --gold-foreground: 158 70% 8%;
 
     --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
@@ -255,11 +255,11 @@ All colors MUST be HSL.
     border: 1px solid hsl(var(--border));
   }
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.3em] text-gold;
+    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.3em] text-accent;
   }
   .eyebrow::before {
     content: "";
-    @apply inline-block h-px w-8 bg-gold;
+    @apply inline-block h-px w-8 bg-accent;
   }
   .section-dark {
     @apply relative bg-primary text-primary-foreground overflow-hidden;
@@ -273,13 +273,13 @@ All colors MUST be HSL.
     pointer-events: none;
   }
   .card-premium {
-    @apply relative overflow-hidden rounded-xl border border-border bg-card shadow-soft transition-all duration-300;
+    @apply relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all duration-300;
   }
   .card-premium:hover {
-    @apply shadow-elegant border-gold/40 -translate-y-0.5;
+    @apply shadow-elegant border-accent/40 -translate-y-0.5;
   }
   .gold-divider {
-    @apply h-px w-12 bg-gradient-to-r from-gold to-transparent rtl:bg-gradient-to-l;
+    @apply h-px w-12 bg-gradient-to-r from-accent to-transparent rtl:bg-gradient-to-l;
   }
 }
 

@@ -36,27 +36,25 @@ export const Header = () => {
       className={cn(
         "fixed top-0 inset-x-0 z-50 transition-smooth",
         scrolled
-          ? "bg-primary/95 backdrop-blur-xl border-b border-gold/20 shadow-elegant"
-          : "bg-gradient-to-b from-primary/70 via-primary/30 to-transparent backdrop-blur-sm"
+          ? "bg-background/95 backdrop-blur-xl border-b border-border shadow-soft"
+          : "bg-background/90 backdrop-blur border-b border-transparent"
       )}
     >
-      {/* Top accent bar */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-gold via-gold/60 to-gold rtl:bg-gradient-to-l" />
-      <div className="container-club flex h-20 items-center justify-between gap-4">
-        <Link to="/" aria-label="Alahli SC" className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md">
+      <div className="container-club flex h-16 lg:h-20 items-center justify-between gap-4">
+        <Link to="/" aria-label="Al Ahli Sports Club" className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md">
           <Logo size="sm" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1 flex-1">
+        <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
           {navItems.map(item => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  "relative px-3 py-2 text-xs xl:text-sm font-bold uppercase tracking-[0.18em] transition-smooth",
-                  "text-white/90 hover:text-gold",
-                  isActive && "text-gold"
+                  "relative px-3 py-2 text-[13px] font-bold transition-smooth",
+                  "text-foreground/80 hover:text-accent",
+                  isActive && "text-accent"
                 )
               }
             >
@@ -65,7 +63,7 @@ export const Header = () => {
                   {t(item.key)}
                   <span
                     className={cn(
-                      "absolute -bottom-0.5 left-3 right-3 h-[2px] bg-gradient-gold rounded-full origin-center transition-transform duration-300",
+                      "absolute -bottom-0.5 left-3 right-3 h-[2px] bg-accent rounded-full origin-center transition-transform duration-300",
                       isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     )}
                   />
@@ -81,17 +79,17 @@ export const Header = () => {
               <Link to="/admin"><Settings className="h-4 w-4" /></Link>
             </Button>
           )}
-          <Button asChild variant="gold" size="sm" className="hidden md:inline-flex">
+          <Button asChild variant="default" size="sm" className="hidden md:inline-flex bg-accent text-accent-foreground hover:bg-accent/90">
             <Link to="/tickets">
               <Ticket className="h-4 w-4" />
               {t("nav.tickets")}
             </Link>
           </Button>
           <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title={t("nav.tv")}>
-            <Link to="/tv"><Tv className="h-4 w-4 text-gold" /></Link>
+            <Link to="/tv"><Tv className="h-4 w-4 text-foreground/80" /></Link>
           </Button>
           <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex" title={t("nav.store")}>
-            <Link to="/store"><ShoppingBag className="h-4 w-4 text-gold" /></Link>
+            <Link to="/store"><ShoppingBag className="h-4 w-4 text-foreground/80" /></Link>
           </Button>
           <LanguageSwitcher />
           <ThemeToggle />
@@ -102,13 +100,13 @@ export const Header = () => {
             onClick={() => setOpen(o => !o)}
             aria-label="Menu"
           >
-            {open ? <X className="h-5 w-5 text-gold" /> : <Menu className="h-5 w-5 text-gold" />}
+            {open ? <X className="h-5 w-5 text-foreground" /> : <Menu className="h-5 w-5 text-foreground" />}
           </Button>
         </div>
       </div>
 
       {open && (
-        <div className="lg:hidden bg-primary/98 backdrop-blur-xl border-t border-gold/20 animate-fade-in">
+        <div className="lg:hidden bg-background border-t border-border shadow-soft animate-fade-in">
           <nav className="container-club py-4 flex flex-col gap-1">
             {navItems.map(item => (
               <NavLink
@@ -117,17 +115,17 @@ export const Header = () => {
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   cn(
-                    "px-3 py-3 rounded-md text-sm font-bold uppercase tracking-[0.18em] transition-smooth border-l-2 rtl:border-l-0 rtl:border-r-2",
+                    "px-3 py-3 rounded-md text-sm font-bold transition-smooth border-l-2 rtl:border-l-0 rtl:border-r-2",
                     isActive
-                      ? "border-gold text-gold bg-white/5"
-                      : "border-transparent text-white/80 hover:text-gold hover:border-gold/40 hover:bg-white/5"
+                      ? "border-accent text-accent bg-accent/5"
+                      : "border-transparent text-foreground/80 hover:text-accent hover:border-accent/40 hover:bg-accent/5"
                   )
                 }
               >
                 {t(item.key)}
               </NavLink>
             ))}
-            <Button asChild variant="gold" className="mt-3" onClick={() => setOpen(false)}>
+            <Button asChild className="mt-3 bg-accent text-accent-foreground hover:bg-accent/90" onClick={() => setOpen(false)}>
               <Link to="/tickets">
                 <Ticket className="h-4 w-4" />
                 {t("nav.tickets")}
