@@ -76,9 +76,9 @@ export const Header = () => {
             className={cn(
               "flex flex-col items-center justify-center gap-1 px-5 transition-colors shrink-0",
               scrolled
-                ? "bg-white/15 hover:bg-white/25 text-white"
+                ? "bg-white hover:bg-white/90 text-accent"
                 : isHome
-                  ? "bg-transparent text-white"
+                  ? "bg-white text-accent hover:bg-white/90"
                   : "bg-transparent text-accent hover:bg-accent/10"
             )}
           >
