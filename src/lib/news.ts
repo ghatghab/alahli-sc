@@ -37,7 +37,8 @@ export const pickTranslation = (
   lang: string
 ): NewsTranslationRow | null => {
   if (!translations || translations.length === 0) return null;
-  const target = (["en", "fr", "ar"].includes(lang) ? lang : "en") as Locale;
+  const short = (lang || "en").slice(0, 2).toLowerCase();
+  const target = (["en", "fr", "ar"].includes(short) ? short : "en") as Locale;
   return (
     translations.find(t => t.locale === target) ??
     translations.find(t => t.locale === "en") ??
@@ -47,8 +48,9 @@ export const pickTranslation = (
 
 export const categoryName = (cat: NewsCategoryRow | null | undefined, lang: string): string => {
   if (!cat) return "";
-  if (lang === "fr") return cat.name_fr;
-  if (lang === "ar") return cat.name_ar;
+  const short = (lang || "en").slice(0, 2).toLowerCase();
+  if (short === "fr") return cat.name_fr;
+  if (short === "ar") return cat.name_ar;
   return cat.name_en;
 };
 
