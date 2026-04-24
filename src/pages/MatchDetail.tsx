@@ -4,7 +4,7 @@ import { ArrowLeft, MapPin, Calendar, Clock } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { getFixtureById, type Fixture, type MatchEvent, type Player } from "@/lib/fixtures";
-import logo from "@/assets/logo-alahli.jpg";
+import logo from "@/assets/logo-alahli.png";
 import { LineupPitch } from "@/components/match/LineupPitch";
 import { Seo } from "@/components/Seo";
 

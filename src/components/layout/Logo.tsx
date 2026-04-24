@@ -1,4 +1,4 @@
-import logo from "@/assets/logo-alahli.jpg";
+import logo from "@/assets/logo-alahli.png";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 

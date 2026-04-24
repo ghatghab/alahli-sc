@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { LiveBadge } from "@/components/match/LiveBadge";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
-import logo from "@/assets/logo-alahli.jpg";
+import logo from "@/assets/logo-alahli.png";
 import { cn } from "@/lib/utils";
 import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 import { Seo } from "@/components/Seo";

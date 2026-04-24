@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-import logoCrest from "@/assets/logo-alahli.jpg";
+import logoCrest from "@/assets/logo-alahli.png";
 import partner1 from "@/assets/partners/partner-1.jpg";
 import partner2 from "@/assets/partners/partner-2.jpg";
 import partner3 from "@/assets/partners/partner-3.jpg";
