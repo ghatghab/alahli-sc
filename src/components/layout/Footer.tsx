@@ -57,78 +57,94 @@ export const Footer = () => {
     },
   ];
   return (
-    <footer className="relative bg-primary text-primary-foreground mt-20 border-t-2 border-gold/40">
-      <div className="border-b border-primary-foreground/10">
-        <div className="container-club py-10">
-          <h4 className="text-center font-display uppercase tracking-[0.3em] text-xs mb-8 text-gold">
-            {t("footer.partners")}
-          </h4>
+    <footer className="relative mt-20">
+      {/* Top: light area with partners + socials, centered */}
+      <div className="bg-background text-foreground border-t border-border">
+        <div className="container-club py-12">
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
             {partners.map((p, i) => (
               <a
                 key={i}
                 href="#"
                 aria-label={p.alt}
-                className="opacity-80 hover:opacity-100 transition-smooth"
+                className="opacity-70 hover:opacity-100 transition-smooth"
               >
                 <img
                   src={p.src}
                   alt={p.alt}
                   loading="lazy"
-                  className="h-12 md:h-16 w-auto object-contain brightness-0 invert"
+                  className="h-10 md:h-12 w-auto object-contain dark:brightness-0 dark:invert"
                 />
               </a>
             ))}
           </div>
         </div>
-      </div>
-      <div className="container-club py-16">
-        <div className="grid gap-10 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
-          {columns.map((col) => (
-            <div key={col.title}>
-              <h4 className="font-display font-bold uppercase text-base mb-5 text-primary-foreground">
-                {col.title}
-              </h4>
-              <ul className="space-y-3 text-sm text-primary-foreground/90">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link to={link.to} className="hover:text-gold transition-smooth">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
 
-        <div className="mt-16 flex flex-col items-center gap-6">
-          <Link to="/" aria-label="Alahli SC" className="block">
-            <img
-              src={logoCrest}
-              alt="Alahli SC crest"
-              className="h-24 w-24 object-contain"
-            />
-          </Link>
-          <div className="flex gap-3">
+        <div className="container-club pb-10 border-t border-border pt-8">
+          <div className="flex items-center justify-center gap-6">
             {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
               <a
                 key={i}
                 href="#"
                 aria-label="social"
-                className="h-10 w-10 rounded-full grid place-items-center bg-primary-foreground/10 hover:bg-gold hover:text-gold-foreground transition-smooth"
+                className="text-foreground/80 hover:text-foreground transition-smooth"
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-5 w-5" />
               </a>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="border-t border-primary-foreground/10">
-        <div className="container-club py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-primary-foreground/60">
-          <p>© {new Date().getFullYear()} {t("brand.name")}. {t("footer.rights")}</p>
-          <p className="uppercase tracking-widest">alahli.ly</p>
+      {/* Bottom: dark area with link columns + huge slogan */}
+      <div className="bg-primary text-primary-foreground">
+        <div className="container-club pt-16 pb-8">
+          <div className="grid gap-10 grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_auto] items-start">
+            {columns.slice(0, 4).map((col) => (
+              <div key={col.title}>
+                <h4 className="font-display font-bold text-base mb-5 text-gold">
+                  {col.title}
+                </h4>
+                <ul className="space-y-3 text-sm text-primary-foreground/90">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link to={link.to} className="hover:text-gold transition-smooth">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+
+            <div className="hidden lg:flex justify-end">
+              <Link to="/" aria-label="Alahli SC" className="block">
+                <img
+                  src={logoCrest}
+                  alt="Alahli SC crest"
+                  className="h-28 w-28 object-contain rounded-full bg-primary-foreground/5 p-2"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Huge Arabic slogan */}
+        <div className="container-club pb-2 pt-6 overflow-hidden">
+          <h2
+            dir="rtl"
+            lang="ar"
+            className="font-display font-black text-center text-primary-foreground leading-[0.9] tracking-tight whitespace-nowrap text-[18vw] sm:text-[14vw] lg:text-[11vw]"
+          >
+            زعيم الأندية الليبية
+          </h2>
+        </div>
+
+        <div className="border-t border-primary-foreground/10">
+          <div className="container-club py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-primary-foreground/60">
+            <p>© {new Date().getFullYear()} {t("brand.name")}. {t("footer.rights")}</p>
+            <p className="uppercase tracking-widest">alahli.ly</p>
+          </div>
         </div>
       </div>
     </footer>
