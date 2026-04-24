@@ -129,17 +129,6 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Huge Arabic slogan */}
-        <div className="container-club pb-2 pt-6 overflow-hidden">
-          <h2
-            dir="rtl"
-            lang="ar"
-            className="font-display font-black text-center text-primary-foreground leading-[0.9] tracking-tight whitespace-nowrap text-[18vw] sm:text-[14vw] lg:text-[11vw]"
-          >
-            زعيم الأندية الليبية
-          </h2>
-        </div>
-
         <div className="border-t border-primary-foreground/10">
           <div className="container-club py-5 flex flex-col items-center justify-center gap-2 text-xs text-primary-foreground/60 text-center">
             <p>© {new Date().getFullYear()} {t("brand.name")}. {t("footer.rights")}</p>
