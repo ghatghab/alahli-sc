@@ -54,7 +54,7 @@ export const Header = () => {
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  "relative px-3 py-2 text-base font-bold uppercase tracking-[0.18em] transition-smooth",
+                  "relative px-3 py-2 text-xs xl:text-sm font-bold uppercase tracking-[0.18em] transition-smooth",
                   "text-white/90 hover:text-gold",
                   isActive && "text-gold"
                 )
