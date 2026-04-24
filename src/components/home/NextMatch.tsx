@@ -258,7 +258,7 @@ const FixtureCard = ({
         )}
         {isActive && !isLive && fixture.isNext && (
           <div className="absolute left-1/2 -translate-x-1/2 -top-px z-10">
-            <span className="block px-4 py-1 bg-accent text-accent-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-b-md">
+            <span className="block px-4 py-1 bg-gold text-gold-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-b-md">
               {nextLabel}
             </span>
           </div>
