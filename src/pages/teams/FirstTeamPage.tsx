@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 import { Seo } from "@/components/Seo";
 import teamFootball from "@/assets/team-football.jpg";
 import stadiumAerial from "@/assets/stadium-aerial.jpg";
-import training from "@/assets/training.jpg";
 import heroStadium from "@/assets/hero-stadium.jpg";
-import playerCelebration from "@/assets/player-celebration.jpg";
+import teamBasketball from "@/assets/team-basketball.jpg";
+import teamHandball from "@/assets/team-handball.jpg";
+import teamVolleyball from "@/assets/team-volleyball.jpg";
 
 type Section = {
   titleKey: string;
@@ -18,10 +19,10 @@ type Section = {
 
 const sections: Section[] = [
   { titleKey: "teamsNav.squad", descKey: "firstTeam.squadDesc", to: "/teams/football/first-team/squad", image: teamFootball },
-  { titleKey: "teamsNav.staff", descKey: "firstTeam.staffDesc", to: "/teams/football/first-team/staff", image: training },
+  { titleKey: "teamsNav.staff", descKey: "firstTeam.staffDesc", to: "/teams/football/first-team/staff", image: teamBasketball },
   { titleKey: "teamsNav.schedule", descKey: "firstTeam.scheduleDesc", to: "/teams/football/first-team/schedule", image: heroStadium },
   { titleKey: "teamsNav.standings", descKey: "firstTeam.standingsDesc", to: "/teams/football/first-team/standings", image: stadiumAerial },
-  { titleKey: "teamsNav.honours", descKey: "firstTeam.honoursDesc", to: "/teams/football/first-team/honours", image: playerCelebration },
+  { titleKey: "teamsNav.honours", descKey: "firstTeam.honoursDesc", to: "/teams/football/first-team/honours", image: teamHandball },
 ];
 
 const FirstTeamPage = () => {
