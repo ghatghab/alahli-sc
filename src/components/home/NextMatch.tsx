@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo-alahli.jpg";
+import logo from "@/assets/logo-alahli.png";
 import { fixtures, nextFixtureIndex, type Fixture } from "@/lib/fixtures";
 import { LiveBadge } from "@/components/match/LiveBadge";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
