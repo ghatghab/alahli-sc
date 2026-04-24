@@ -15,6 +15,7 @@ import {
 } from "@/lib/news";
 import fallback from "@/assets/stadium-aerial.jpg";
 import { LatestNewsSkeleton } from "./LatestNewsSkeleton";
+import { NewsTag } from "@/components/news/NewsTag";
 
 type Row = NewsArticleRow & {
   news_translations: NewsTranslationRow[];
@@ -121,9 +122,9 @@ const FeaturedArticle = ({ item, lang, ctaLabel }: { item: Row; lang: string; ct
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
           {item.news_categories && (
-            <span className="absolute top-4 start-4 inline-block px-3 py-1.5 rounded-sm bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-[0.2em] shadow-gold">
-              {categoryName(item.news_categories, lang)}
-            </span>
+            <div className="absolute top-4 start-4">
+              <NewsTag category={categoryName(item.news_categories, lang)} />
+            </div>
           )}
         </div>
         <div className="p-6 md:p-10 flex flex-col justify-center">
@@ -177,9 +178,9 @@ const NewsCarousel = ({ items, lang, ctaLabel, dir }: { items: Row[]; lang: stri
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-80" />
                     {item.news_categories && (
-                      <span className="absolute top-3 start-3 px-2.5 py-1 rounded-sm bg-gradient-gold text-gold-foreground text-[9px] font-bold uppercase tracking-[0.2em]">
-                        {categoryName(item.news_categories, lang)}
-                      </span>
+                      <div className="absolute top-3 start-3">
+                        <NewsTag category={categoryName(item.news_categories, lang)} />
+                      </div>
                     )}
                   </div>
                   <div className="p-5 flex flex-col flex-1">
