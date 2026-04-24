@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Settings, User } from "lucide-react";
+import { Menu, X, Settings, User, Search } from "lucide-react";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { cn } from "@/lib/utils";
@@ -25,14 +25,6 @@ export const Header = () => {
   const { t } = useTranslation();
   const { isEditor } = useAuth();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -40,95 +32,87 @@ export const Header = () => {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const linkColor = scrolled ? "text-foreground/80 hover:text-accent" : "text-white/95 hover:text-white";
-  const iconColor = scrolled ? "text-foreground/80" : "text-white";
-  const burgerLabel = scrolled ? "text-foreground/70" : "text-white/80";
-
   return (
     <>
-      <header
-        className={cn(
-          "fixed top-0 inset-x-0 z-50",
-          "transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ease-out",
-          scrolled
-            ? "bg-background/90 backdrop-blur-xl border-b border-border/60 shadow-soft"
-            : "bg-transparent backdrop-blur-0 border-b border-transparent shadow-none"
-        )}
-      >
-        <div className="container-club flex h-14 lg:h-16 items-center justify-between gap-6">
-          {/* Left: burger + logo */}
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              aria-label="Open menu"
-              className={cn("flex flex-col items-center gap-0.5 transition-colors", iconColor)}
-            >
-              <Menu className="h-6 w-6" strokeWidth={2.5} />
-              <span className={cn("text-[9px] font-bold tracking-[0.2em]", burgerLabel)}>MENU</span>
-            </button>
-            <Link to="/" aria-label="Al Ahli Sports Club" className="flex items-center shrink-0">
-              <Logo size="sm" />
-            </Link>
-          </div>
+      <header className="fixed top-0 inset-x-0 z-50 bg-primary text-primary-foreground shadow-soft">
+        <div className="container-club flex h-14 lg:h-16 items-center gap-4 lg:gap-8">
+          {/* Logo (always visible) */}
+          <Link to="/" aria-label="Al Ahli Sports Club" className="flex items-center shrink-0">
+            <Logo size="sm" />
+          </Link>
 
-          {/* Center: primary nav */}
-          <nav className="hidden lg:flex items-center gap-7 flex-1 justify-center">
+          {/* Mobile burger */}
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+            className="lg:hidden ms-auto text-white"
+          >
+            <Menu className="h-6 w-6" strokeWidth={2.5} />
+          </button>
+
+          {/* Desktop horizontal nav (Bayern style) */}
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-9">
             {primaryNav.map(item => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
                   cn(
-                    "text-[13px] font-bold uppercase tracking-[0.12em] transition-colors duration-300",
-                    linkColor,
-                    isActive && (scrolled ? "text-accent" : "text-white")
+                    "relative text-[15px] font-semibold transition-colors duration-200 py-1",
+                    "text-white/90 hover:text-white",
+                    isActive &&
+                      "text-white after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:bg-white"
                   )
                 }
               >
                 {t(item.key)}
               </NavLink>
             ))}
+            <NavLink
+              to="/tickets"
+              className={({ isActive }) =>
+                cn(
+                  "relative text-[15px] font-semibold transition-colors duration-200 py-1 text-white/90 hover:text-white",
+                  isActive && "text-white after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:bg-white"
+                )
+              }
+            >
+              {t("nav.tickets")}
+            </NavLink>
+            <NavLink
+              to="/store"
+              className={({ isActive }) =>
+                cn(
+                  "relative text-[15px] font-semibold transition-colors duration-200 py-1 text-white/90 hover:text-white",
+                  isActive && "text-white after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-[2px] after:bg-white"
+                )
+              }
+            >
+              {t("nav.store", "Boutique")}
+            </NavLink>
           </nav>
 
-          {/* Right: actions */}
-          <div className="flex items-center gap-5">
+          {/* Right side: search + auth + lang (desktop) */}
+          <div className="hidden lg:flex items-center gap-4 ms-auto">
+            <button
+              type="button"
+              aria-label="Search"
+              className="text-white/90 hover:text-white transition-colors"
+            >
+              <Search className="h-5 w-5" strokeWidth={2.2} />
+            </button>
             {isEditor && (
-              <Link
-                to="/admin"
-                title="Admin"
-                className={cn("hidden md:inline-flex transition-colors", iconColor)}
-              >
+              <Link to="/admin" title="Admin" className="text-white/90 hover:text-white">
                 <Settings className="h-4 w-4" />
               </Link>
             )}
             <Link
               to="/auth"
-              className={cn(
-                "hidden md:inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.12em] transition-colors duration-300",
-                linkColor
-              )}
+              className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/90 hover:text-white transition-colors"
             >
               <User className="h-4 w-4" strokeWidth={2.2} />
               {t("nav.signIn", "Se connecter")}
-            </Link>
-            <Link
-              to="/tickets"
-              className={cn(
-                "hidden sm:inline-flex text-[13px] font-bold uppercase tracking-[0.12em] transition-colors duration-300",
-                linkColor
-              )}
-            >
-              {t("nav.tickets")}
-            </Link>
-            <Link
-              to="/store"
-              className={cn(
-                "hidden sm:inline-flex text-[13px] font-bold uppercase tracking-[0.12em] transition-colors duration-300",
-                linkColor
-              )}
-            >
-              {t("nav.store", "Boutique")}
             </Link>
             <LanguageSwitcher />
           </div>
