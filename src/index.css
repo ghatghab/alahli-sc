@@ -255,11 +255,11 @@ All colors MUST be HSL.
     border: 1px solid hsl(var(--border));
   }
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.3em] text-gold;
+    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.3em] text-accent;
   }
   .eyebrow::before {
     content: "";
-    @apply inline-block h-px w-8 bg-gold;
+    @apply inline-block h-px w-8 bg-accent;
   }
   .section-dark {
     @apply relative bg-primary text-primary-foreground overflow-hidden;
@@ -273,13 +273,13 @@ All colors MUST be HSL.
     pointer-events: none;
   }
   .card-premium {
-    @apply relative overflow-hidden rounded-xl border border-border bg-card shadow-soft transition-all duration-300;
+    @apply relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all duration-300;
   }
   .card-premium:hover {
-    @apply shadow-elegant border-gold/40 -translate-y-0.5;
+    @apply shadow-elegant border-accent/40 -translate-y-0.5;
   }
   .gold-divider {
-    @apply h-px w-12 bg-gradient-to-r from-gold to-transparent rtl:bg-gradient-to-l;
+    @apply h-px w-12 bg-gradient-to-r from-accent to-transparent rtl:bg-gradient-to-l;
   }
 }
 
