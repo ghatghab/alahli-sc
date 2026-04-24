@@ -110,62 +110,67 @@ export const Hero = () => {
   if (newsSlides.length === 0) return <HeroSkeleton empty />;
 
   return (
-    <section className="relative overflow-hidden bg-background">
-      <div ref={emblaRef} className="overflow-hidden">
-        <div className="flex">
-          {newsSlides.map(slide => (
-            <div key={slide.key} className="relative min-w-0 shrink-0 grow-0 basis-full">
-              <img
-                src={slide.image}
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover object-[center_25%]"
-                loading="eager"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/50 to-primary/30" />
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-transparent to-transparent rtl:bg-gradient-to-l" />
-
-              <Link
-                to={slide.href}
-                className="absolute inset-0 z-10"
-                aria-label={slide.title}
-              />
-              <div className="container-club pointer-events-none relative z-20 flex flex-col justify-end min-h-[80svh] pb-20 pt-32 lg:min-h-[88svh] lg:pb-28 lg:pt-40">
-                <div className="max-w-4xl space-y-4 animate-slide-up">
-                  <Link to={slide.href} className="pointer-events-auto inline-block group">
-                    <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.1] sm:leading-[0.95] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] sm:underline sm:decoration-white/90 sm:decoration-[3px] sm:underline-offset-[10px] sm:group-hover:decoration-gold transition-colors">
-                      {slide.title}
-                    </h1>
-                    <span className="mt-3 block h-[3px] w-24 bg-white/90 group-hover:bg-gold transition-colors sm:hidden" />
+    <section className="relative bg-background pt-20 lg:pt-24">
+      <div className="container-club">
+        <div ref={emblaRef} className="overflow-hidden rounded-2xl">
+          <div className="flex">
+            {newsSlides.map(slide => (
+              <div key={slide.key} className="relative min-w-0 shrink-0 grow-0 basis-full">
+                <div className="grid lg:grid-cols-[1.6fr_1fr] bg-secondary rounded-2xl overflow-hidden">
+                  {/* Image */}
+                  <Link
+                    to={slide.href}
+                    aria-label={slide.title}
+                    className="relative block aspect-[16/10] lg:aspect-auto lg:min-h-[460px] overflow-hidden group"
+                  >
+                    <img
+                      src={slide.image}
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      loading="eager"
+                    />
+                    {/* Mobile readable overlay */}
+                    <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-primary/85 via-primary/30 to-transparent" />
+                    <div className="absolute bottom-4 start-4 lg:hidden">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 text-accent text-[10px] font-bold uppercase tracking-[0.2em]">
+                        {slide.category}
+                      </span>
+                    </div>
                   </Link>
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-bold uppercase tracking-wider">
-                    <span className="inline-flex items-center gap-2 text-gold">
-                      <span className="inline-block h-2.5 w-2.5 bg-gold" />
+
+                  {/* Editorial panel */}
+                  <div className="flex flex-col justify-center p-8 lg:p-12 bg-secondary">
+                    <div className="hidden lg:flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.3em] text-accent mb-5">
+                      <span className="inline-block h-px w-8 bg-accent" />
                       {slide.category}
-                    </span>
+                    </div>
+                    <Link to={slide.href} className="group">
+                      <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-[1.1] text-foreground group-hover:text-accent transition-colors">
+                        {slide.title}
+                      </h1>
+                    </Link>
                     {slide.publishedAt && (
-                      <span className="inline-flex items-center gap-1.5 text-white/85">
+                      <div className="mt-5 inline-flex items-center gap-1.5 text-xs text-muted-foreground font-semibold">
                         <Clock className="h-3.5 w-3.5" />
                         {timeAgo(slide.publishedAt, i18n.language)}
-                      </span>
+                      </div>
                     )}
-                  </div>
-                  <div className="pt-3 pointer-events-auto">
-                    <Button asChild variant="gold" size="lg">
-                      <Link to={slide.href}>
-                        {slide.cta} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-                      </Link>
-                    </Button>
+                    <div className="mt-6">
+                      <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full">
+                        <Link to={slide.href}>
+                          {slide.cta} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      {newsSlides.length > 1 && (
-        <div className="absolute bottom-6 left-0 right-0 z-20">
-          <div className="container-club flex items-center justify-between gap-4">
+        {newsSlides.length > 1 && (
+          <div className="mt-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               {newsSlides.map((s, i) => (
                 <button
@@ -173,7 +178,7 @@ export const Hero = () => {
                   onClick={() => embla?.scrollTo(i)}
                   aria-label={`Slide ${i + 1}`}
                   className={`h-1.5 rounded-full transition-all ${
-                    i === selected ? "w-10 bg-gold" : "w-5 bg-white/40 hover:bg-white/70"
+                    i === selected ? "w-10 bg-accent" : "w-5 bg-border hover:bg-muted-foreground/40"
                   }`}
                 />
               ))}
@@ -181,13 +186,13 @@ export const Hero = () => {
             <button
               onClick={togglePlay}
               aria-label={playing ? "Pause" : "Play"}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur transition hover:bg-black/50"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-foreground/80 transition hover:text-accent hover:border-accent"
             >
               {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
             </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 };
