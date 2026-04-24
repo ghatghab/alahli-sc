@@ -112,13 +112,7 @@ export const Header = () => {
               <User className="h-4 w-4" strokeWidth={2.2} />
               {t("nav.signIn", "Se connecter")}
             </Link>
-            <Link
-              to="/tickets"
-              className={cn(
-                "hidden sm:inline-flex text-[13px] font-bold uppercase tracking-[0.12em] transition-colors duration-300",
-                linkColor
-              )}
-            >
+            <Link to="/tickets" className="hidden sm:inline-flex gold-button">
               {t("nav.tickets")}
             </Link>
             <Link
