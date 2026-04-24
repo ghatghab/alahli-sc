@@ -1,5 +1,5 @@
 export const ar = {
-  brand: { name: "النادي الأهلي الرياضي", tagline: "الأخضر والأبيض منذ 1950" },
+  brand: { name: "الأهلي", tagline: "الأخضر والأبيض منذ 1950" },
   nav: {
     club: "النادي",
     teams: "الفرق",
