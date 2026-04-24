@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Settings } from "lucide-react";
+import { Menu, X, Settings, User } from "lucide-react";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { cn } from "@/lib/utils";
@@ -142,12 +142,13 @@ export const Header = () => {
             <Link
               to="/auth"
               className={cn(
-                "text-[13px] font-bold uppercase tracking-wider italic transition-colors whitespace-nowrap",
+                "inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-wider px-4 py-2 border transition-colors whitespace-nowrap",
                 isLight
-                  ? "text-accent/80 hover:text-accent"
-                  : "text-white/80 hover:text-white"
+                  ? "border-accent/40 text-accent hover:bg-accent hover:text-white"
+                  : "border-white/40 text-white hover:bg-white hover:text-primary"
               )}
             >
+              <User className="h-4 w-4" strokeWidth={2.5} />
               {t("nav.signIn")}
             </Link>
             <Link
