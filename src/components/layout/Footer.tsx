@@ -73,7 +73,7 @@ export const Footer = () => {
                   src={p.src}
                   alt={p.alt}
                   loading="lazy"
-                  className="h-10 md:h-12 w-auto object-contain dark:brightness-0 dark:invert"
+                  className="h-20 md:h-28 w-auto object-contain dark:brightness-0 dark:invert"
                 />
               </a>
             ))}
