@@ -70,7 +70,7 @@ export const LatestNews = () => {
       <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
         <div>
           <div className="eyebrow">{t("nav.news")}</div>
-          <h2 className="font-display text-3xl sm:text-5xl font-bold mt-3 leading-[0.95] text-foreground">{t("sections.latestNews")}</h2>
+          <h2 className="font-impact text-4xl sm:text-6xl mt-3 leading-[0.95] uppercase text-accent">{t("sections.latestNews")}</h2>
           <div className="mt-3 h-[2px] w-16 bg-accent" />
           <p className="text-muted-foreground mt-4 max-w-md">{t("sections.latestNewsSub")}</p>
         </div>
