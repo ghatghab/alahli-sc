@@ -123,7 +123,7 @@ export const ar = {
     volleyball: "الكرة الطائرة",
     mensFirst: "الفريق الأول",
     formation: "الفئات السنية",
-    squad: "التشكيلة",
+    squad: "اللاعبون",
     staff: "الجهاز الفني",
     schedule: "المباريات",
     standings: "الترتيب",
