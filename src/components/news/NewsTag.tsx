@@ -20,6 +20,7 @@ export const NewsTag = ({ category, timeText, className, onDark = false }: Props
         className,
       )}
     >
+      <span className="inline-block h-2.5 w-2.5 bg-accent shrink-0" aria-hidden />
       <span className="text-accent">{category}</span>
       {timeText && (
         <>
