@@ -1,6 +1,5 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type RubricItem = { to: string; key: string; end?: boolean };
@@ -11,7 +10,6 @@ export type RubricItem = { to: string; key: string; end?: boolean };
  * (Effectif · Staff · Calendrier · Classements · Palmarès).
  */
 export const RubricTabs = ({
-  parent,
   items,
 }: {
   parent?: { to: string; labelKey: string };
@@ -20,17 +18,6 @@ export const RubricTabs = ({
   const { t } = useTranslation();
   return (
     <div className="border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      {parent && (
-        <div className="container-club py-3">
-          <Link
-            to={parent.to}
-            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-accent"
-          >
-            <ChevronLeft className="h-3.5 w-3.5 rtl:rotate-180" />
-            {t(parent.labelKey)}
-          </Link>
-        </div>
-      )}
       <nav
         aria-label="Section"
         className="container-club overflow-x-auto sm:overflow-x-visible"
