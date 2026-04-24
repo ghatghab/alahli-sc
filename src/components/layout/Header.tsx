@@ -40,7 +40,7 @@ export const Header = () => {
           : "bg-background/90 backdrop-blur border-b border-transparent"
       )}
     >
-      <div className="container-club flex h-16 lg:h-20 items-center justify-between gap-4">
+      <div className="container-club flex h-20 lg:h-24 items-center justify-between gap-4">
         <Link to="/" aria-label="Al Ahli Sports Club" className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md">
           <Logo size="sm" />
         </Link>
