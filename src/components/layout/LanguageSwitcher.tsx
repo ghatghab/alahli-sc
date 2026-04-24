@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Globe } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const langs = [
   { code: "en", label: "English" },
@@ -17,12 +20,24 @@ const langs = [
 export const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
   const current = langs.find(l => l.code === i18n.language) ?? langs[0];
+  const { pathname } = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  const isHome = pathname === "/";
+  // Green on inner pages at top; white over hero or when scrolled (accent bg)
+  const isLight = !isHome && !scrolled;
+  const colorClass = isLight ? "text-accent" : "text-white";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="gap-2 font-medium">
-          <Globe className="h-4 w-4 text-white" />
-          <span className="uppercase text-xs tracking-wider text-white">{current.code}</span>
+          <Globe className={cn("h-4 w-4", colorClass)} />
+          <span className={cn("uppercase text-xs tracking-wider", colorClass)}>{current.code}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[140px]">
