@@ -143,7 +143,7 @@ export const Header = () => {
         />
         <aside
           className={cn(
-            "absolute top-0 start-0 h-full w-full sm:w-[420px] bg-primary text-primary-foreground shadow-2xl",
+            "absolute top-0 start-0 h-full w-full sm:w-[420px] bg-primary text-primary-foreground shadow-2xl chevrons-overlay",
             "transition-transform duration-400 ease-out",
             open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
           )}
