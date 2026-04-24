@@ -223,6 +223,19 @@ export const Header = () => {
                 {t(item.key)}
               </NavLink>
             ))}
+            <NavLink
+              to="/auth"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b border-white/10",
+                  "text-white/90 hover:text-accent",
+                  isActive && "text-accent"
+                )
+              }
+            >
+              {t("nav.signIn")}
+            </NavLink>
           </nav>
         </aside>
       </div>
