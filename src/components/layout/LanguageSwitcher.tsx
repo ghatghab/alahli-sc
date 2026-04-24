@@ -35,9 +35,13 @@ export const LanguageSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2 font-medium">
-          <Languages className={cn("h-4 w-4", colorClass)} />
-          <span className={cn("uppercase text-xs tracking-wider", colorClass)}>{current.code}</span>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="gap-2 font-medium bg-transparent hover:bg-transparent group"
+        >
+          <Languages className={cn("h-4 w-4 transition-opacity group-hover:opacity-70", colorClass)} />
+          <span className={cn("uppercase text-xs tracking-wider transition-opacity group-hover:opacity-70", colorClass)}>{current.code}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[140px]">
