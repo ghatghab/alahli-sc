@@ -70,7 +70,7 @@ export const LatestNews = () => {
       <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
         <div>
           <div className="eyebrow">{t("nav.news")}</div>
-          <h2 className="font-display text-3xl sm:text-5xl font-bold mt-3 leading-[0.95] text-foreground">{t("sections.latestNews")}</h2>
+          <h2 className="font-impact text-4xl sm:text-6xl mt-3 leading-[0.95] uppercase text-accent">{t("sections.latestNews")}</h2>
           <div className="mt-3 h-[2px] w-16 bg-accent" />
           <p className="text-muted-foreground mt-4 max-w-md">{t("sections.latestNewsSub")}</p>
         </div>
@@ -131,13 +131,13 @@ const FeaturedArticle = ({ item, lang, ctaLabel }: { item: Row; lang: string; ct
           <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground font-semibold mb-3">
             {formatDate(item.published_at, lang)}
           </div>
-          <h3 className="font-display text-2xl md:text-3xl font-bold leading-[1.1] uppercase group-hover:text-gold transition-colors duration-300">
+          <h3 className="font-display text-2xl md:text-3xl font-bold leading-[1.05] uppercase text-foreground group-hover:text-accent transition-colors duration-300">
             {tr.title}
           </h3>
           {tr.excerpt && (
             <p className="mt-4 text-sm text-muted-foreground line-clamp-3 leading-relaxed">{tr.excerpt}</p>
           )}
-          <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-gold">
+          <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-accent">
             {ctaLabel} <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
           </span>
         </div>
@@ -187,10 +187,10 @@ const NewsCarousel = ({ items, lang, ctaLabel, dir }: { items: Row[]; lang: stri
                     <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold">
                       {formatDate(item.published_at, lang)}
                     </div>
-                    <h3 className="font-display text-base font-bold mt-2 leading-tight uppercase group-hover:text-gold transition-colors">
+                    <h3 className="font-display text-base font-bold mt-2 leading-tight uppercase text-foreground group-hover:text-accent transition-colors">
                       {tr.title}
                     </h3>
-                    <span className="mt-auto pt-3 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold">
+                    <span className="mt-auto pt-3 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-accent">
                       {ctaLabel} <ArrowRight className="h-3 w-3 rtl:rotate-180 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                     </span>
                   </div>

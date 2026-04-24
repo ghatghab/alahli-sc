@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
 import { fixtures, nextFixtureIndex, type Fixture } from "@/lib/fixtures";
 import { LiveBadge } from "@/components/match/LiveBadge";
@@ -90,13 +89,14 @@ export const NextMatch = () => {
   };
 
   return (
-    <section className="relative bg-background py-14 lg:py-20 overflow-hidden">
+    <section className="relative bg-primary text-primary-foreground py-16 lg:py-24 overflow-hidden chevrons-overlay">
+      {/* soft glow accents */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-60"
+        className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 60% at 0% 0%, hsl(var(--accent) / 0.08) 0%, transparent 60%), radial-gradient(60% 60% at 100% 100%, hsl(var(--gold) / 0.08) 0%, transparent 60%)",
+            "radial-gradient(50% 60% at 0% 0%, hsl(var(--accent) / 0.25) 0%, transparent 60%), radial-gradient(45% 55% at 100% 100%, hsl(var(--gold) / 0.18) 0%, transparent 60%)",
         }}
       />
       <div className="container-club relative">
@@ -104,10 +104,10 @@ export const NextMatch = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-10">
           <div className="hidden lg:block w-32" />
           <div className="flex flex-col items-center text-center">
-            <div className="text-sm font-bold uppercase tracking-[0.3em] text-foreground/80 mb-4">
+            <div className="text-xs font-bold uppercase tracking-[0.35em] text-gold mb-4">
               {t("nextMatch.label")}
             </div>
-            <div className="flex items-end gap-3 sm:gap-5 font-display font-black tabular-nums">
+            <div className="flex items-end gap-3 sm:gap-5 font-impact tabular-nums">
               {[
                 { v: pad(days), l: t("nextMatch.days") },
                 { v: pad(hours), l: t("nextMatch.hours") },
@@ -116,24 +116,22 @@ export const NextMatch = () => {
               ].map((unit, i, arr) => (
                 <div key={unit.l} className="flex items-end gap-3 sm:gap-5">
                   <div className="flex flex-col items-center">
-                    <span className="text-4xl sm:text-6xl leading-none text-accent">{unit.v}</span>
-                    <span className="mt-2 text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                    <span className="text-5xl sm:text-7xl leading-none text-white">{unit.v}</span>
+                    <span className="mt-2 text-[10px] sm:text-xs uppercase tracking-wider text-white/60 font-semibold">
                       {unit.l}
                     </span>
                   </div>
                   {i < arr.length - 1 && (
-                    <span className="text-3xl sm:text-5xl leading-none text-accent/60 pb-6 sm:pb-7">:</span>
+                    <span className="text-4xl sm:text-6xl leading-none text-white/40 pb-6 sm:pb-7">:</span>
                   )}
                 </div>
               ))}
             </div>
           </div>
           <div className="lg:w-40 flex lg:justify-end">
-            <Button asChild variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
-              <Link to="/match-center" aria-label={t("nextMatch.schedule")}>
-                {t("nextMatch.schedule")}
-              </Link>
-            </Button>
+            <Link to="/match-center" aria-label={t("nextMatch.schedule")} className="gold-button">
+              {t("nextMatch.schedule")}
+            </Link>
           </div>
         </div>
 
@@ -176,7 +174,7 @@ export const NextMatch = () => {
               onClick={() => embla?.scrollPrev()}
               aria-label={t("a11y.prevMatch")}
               aria-controls="matches-carousel"
-              className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
+              className="grid h-9 w-9 place-items-center rounded-full border border-white/30 text-white/80 hover:text-gold hover:border-gold transition"
             >
               <ChevronLeft className="h-5 w-5 rtl:hidden" />
               <ChevronRight className="h-5 w-5 hidden rtl:block" />
@@ -192,7 +190,7 @@ export const NextMatch = () => {
                   onClick={() => embla?.scrollTo(i)}
                   aria-label={t("a11y.goToMatch", { n: i + 1 })}
                   className={`h-1.5 rounded-full transition-all ${
-                    i === selected ? "w-10 bg-accent" : "w-5 bg-border hover:bg-muted-foreground/40"
+                    i === selected ? "w-10 bg-gold" : "w-5 bg-white/25 hover:bg-white/50"
                   }`}
                 />
               ))}
@@ -202,7 +200,7 @@ export const NextMatch = () => {
               onClick={() => embla?.scrollNext()}
               aria-label={t("a11y.nextMatchBtn")}
               aria-controls="matches-carousel"
-              className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground/70 hover:text-accent hover:border-accent transition"
+              className="grid h-9 w-9 place-items-center rounded-full border border-white/30 text-white/80 hover:text-gold hover:border-gold transition"
             >
               <ChevronRight className="h-5 w-5 rtl:hidden" />
               <ChevronLeft className="h-5 w-5 hidden rtl:block" />
@@ -260,7 +258,7 @@ const FixtureCard = ({
         )}
         {isActive && !isLive && fixture.isNext && (
           <div className="absolute left-1/2 -translate-x-1/2 -top-px z-10">
-            <span className="block px-4 py-1 bg-accent text-accent-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-b-md">
+            <span className="block px-4 py-1 bg-gold text-gold-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-b-md">
               {nextLabel}
             </span>
           </div>
