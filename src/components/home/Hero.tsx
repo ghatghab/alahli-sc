@@ -169,7 +169,7 @@ export const Hero = () => {
                       </div>
 
                       {/* Title */}
-                      <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl xl:text-[5.5rem] font-black uppercase leading-[0.92] tracking-[-0.02em] text-white text-shadow-elegant">
+                      <h1 className="font-display text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-black uppercase leading-[0.95] tracking-[-0.02em] text-white text-shadow-elegant">
                         {slide.title}
                       </h1>
 
