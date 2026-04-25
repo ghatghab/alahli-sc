@@ -118,14 +118,6 @@ const HorizontalPitch = ({ home, away }: { home: Player[]; away: Player[] }) => 
 
 /* ---------- Vertical pitch (mobile, single team) ---------- */
 
-const VerticalRow = ({ players, tone }: { players: Player[]; tone: Side }) => (
-  <div className="flex items-center justify-around w-full gap-1">
-    {players.map((p) => (
-      <Jersey key={p.number} player={p} tone={tone} size="sm" />
-    ))}
-  </div>
-);
-
 const VerticalMarkings = () => (
   <svg
     aria-hidden
@@ -155,12 +147,13 @@ const VerticalMarkings = () => (
 
 const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => {
   const g = groupByPosition(players);
-  // From own goal (bottom) to attack (top): GK → DF → MF → FW
-  const rows: { players: Player[] }[] = [
-    { players: g.FW },
-    { players: g.MF },
-    { players: g.DF },
-    { players: g.GK },
+  // Y position (top %) per line. Bottom = own goal, top = attacking.
+  // GK very close to own goal, FW near halfway line.
+  const lines: { players: Player[]; top: number }[] = [
+    { players: g.FW, top: 22 },
+    { players: g.MF, top: 42 },
+    { players: g.DF, top: 65 },
+    { players: g.GK, top: 88 },
   ];
 
   return (
@@ -173,11 +166,21 @@ const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => 
     >
       <div className="relative aspect-[3/5] w-full">
         <VerticalMarkings />
-        <div className="relative z-10 grid h-full grid-rows-4 gap-0 px-2 py-4">
-          {rows.map((row, i) => (
-            <VerticalRow key={i} players={row.players} tone={tone} />
-          ))}
-        </div>
+        {lines.map((line, i) => {
+          const count = line.players.length;
+          if (count === 0) return null;
+          return (
+            <div
+              key={i}
+              className="absolute left-0 right-0 px-2 flex items-center justify-around"
+              style={{ top: `${line.top}%`, transform: "translateY(-50%)" }}
+            >
+              {line.players.map((p) => (
+                <Jersey key={p.number} player={p} tone={tone} size="sm" />
+              ))}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
