@@ -270,6 +270,24 @@ export const fr = {
     sustainability: "Durabilité",
     museum: "Musée",
   },
+  subnav: {
+    back: "Retour",
+    teams: {
+      title: "Équipes",
+      mensFirst: "Équipe Première",
+      legends: "Légendes",
+    },
+    club: {
+      title: "Club",
+      overview: "Présentation",
+      history: "Histoire",
+      identity: "Identité",
+      leadership: "Direction",
+      partners: "Partenaires",
+      sustainability: "Durabilité",
+      museum: "Musée",
+    },
+  },
   comingSoon: "Contenu complet bientôt disponible — il s'agit de la v1 de notre nouveau site.",
   news: {
     empty: "Aucun article pour l'instant. Revenez bientôt !",
