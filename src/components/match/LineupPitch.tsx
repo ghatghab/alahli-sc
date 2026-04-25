@@ -171,7 +171,7 @@ const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => 
           if (count === 0) return null;
           // Tighten the row horizontally when 4+ players (typically defenders)
           // so the outer jerseys + their names stay inside the pitch.
-          const padX = count >= 4 ? "px-4 sm:px-6" : "px-2";
+          const padX = count >= 4 ? "px-6 sm:px-8 md:px-10" : "px-3 sm:px-4";
           return (
             <div
               key={i}
