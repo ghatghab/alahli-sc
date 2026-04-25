@@ -106,7 +106,7 @@ const MatchDetailContent = ({
             {fixture.competition}
           </div>
 
-          <div className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-6 sm:gap-10">
+          <div dir="ltr" className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-6 sm:gap-10">
             {/* Home */}
             <div className="flex flex-col items-center text-center">
               <div className="h-20 w-20 sm:h-28 sm:w-28 rounded-full overflow-hidden ring-2 ring-gold/40 bg-card grid place-items-center">
