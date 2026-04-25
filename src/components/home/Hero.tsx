@@ -198,14 +198,14 @@ export const Hero = () => {
           <button
             onClick={() => embla?.scrollPrev()}
             aria-label="Previous slide"
-            className="hidden lg:flex absolute left-6 top-1/4 h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition hover:bg-accent hover:border-accent z-10"
+            className="hidden lg:flex absolute left-6 top-24 xl:top-28 h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition hover:bg-accent hover:border-accent z-10"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={() => embla?.scrollNext()}
             aria-label="Next slide"
-            className="hidden lg:flex absolute right-6 top-1/4 h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition hover:bg-accent hover:border-accent z-10"
+            className="hidden lg:flex absolute right-6 top-24 xl:top-28 h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition hover:bg-accent hover:border-accent z-10"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
