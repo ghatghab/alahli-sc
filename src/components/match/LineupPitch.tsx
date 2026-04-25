@@ -152,8 +152,8 @@ const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => 
   const lines: { players: Player[]; top: number }[] = [
     { players: g.GK, top: 12 },
     { players: g.DF, top: 35 },
-    { players: g.MF, top: 58 },
-    { players: g.FW, top: 80 },
+    { players: g.MF, top: 55 },
+    { players: g.FW, top: 72 },
   ];
 
   return (
