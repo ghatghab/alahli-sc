@@ -161,6 +161,7 @@ export const fr = {
     accessibility: "Accessibilité",
     address: "Tripoli, Libye",
     partners: "Partenaires",
+    officialPartners: "Partenaires officiels",
     cols: {
       news: "Actualités",
       matches: "Matchs",

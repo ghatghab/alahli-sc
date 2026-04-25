@@ -161,6 +161,7 @@ export const ar = {
     accessibility: "إمكانية الوصول",
     address: "طرابلس، ليبيا",
     partners: "الشركاء",
+    officialPartners: "الرعاة الرسميون",
     cols: {
       news: "الأخبار",
       matches: "المباريات",

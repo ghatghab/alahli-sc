@@ -161,6 +161,7 @@ export const en = {
     accessibility: "Accessibility",
     address: "Tripoli, Libya",
     partners: "Partners",
+    officialPartners: "Official Partners",
     cols: {
       news: "News",
       matches: "Matches",
