@@ -30,21 +30,21 @@ const Jersey = ({
   tone: Side;
   size?: "sm" | "md";
 }) => (
-  <div className={`flex flex-col items-center text-center ${size === "sm" ? "w-20 sm:w-24" : "w-24"}`}>
+  <div className={`flex flex-col items-center text-center ${size === "sm" ? "w-24 sm:w-28 md:w-32" : "w-28 md:w-32"}`}>
     <div className="relative">
       <img
         src={jerseyImg}
         alt=""
         aria-hidden
-        className={`${size === "sm" ? "h-14 sm:h-16" : "h-16"} w-auto object-contain drop-shadow-lg ${
+        className={`${size === "sm" ? "h-16 sm:h-20 md:h-24" : "h-20 md:h-24"} w-auto object-contain drop-shadow-lg ${
           tone === "away" ? "grayscale opacity-70" : ""
         }`}
       />
-      <span className="absolute inset-0 grid place-items-center font-display font-black text-base sm:text-lg text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] tabular-nums pt-1.5">
+      <span className="absolute inset-0 grid place-items-center font-display font-black text-base sm:text-lg md:text-xl text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] tabular-nums pt-1.5">
         {player.number}
       </span>
     </div>
-    <span className="mt-1.5 text-[11px] sm:text-xs font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] line-clamp-1">
+    <span className="mt-1.5 text-[11px] sm:text-xs md:text-sm font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] break-words">
       {player.name}
     </span>
   </div>
