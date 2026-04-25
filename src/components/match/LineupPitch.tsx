@@ -36,11 +36,11 @@ const Jersey = ({
         src={jerseyImg}
         alt=""
         aria-hidden
-        className={`${size === "sm" ? "h-16 sm:h-20 md:h-24" : "h-20 md:h-24"} w-auto object-contain drop-shadow-lg ${
+        className={`h-20 sm:h-24 md:h-24 w-auto object-contain drop-shadow-lg ${
           tone === "away" ? "grayscale opacity-70" : ""
         }`}
       />
-      <span className="absolute inset-0 grid place-items-center font-display font-black text-base sm:text-lg md:text-xl text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] tabular-nums pt-1.5">
+      <span className="absolute inset-0 grid place-items-center font-display font-black text-lg sm:text-xl md:text-xl text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] tabular-nums pt-1.5">
         {player.number}
       </span>
     </div>
@@ -174,7 +174,7 @@ const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => 
           return (
             <div
               key={i}
-              className="absolute left-0 right-0 px-2 sm:px-3 flex items-start"
+              className="absolute left-0 right-0 px-1 sm:px-2 flex items-start"
               style={{ top: `${line.top}%`, transform: "translateY(-50%)" }}
             >
               {line.players.map((p) => (
