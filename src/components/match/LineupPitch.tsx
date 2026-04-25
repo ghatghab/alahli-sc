@@ -44,7 +44,7 @@ const Jersey = ({
         {player.number}
       </span>
     </div>
-    <span className="-mt-0.5 text-[11px] sm:text-xs md:text-sm font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] break-words hyphens-auto w-full px-0.5">
+    <span className="-mt-2 text-[11px] sm:text-xs md:text-sm font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] break-words hyphens-auto w-full px-0.5">
       {player.name}
     </span>
   </div>
