@@ -34,7 +34,7 @@ export const SubNav = ({
         aria-label="Section"
         className="container-club -mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-x-visible sm:px-0"
       >
-        <ul className="flex min-w-max items-center gap-1 pt-4 pb-2 sm:min-w-0 sm:flex-wrap">
+        <ul className="flex min-w-max items-center gap-1 pt-3 pb-2 sm:min-w-0 sm:flex-wrap lg:pt-4">
           {items.map((item) => (
             <li key={item.to}>
               <NavLink
