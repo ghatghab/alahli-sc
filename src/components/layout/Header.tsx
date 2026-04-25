@@ -323,11 +323,11 @@ export const Header = () => {
           )}
           aria-hidden={!activeSub}
         >
-          <div className="flex items-center gap-3 px-6 h-14 lg:h-16 border-b border-accent/10">
+          <div className="relative flex items-center px-6 h-14 lg:h-16 border-b border-accent/10">
             <button
               type="button"
               onClick={() => setActiveSub(null)}
-              className="sm:hidden inline-flex items-center gap-2 text-accent/80 hover:text-accent transition-colors group"
+              className="sm:hidden inline-flex items-center gap-2 text-accent/80 hover:text-accent transition-colors group z-10"
               aria-label={t("nav.back", "Retour")}
             >
               <ChevronRight
@@ -338,7 +338,7 @@ export const Header = () => {
                 {t("nav.back", "Retour")}
               </span>
             </button>
-            <span className="ms-auto text-sm font-bold uppercase tracking-[0.18em] text-accent">
+            <span className="absolute left-1/2 -translate-x-1/2 text-sm font-bold uppercase tracking-[0.18em] text-accent">
               {activeSub ? t(subNavMap[activeSub].labelKey) : ""}
             </span>
           </div>
