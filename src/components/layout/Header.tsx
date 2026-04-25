@@ -128,14 +128,14 @@ export const Header = () => {
           </Link>
 
           {/* Desktop primary nav */}
-          <nav className="hidden lg:flex items-center gap-7 xl:gap-9 px-2">
+          <nav className="hidden lg:flex items-center gap-8 xl:gap-12 px-3 xl:px-4">
             {primaryNav.map(item => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
                   cn(
-                    "relative text-[15px] font-bold uppercase tracking-wide transition-colors duration-200 py-1",
+                    "relative text-[14px] xl:text-[15px] font-bold uppercase tracking-wide whitespace-nowrap transition-colors duration-200 py-1",
                     isLight
                       ? "text-accent/80 hover:text-accent"
                     : "text-white/90 hover:text-white",
@@ -153,7 +153,7 @@ export const Header = () => {
           </nav>
 
           {/* Right side actions */}
-          <div className="hidden lg:flex items-center gap-3 ms-auto pr-4 lg:pr-6">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-3 ms-auto pr-4 lg:pr-6">
             {isEditor && (
               <Link
                 to="/admin"
