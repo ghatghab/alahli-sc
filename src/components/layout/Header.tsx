@@ -229,7 +229,7 @@ export const Header = () => {
         />
         <aside
           className={cn(
-            "absolute top-0 start-0 h-full w-full sm:w-[420px] shadow-2xl",
+            "absolute top-0 start-0 h-full w-full sm:w-[420px] shadow-2xl z-10",
             "bg-white text-accent",
             "transition-transform duration-400 ease-out",
             open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
@@ -313,13 +313,13 @@ export const Header = () => {
         {/* Submenu panel — slides next to main drawer */}
         <aside
           className={cn(
-            "absolute top-0 h-full w-full sm:w-[420px] shadow-2xl",
-            "start-0 sm:start-[420px]",
+            "absolute top-0 h-full w-full sm:w-[420px] shadow-xl z-0",
+            "start-0 sm:start-0",
             "bg-muted text-accent",
-            "transition-transform duration-400 ease-out",
+            "transition-all duration-500 ease-out",
             open && activeSub
-              ? "translate-x-0"
-              : "-translate-x-full rtl:translate-x-full sm:translate-x-0 sm:opacity-0 sm:pointer-events-none"
+              ? "sm:translate-x-[420px] translate-x-0 opacity-100"
+              : "sm:translate-x-0 -translate-x-full rtl:translate-x-full opacity-0 pointer-events-none"
           )}
           aria-hidden={!activeSub}
         >
