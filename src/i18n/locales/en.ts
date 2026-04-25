@@ -270,6 +270,24 @@ export const en = {
     sustainability: "Sustainability",
     museum: "Museum",
   },
+  subnav: {
+    back: "Back",
+    teams: {
+      title: "Teams",
+      mensFirst: "Men's First Team",
+      legends: "Legends",
+    },
+    club: {
+      title: "Club",
+      overview: "Overview",
+      history: "History",
+      identity: "Identity",
+      leadership: "Leadership",
+      partners: "Partners",
+      sustainability: "Sustainability",
+      museum: "Museum",
+    },
+  },
   comingSoon: "Full content coming soon — this is the v1 of our new website.",
   news: {
     empty: "No articles yet. Check back soon!",

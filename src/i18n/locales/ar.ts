@@ -270,6 +270,24 @@ export const ar = {
     sustainability: "الاستدامة",
     museum: "المتحف",
   },
+  subnav: {
+    back: "رجوع",
+    teams: {
+      title: "الفِرق",
+      mensFirst: "الفريق الأول للرجال",
+      legends: "الأساطير",
+    },
+    club: {
+      title: "النادي",
+      overview: "نظرة عامة",
+      history: "التاريخ",
+      identity: "الهوية",
+      leadership: "الإدارة",
+      partners: "الشركاء",
+      sustainability: "الاستدامة",
+      museum: "المتحف",
+    },
+  },
   comingSoon: "محتوى كامل قادم قريباً — هذه النسخة الأولى من موقعنا الجديد.",
   news: {
     empty: "لا توجد مقالات بعد. عد لاحقاً!",

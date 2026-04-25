@@ -24,22 +24,22 @@ const fullNav = [
 type SubItem = { to: string; key: string };
 const subNavMap: Record<string, { labelKey: string; items: SubItem[] }> = {
   "/teams": {
-    labelKey: "nav.teams",
+    labelKey: "subnav.teams.title",
     items: [
-      { to: "/teams", key: "footer.links.mensFirst" },
-      { to: "/teams", key: "footer.links.legends" },
+      { to: "/teams", key: "subnav.teams.mensFirst" },
+      { to: "/teams", key: "subnav.teams.legends" },
     ],
   },
   "/club": {
-    labelKey: "nav.club",
+    labelKey: "subnav.club.title",
     items: [
-      { to: "/club", key: "club.overview" },
-      { to: "/club/history", key: "club.history" },
-      { to: "/club/identity", key: "club.identity" },
-      { to: "/club/leadership", key: "club.leadership" },
-      { to: "/club/partners", key: "club.partners" },
-      { to: "/club/sustainability", key: "club.sustainability" },
-      { to: "/club/museum", key: "club.museum" },
+      { to: "/club", key: "subnav.club.overview" },
+      { to: "/club/history", key: "subnav.club.history" },
+      { to: "/club/identity", key: "subnav.club.identity" },
+      { to: "/club/leadership", key: "subnav.club.leadership" },
+      { to: "/club/partners", key: "subnav.club.partners" },
+      { to: "/club/sustainability", key: "subnav.club.sustainability" },
+      { to: "/club/museum", key: "subnav.club.museum" },
     ],
   },
 };
@@ -328,14 +328,14 @@ export const Header = () => {
               type="button"
               onClick={() => setActiveSub(null)}
               className="sm:hidden inline-flex items-center gap-2 text-accent/80 hover:text-accent transition-colors group z-10"
-              aria-label={t("nav.back", "Retour")}
+              aria-label={t("subnav.back")}
             >
               <ChevronRight
                 className="h-5 w-5 rotate-180 rtl:rotate-0 transition-transform group-hover:-translate-x-1 rtl:group-hover:translate-x-1"
                 strokeWidth={2.5}
               />
               <span className="text-xs font-bold uppercase tracking-[0.18em]">
-                {t("nav.back", "Retour")}
+                {t("subnav.back")}
               </span>
             </button>
             <span className="absolute left-1/2 -translate-x-1/2 text-sm font-bold uppercase tracking-[0.18em] text-accent">
