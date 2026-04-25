@@ -229,7 +229,7 @@ export const Header = () => {
         />
         <aside
           className={cn(
-            "absolute top-0 start-0 h-full w-full sm:w-[420px] shadow-2xl z-10",
+            "absolute top-0 start-0 h-full w-full sm:w-[420px] shadow-2xl sm:z-10",
             "bg-white text-accent",
             "transition-transform duration-400 ease-out",
             open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
@@ -313,29 +313,34 @@ export const Header = () => {
         {/* Submenu panel — slides next to main drawer */}
         <aside
           className={cn(
-            "absolute top-0 h-full w-full sm:w-[420px] shadow-xl z-0",
+            "absolute top-0 h-full w-full sm:w-[420px] shadow-xl sm:z-0 z-20",
             "start-0 sm:start-0",
             "bg-muted text-accent",
             "transition-all duration-500 ease-out",
             open && activeSub
               ? "sm:translate-x-[420px] translate-x-0 opacity-100"
-              : "sm:translate-x-0 -translate-x-full rtl:translate-x-full opacity-0 pointer-events-none"
+              : "sm:translate-x-0 translate-x-full rtl:-translate-x-full opacity-0 pointer-events-none"
           )}
           aria-hidden={!activeSub}
         >
-          <div className="flex items-center justify-between px-6 h-14 lg:h-16 border-b border-accent/10">
+          <div className="flex items-center gap-3 px-6 h-14 lg:h-16 border-b border-accent/10">
             <button
               type="button"
               onClick={() => setActiveSub(null)}
-              className="sm:hidden text-accent/80 hover:text-accent"
-              aria-label="Back"
+              className="sm:hidden inline-flex items-center gap-2 text-accent/80 hover:text-accent transition-colors group"
+              aria-label={t("nav.back", "Retour")}
             >
-              <ChevronRight className="h-6 w-6 rotate-180 rtl:rotate-0" strokeWidth={2.5} />
+              <ChevronRight
+                className="h-5 w-5 rotate-180 rtl:rotate-0 transition-transform group-hover:-translate-x-1 rtl:group-hover:translate-x-1"
+                strokeWidth={2.5}
+              />
+              <span className="text-xs font-bold uppercase tracking-[0.18em]">
+                {t("nav.back", "Retour")}
+              </span>
             </button>
-            <span className="text-sm font-bold uppercase tracking-[0.18em] text-accent">
+            <span className="ms-auto text-sm font-bold uppercase tracking-[0.18em] text-accent">
               {activeSub ? t(subNavMap[activeSub].labelKey) : ""}
             </span>
-            <span className="w-6" />
           </div>
           <nav className="px-6 py-8 flex flex-col gap-1">
             {activeSub &&
