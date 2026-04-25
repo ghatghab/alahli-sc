@@ -30,7 +30,7 @@ const Jersey = ({
   tone: Side;
   size?: "sm" | "md";
 }) => (
-  <div className={`flex flex-col items-center text-center ${size === "sm" ? "w-24 sm:w-28 md:w-32" : "w-28 md:w-32"}`}>
+  <div className={`flex flex-col items-center text-center shrink-0 ${size === "sm" ? "w-20 sm:w-24 md:w-28" : "w-28 md:w-32"}`}>
     <div className="relative">
       <img
         src={jerseyImg}
@@ -172,7 +172,7 @@ const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => 
           return (
             <div
               key={i}
-              className="absolute left-0 right-0 px-2 flex items-center justify-around"
+              className="absolute left-0 right-0 px-1 flex items-center justify-around"
               style={{ top: `${line.top}%`, transform: "translateY(-50%)" }}
             >
               {line.players.map((p) => (
