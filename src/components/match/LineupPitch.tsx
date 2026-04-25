@@ -31,7 +31,7 @@ const Jersey = ({
   size?: "sm" | "md";
 }) => (
   <div className="flex flex-col items-center text-center w-full">
-    <div className="relative h-20 sm:h-24 w-16 sm:w-20 shrink-0">
+    <div className="relative h-24 sm:h-28 w-20 sm:w-24 shrink-0">
       <img
         src={jerseyImg}
         alt=""
