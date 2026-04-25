@@ -239,6 +239,8 @@ const MatchDetailContent = ({
                   <LineupPitch
                     home={fixture.lineups.home}
                     away={fixture.lineups.away}
+                    homeName={homeName}
+                    awayName={awayName}
                   />
                 </div>
 
