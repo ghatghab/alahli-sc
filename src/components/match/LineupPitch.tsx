@@ -30,7 +30,7 @@ const Jersey = ({
   tone: Side;
   size?: "sm" | "md";
 }) => (
-  <div className={`flex flex-col items-center text-center shrink-0 ${size === "sm" ? "w-20 sm:w-24 md:w-28" : "w-28 md:w-32"}`}>
+  <div className="flex flex-col items-center text-center min-w-0 w-full max-w-full">
     <div className="relative">
       <img
         src={jerseyImg}
@@ -44,7 +44,7 @@ const Jersey = ({
         {player.number}
       </span>
     </div>
-    <span className="mt-1.5 text-[11px] sm:text-xs md:text-sm font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] break-words">
+    <span className="mt-1.5 text-[11px] sm:text-xs md:text-sm font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] break-words hyphens-auto w-full px-0.5">
       {player.name}
     </span>
   </div>
@@ -53,9 +53,11 @@ const Jersey = ({
 /* ---------- Horizontal pitch (desktop) ---------- */
 
 const HorizontalLine = ({ players, tone }: { players: Player[]; tone: Side }) => (
-  <div className="flex flex-col items-center justify-around h-full gap-1">
+  <div className="flex flex-col items-center justify-around h-full gap-1 px-1">
     {players.map((p) => (
-      <Jersey key={p.number} player={p} tone={tone} size="sm" />
+      <div key={p.number} className="w-full flex justify-center">
+        <Jersey player={p} tone={tone} size="sm" />
+      </div>
     ))}
   </div>
 );
@@ -169,17 +171,20 @@ const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => 
         {lines.map((line, i) => {
           const count = line.players.length;
           if (count === 0) return null;
-          // Keep crowded rows (typically 4 defenders) within the pitch width.
-          const padX = count >= 4 ? "px-2 sm:px-4 md:px-8" : "px-3 sm:px-4";
-          const justify = count >= 4 ? "justify-between" : "justify-around";
           return (
             <div
               key={i}
-              className={`absolute left-0 right-0 ${padX} flex items-start ${justify}`}
+              className="absolute left-0 right-0 px-2 sm:px-3 flex items-start"
               style={{ top: `${line.top}%`, transform: "translateY(-50%)" }}
             >
               {line.players.map((p) => (
-                <Jersey key={p.number} player={p} tone={tone} size="sm" />
+                <div
+                  key={p.number}
+                  className="flex justify-center min-w-0"
+                  style={{ width: `${100 / count}%` }}
+                >
+                  <Jersey player={p} tone={tone} size="sm" />
+                </div>
               ))}
             </div>
           );
