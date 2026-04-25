@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Pause, Play, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Pause, Play, ArrowRight } from "lucide-react";
 import { NewsTag } from "@/components/news/NewsTag";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -194,22 +194,6 @@ export const Hero = () => {
 
       {newsSlides.length > 1 && (
         <>
-          {/* Side arrows — desktop only */}
-          <button
-            onClick={() => embla?.scrollPrev()}
-            aria-label="Previous slide"
-            className="hidden lg:flex absolute left-6 top-24 xl:top-28 h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition hover:bg-accent hover:border-accent z-10"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={() => embla?.scrollNext()}
-            aria-label="Next slide"
-            className="hidden lg:flex absolute right-6 top-24 xl:top-28 h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition hover:bg-accent hover:border-accent z-10"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-
           {/* Bottom controls overlay */}
           <div className="absolute inset-x-0 bottom-5 lg:bottom-7 z-10 pointer-events-none">
             <div className="container-club flex items-center justify-between gap-4">
