@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Settings, User } from "lucide-react";
+import { Menu, X, Settings, User, ChevronRight } from "lucide-react";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { cn } from "@/lib/utils";
@@ -21,10 +21,34 @@ const fullNav = [
   { to: "/tickets", key: "nav.tickets" },
 ];
 
+type SubItem = { to: string; key: string };
+const subNavMap: Record<string, { labelKey: string; items: SubItem[] }> = {
+  "/teams": {
+    labelKey: "nav.teams",
+    items: [
+      { to: "/teams", key: "footer.links.mensFirst" },
+      { to: "/teams", key: "footer.links.legends" },
+    ],
+  },
+  "/club": {
+    labelKey: "nav.club",
+    items: [
+      { to: "/club", key: "club.overview" },
+      { to: "/club/history", key: "club.history" },
+      { to: "/club/identity", key: "club.identity" },
+      { to: "/club/leadership", key: "club.leadership" },
+      { to: "/club/partners", key: "club.partners" },
+      { to: "/club/sustainability", key: "club.sustainability" },
+      { to: "/club/museum", key: "club.museum" },
+    ],
+  },
+};
+
 export const Header = () => {
   const { t } = useTranslation();
   const { isEditor } = useAuth();
   const [open, setOpen] = useState(false);
+  const [activeSub, setActiveSub] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
   // Home page has the hero — navbar starts transparent over it.
@@ -43,6 +67,11 @@ export const Header = () => {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  // Reset submenu when drawer closes
+  useEffect(() => {
+    if (!open) setActiveSub(null);
   }, [open]);
 
   // Track scroll to switch between transparent (over hero) and solid state
@@ -223,22 +252,48 @@ export const Header = () => {
             </button>
           </div>
           <nav className="px-6 py-8 flex flex-col gap-1">
-            {fullNav.map(item => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  cn(
-                    "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
-                    "border-accent/10 text-accent/80 hover:text-accent",
-                    isActive && "text-accent"
-                  )
-                }
-              >
-                {t(item.key)}
-              </NavLink>
-            ))}
+            {fullNav.map(item => {
+              const sub = subNavMap[item.to];
+              if (sub) {
+                const isActiveSub = activeSub === item.to;
+                return (
+                  <button
+                    key={item.to}
+                    type="button"
+                    onClick={() => setActiveSub(isActiveSub ? null : item.to)}
+                    className={cn(
+                      "flex items-center justify-between py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b text-start",
+                      "border-accent/10 text-accent/80 hover:text-accent",
+                      isActiveSub && "text-accent"
+                    )}
+                  >
+                    <span>{t(item.key)}</span>
+                    <ChevronRight
+                      className={cn(
+                        "h-5 w-5 transition-transform rtl:rotate-180",
+                        isActiveSub && "translate-x-1 rtl:-translate-x-1"
+                      )}
+                    />
+                  </button>
+                );
+              }
+              return (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    cn(
+                      "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
+                      "border-accent/10 text-accent/80 hover:text-accent",
+                      isActive && "text-accent"
+                    )
+                  }
+                >
+                  {t(item.key)}
+                </NavLink>
+              );
+            })}
             <NavLink
               to="/auth"
               onClick={() => setOpen(false)}
@@ -252,6 +307,55 @@ export const Header = () => {
             >
               {t("nav.signIn")}
             </NavLink>
+          </nav>
+        </aside>
+
+        {/* Submenu panel — slides next to main drawer */}
+        <aside
+          className={cn(
+            "absolute top-0 h-full w-full sm:w-[420px] shadow-2xl",
+            "start-0 sm:start-[420px]",
+            "bg-muted text-accent",
+            "transition-transform duration-400 ease-out",
+            open && activeSub
+              ? "translate-x-0"
+              : "-translate-x-full rtl:translate-x-full sm:translate-x-0 sm:opacity-0 sm:pointer-events-none"
+          )}
+          aria-hidden={!activeSub}
+        >
+          <div className="flex items-center justify-between px-6 h-14 lg:h-16 border-b border-accent/10">
+            <button
+              type="button"
+              onClick={() => setActiveSub(null)}
+              className="sm:hidden text-accent/80 hover:text-accent"
+              aria-label="Back"
+            >
+              <ChevronRight className="h-6 w-6 rotate-180 rtl:rotate-0" strokeWidth={2.5} />
+            </button>
+            <span className="text-sm font-bold uppercase tracking-[0.18em] text-accent">
+              {activeSub ? t(subNavMap[activeSub].labelKey) : ""}
+            </span>
+            <span className="w-6" />
+          </div>
+          <nav className="px-6 py-8 flex flex-col gap-1">
+            {activeSub &&
+              subNavMap[activeSub].items.map((item, i) => (
+                <NavLink
+                  key={`${item.to}-${i}`}
+                  to={item.to}
+                  end
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    cn(
+                      "py-3 text-lg font-bold uppercase tracking-[0.04em] transition-colors",
+                      "text-accent/80 hover:text-accent",
+                      isActive && "text-accent underline underline-offset-8"
+                    )
+                  }
+                >
+                  {t(item.key)}
+                </NavLink>
+              ))}
           </nav>
         </aside>
       </div>
