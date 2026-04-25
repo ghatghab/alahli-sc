@@ -169,10 +169,13 @@ const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => 
         {lines.map((line, i) => {
           const count = line.players.length;
           if (count === 0) return null;
+          // Tighten the row horizontally when 4+ players (typically defenders)
+          // so the outer jerseys + their names stay inside the pitch.
+          const padX = count >= 4 ? "px-4 sm:px-6" : "px-2";
           return (
             <div
               key={i}
-              className="absolute left-0 right-0 px-1 flex items-center justify-around"
+              className={`absolute left-0 right-0 ${padX} flex items-start justify-around`}
               style={{ top: `${line.top}%`, transform: "translateY(-50%)" }}
             >
               {line.players.map((p) => (
