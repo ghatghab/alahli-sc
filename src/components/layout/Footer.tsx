@@ -64,7 +64,7 @@ export const Footer = () => {
       {/* Partners + socials */}
       <div className="bg-background text-foreground border-t border-border">
         <div className="container-club py-12">
-          <h3 className="text-center font-display font-bold text-sm uppercase tracking-[0.18em] text-muted-foreground mb-8">
+          <h3 className="text-center font-display font-bold uppercase tracking-[0.18em] text-muted-foreground mb-8 text-lg">
             {t("footer.officialPartners")}
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
