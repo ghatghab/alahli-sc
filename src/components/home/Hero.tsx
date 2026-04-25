@@ -125,13 +125,49 @@ export const Hero = () => {
 
   return (
     <section className="relative bg-background overflow-hidden">
-      <div ref={emblaRef} className="overflow-hidden">
-        <div className="flex">
-          {newsSlides.map(slide => (
-            <div key={slide.key} className="relative min-w-0 shrink-0 grow-0 basis-full">
+      <div
+        ref={emblaRef}
+        className="overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={t("nav.news")}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (!embla) return;
+          const prevKey = isRtl ? "ArrowRight" : "ArrowLeft";
+          const nextKey = isRtl ? "ArrowLeft" : "ArrowRight";
+          if (e.key === prevKey) {
+            e.preventDefault();
+            embla.scrollPrev();
+          } else if (e.key === nextKey) {
+            e.preventDefault();
+            embla.scrollNext();
+          } else if (e.key === "Home") {
+            e.preventDefault();
+            embla.scrollTo(0);
+          } else if (e.key === "End") {
+            e.preventDefault();
+            embla.scrollTo(newsSlides.length - 1);
+          } else if (e.key === " " || e.key === "Spacebar") {
+            e.preventDefault();
+            togglePlay();
+          }
+        }}
+      >
+        <div className="flex" aria-live={playing ? "off" : "polite"}>
+          {newsSlides.map((slide, i) => (
+            <div
+              key={slide.key}
+              className="relative min-w-0 shrink-0 grow-0 basis-full"
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} / ${newsSlides.length}: ${slide.title}`}
+              aria-hidden={i !== selected}
+            >
               <Link
                 to={slide.href}
                 aria-label={slide.title}
+                tabIndex={i === selected ? 0 : -1}
                 className="relative block h-[88vh] min-h-[640px] w-full overflow-hidden group bg-primary"
               >
                 {/* Blurred background fill so full image can show without cropping */}
@@ -197,12 +233,19 @@ export const Hero = () => {
           {/* Bottom controls overlay */}
           <div className="absolute inset-x-0 bottom-5 lg:bottom-7 z-10 pointer-events-none">
             <div className="container-club flex items-center justify-between gap-4">
-              <div className="flex items-center gap-2 pointer-events-auto">
+              <div
+                className="flex items-center gap-2 pointer-events-auto"
+                role="tablist"
+                aria-label={t("nav.news")}
+              >
                 {newsSlides.map((s, i) => (
                   <button
                     key={s.key}
                     onClick={() => embla?.scrollTo(i)}
-                    aria-label={`Slide ${i + 1}`}
+                    role="tab"
+                    aria-selected={i === selected}
+                    aria-label={`Slide ${i + 1} sur ${newsSlides.length}`}
+                    aria-current={i === selected ? "true" : undefined}
                     className={`h-[3px] transition-all ${
                       i === selected ? "w-10 bg-accent" : "w-6 bg-white/40 hover:bg-white/70"
                     }`}
