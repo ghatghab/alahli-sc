@@ -30,17 +30,17 @@ const Jersey = ({
   tone: Side;
   size?: "sm" | "md";
 }) => (
-  <div className="flex flex-col items-center text-center min-w-0 w-full max-w-full">
-    <div className="relative">
+  <div className="flex flex-col items-center text-center w-full">
+    <div className="relative h-20 sm:h-24 w-16 sm:w-20 shrink-0">
       <img
         src={jerseyImg}
         alt=""
         aria-hidden
-        className={`h-20 sm:h-24 md:h-24 w-auto object-contain drop-shadow-lg ${
+        className={`h-full w-full object-contain drop-shadow-lg ${
           tone === "away" ? "grayscale opacity-70" : ""
         }`}
       />
-      <span className="absolute inset-0 grid place-items-center font-display font-black text-lg sm:text-xl md:text-xl text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] tabular-nums pt-1.5">
+      <span className="absolute inset-0 grid place-items-center font-display font-black text-lg sm:text-xl text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] tabular-nums pt-1.5">
         {player.number}
       </span>
     </div>
