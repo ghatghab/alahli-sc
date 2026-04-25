@@ -150,10 +150,10 @@ const VerticalPitch = ({ players, tone }: { players: Player[]; tone: Side }) => 
   // Y position (top %) per line. Bottom = own goal, top = attacking.
   // GK very close to own goal, FW near halfway line.
   const lines: { players: Player[]; top: number }[] = [
-    { players: g.FW, top: 22 },
-    { players: g.MF, top: 42 },
-    { players: g.DF, top: 65 },
-    { players: g.GK, top: 88 },
+    { players: g.GK, top: 12 },
+    { players: g.DF, top: 35 },
+    { players: g.MF, top: 58 },
+    { players: g.FW, top: 80 },
   ];
 
   return (
