@@ -252,7 +252,7 @@ const MatchDetailContent = ({
                       <div key={side} className="rounded-xl border border-border bg-card p-5">
                         <h3 className="font-display font-bold uppercase text-sm mb-3 text-accent text-center">{name}</h3>
                         <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-2 mb-1 text-center">{t("matchDetail.subs")}</div>
-                        <ul dir="rtl">{players.filter(p => !p.isStarter).map(p => <PlayerRow key={p.number} p={p} />)}</ul>
+                        <ul>{players.filter(p => !p.isStarter).map(p => <PlayerRow key={p.number} p={p} />)}</ul>
                       </div>
                     );
                   })}
