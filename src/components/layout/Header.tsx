@@ -319,7 +319,7 @@ export const Header = () => {
             "transition-all duration-500 ease-out",
             open && activeSub
               ? "sm:translate-x-[420px] sm:rtl:-translate-x-[420px] translate-x-0 opacity-100"
-              : "sm:translate-x-0 translate-x-full rtl:-translate-x-full opacity-0 pointer-events-none"
+              : "sm:translate-x-0 translate-x-full opacity-0 pointer-events-none"
           )}
           aria-hidden={!activeSub}
         >
