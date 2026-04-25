@@ -222,7 +222,7 @@ export const Header = () => {
       >
         <div
           className={cn(
-            "absolute inset-0 backdrop-blur-sm",
+            "absolute inset-0 z-0 backdrop-blur-sm",
             isHome && !scrolled ? "bg-primary/70" : "bg-accent/70"
           )}
           onClick={() => setOpen(false)}
@@ -313,12 +313,12 @@ export const Header = () => {
         {/* Submenu panel — slides next to main drawer */}
         <aside
           className={cn(
-            "absolute top-0 h-full w-full sm:w-[420px] shadow-xl sm:z-0 z-20",
+            "absolute top-0 h-full w-full sm:w-[420px] shadow-xl z-20 sm:z-[5]",
             "start-0 sm:start-0",
             "bg-muted text-accent",
             "transition-all duration-500 ease-out",
             open && activeSub
-              ? "sm:translate-x-[420px] translate-x-0 opacity-100"
+              ? "sm:translate-x-[420px] sm:rtl:-translate-x-[420px] translate-x-0 opacity-100"
               : "sm:translate-x-0 translate-x-full rtl:-translate-x-full opacity-0 pointer-events-none"
           )}
           aria-hidden={!activeSub}
