@@ -213,7 +213,7 @@ export const LineupPitch = ({
   return (
     <>
       {/* Mobile: team selector + vertical pitch (one team) */}
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <div
           role="tablist"
           aria-label="Team selector"
@@ -244,7 +244,7 @@ export const LineupPitch = ({
       </div>
 
       {/* Desktop: horizontal pitch (both teams) */}
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <HorizontalPitch home={home} away={away} />
       </div>
     </>
