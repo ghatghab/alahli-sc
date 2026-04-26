@@ -65,7 +65,7 @@ const MatchDetail = () => {
 
 const MatchDetailContent = ({
   fixture, lang, t,
-}: { fixture: Fixture; lang: "en" | "fr" | "ar"; t: (k: string) => string }) => {
+}: { fixture: Fixture; lang: "en" | "fr" | "ar"; t: (k: string, opts?: Record<string, unknown>) => string }) => {
   const isHome = fixture.homeAway === "home";
   const opponent = fixture.opponentName[lang];
   const clubName = t("brand.name");
