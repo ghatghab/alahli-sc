@@ -268,7 +268,7 @@ export const Header = () => {
                     type="button"
                     onClick={() => setActiveSub(isActiveSub ? null : item.to)}
                     className={cn(
-                      "flex items-center justify-between py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b text-start",
+                      "flex items-center justify-between py-3 text-lg font-bold uppercase tracking-[0.04em] transition-colors border-b text-start",
                       "border-accent/10 text-accent/80 hover:text-accent",
                       isActiveSub && "text-accent"
                     )}
@@ -290,7 +290,7 @@ export const Header = () => {
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
                     cn(
-                      "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
+                      "py-3 text-lg font-bold uppercase tracking-[0.04em] transition-colors border-b",
                       "border-accent/10 text-accent/80 hover:text-accent",
                       isActive && "text-accent"
                     )
@@ -305,7 +305,7 @@ export const Header = () => {
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
                 cn(
-                  "py-3 text-2xl font-bold uppercase tracking-[0.04em] transition-colors border-b",
+                  "py-3 text-lg font-bold uppercase tracking-[0.04em] transition-colors border-b",
                   "border-accent/10 text-accent/80 hover:text-accent",
                   isActive && "text-accent"
                 )
@@ -358,7 +358,7 @@ export const Header = () => {
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
                     cn(
-                      "py-3 text-lg font-bold uppercase tracking-[0.04em] transition-colors",
+                      "py-3 text-base font-bold uppercase tracking-[0.04em] transition-colors",
                       "text-accent/80 hover:text-accent",
                       isActive && "text-accent underline underline-offset-8"
                     )
