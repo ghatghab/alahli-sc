@@ -119,7 +119,7 @@ export const Footer = () => {
                 <img
                   src={logoCrest}
                   alt="Alahli SC crest"
-                  className="h-28 w-28 object-contain rounded-full bg-background p-2 shadow-soft"
+                  className="h-28 w-28 object-contain"
                 />
               </Link>
             </div>
