@@ -49,6 +49,10 @@ export const fr = {
     intro: "Toutes les rencontres de l'Al Ahli Sports Club, tous sports confondus.",
     search: "Rechercher un adversaire…",
     competition: "Compétition",
+    competitions: {
+      "Libyan Premier League": "Championnat de Libye",
+      "Libyan Cup": "Coupe de Libye",
+    },
     team: "Équipe",
     status: "Statut",
     sort: "Tri",

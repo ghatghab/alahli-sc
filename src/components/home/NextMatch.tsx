@@ -271,7 +271,7 @@ const FixtureCard = ({
           <div className="px-4 py-6 sm:px-6">
             <div className="text-center">
               <div className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-foreground/70">
-                {fixture.competition}
+                {t(`schedule.competitions.${fixture.competition}`, { defaultValue: fixture.competition })}
               </div>
               <div className="mt-1 text-sm sm:text-base font-display font-bold text-foreground">
                 {fmtDate(fixture.date)} · {fmtTime(fixture.date)}

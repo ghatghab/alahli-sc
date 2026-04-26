@@ -49,6 +49,10 @@ export const ar = {
     intro: "جميع مباريات النادي الأهلي في كل الرياضات.",
     search: "ابحث عن خصم…",
     competition: "البطولة",
+    competitions: {
+      "Libyan Premier League": "الدوري الليبي الممتاز",
+      "Libyan Cup": "كأس ليبيا",
+    },
     team: "الفريق",
     status: "الحالة",
     sort: "ترتيب",

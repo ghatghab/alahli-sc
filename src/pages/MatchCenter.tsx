@@ -182,7 +182,7 @@ const MatchCenter = () => {
                 <SelectContent>
                   <SelectItem value="all">{t("schedule.all")}</SelectItem>
                   {competitions.map(c => (
-                    <SelectItem key={c} value={c}>{c}</SelectItem>
+                    <SelectItem key={c} value={c}>{t(`schedule.competitions.${c}`, { defaultValue: c })}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -333,7 +333,7 @@ const MatchRow = ({
             <span>{fmtDayDate(fixture.date)}</span>
             {isLive && <LiveBadge minute={fixture.liveMinute} />}
           </div>
-          <span className="font-medium text-end">{fixture.competition}</span>
+          <span className="font-medium text-end">{t(`schedule.competitions.${fixture.competition}`, { defaultValue: fixture.competition })}</span>
         </div>
 
         {/* Main row */}

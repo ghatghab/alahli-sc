@@ -65,7 +65,7 @@ const MatchDetail = () => {
 
 const MatchDetailContent = ({
   fixture, lang, t,
-}: { fixture: Fixture; lang: "en" | "fr" | "ar"; t: (k: string) => string }) => {
+}: { fixture: Fixture; lang: "en" | "fr" | "ar"; t: (k: string, opts?: Record<string, unknown>) => string }) => {
   const isHome = fixture.homeAway === "home";
   const opponent = fixture.opponentName[lang];
   const clubName = t("brand.name");
@@ -75,7 +75,8 @@ const MatchDetailContent = ({
   const finished = fixture.status === "finished";
 
   const matchTitle = `${homeName} vs ${awayName} | ${t("seo.siteName")}`;
-  const matchDesc = `${fixture.competition} — ${homeName} vs ${awayName} · ${venue}.`;
+  const competitionName = t(`schedule.competitions.${fixture.competition}`, { defaultValue: fixture.competition });
+  const matchDesc = `${competitionName} — ${homeName} vs ${awayName} · ${venue}.`;
 
   const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const localeTag = lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB";
@@ -107,7 +108,7 @@ const MatchDetailContent = ({
           </Link>
 
           <div className="mt-6 text-xs font-bold uppercase tracking-[0.3em] text-gold text-center">
-            {fixture.competition}
+            {competitionName}
           </div>
 
           <div dir="ltr" className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-6 sm:gap-10">
