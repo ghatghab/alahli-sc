@@ -102,7 +102,7 @@ const Standings = () => {
                 </SelectTrigger>
                 <SelectContent>
                   {competitions.map(c => (
-                    <SelectItem key={c} value={c}>{c}</SelectItem>
+                    <SelectItem key={c} value={c}>{t(`schedule.competitions.${c}`, { defaultValue: c })}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
