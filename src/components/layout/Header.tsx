@@ -45,7 +45,8 @@ const subNavMap: Record<string, { labelKey: string; items: SubItem[] }> = {
 };
 
 export const Header = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isFr = i18n.language?.startsWith("fr");
   const { isEditor } = useAuth();
   const [open, setOpen] = useState(false);
   const [activeSub, setActiveSub] = useState<string | null>(null);
@@ -128,7 +129,12 @@ export const Header = () => {
           </Link>
 
           {/* Desktop primary nav */}
-          <nav className="hidden lg:flex items-center gap-8 xl:gap-12 px-3 xl:px-4">
+          <nav
+            className={cn(
+              "hidden lg:flex items-center px-3 xl:px-4",
+              isFr ? "gap-5 xl:gap-7" : "gap-8 xl:gap-12"
+            )}
+          >
             {primaryNav.map(item => (
               <NavLink
                 key={item.to}
