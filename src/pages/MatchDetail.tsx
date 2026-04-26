@@ -83,8 +83,12 @@ const MatchDetailContent = ({
     weekday: "long", day: "2-digit", month: "long", year: "numeric", timeZone: userTZ,
   }).format(fixture.date);
   const time = new Intl.DateTimeFormat(localeTag, {
-    hour: "2-digit", minute: "2-digit", timeZone: userTZ, timeZoneName: "short",
+    hour: "2-digit", minute: "2-digit", timeZone: userTZ,
   }).format(fixture.date);
+  const tzParts = new Intl.DateTimeFormat(localeTag, {
+    timeZone: userTZ, timeZoneName: "short",
+  }).formatToParts(fixture.date);
+  const tzName = tzParts.find(p => p.type === "timeZoneName")?.value ?? "";
 
   return (
     <article className="pb-20">
@@ -126,8 +130,15 @@ const MatchDetailContent = ({
                   {fixture.score.home} <span className="text-gold/70 mx-2">:</span> {fixture.score.away}
                 </div>
               ) : (
-                <div className="font-display font-black text-3xl sm:text-5xl tabular-nums leading-none text-gold">
-                  {time}
+                <div className="leading-none">
+                  <div className="font-display font-black text-3xl sm:text-5xl tabular-nums text-gold">
+                    {time}
+                  </div>
+                  {tzName && (
+                    <div className="mt-1 text-[10px] sm:text-xs font-medium text-primary-foreground/70 tracking-wide">
+                      {tzName}
+                    </div>
+                  )}
                 </div>
               )}
               <div className="mt-3 inline-flex flex-col gap-1 text-xs text-primary-foreground/80">
