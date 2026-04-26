@@ -243,16 +243,18 @@ export const Header = () => {
         >
           <div
             className={cn(
-              "flex items-center justify-between px-6 h-14 lg:h-16 border-b",
+              "relative flex items-center justify-between px-6 h-14 lg:h-16 border-b",
               "border-accent/10"
             )}
           >
-            <Logo size="sm" />
+            <span className="absolute left-1/2 -translate-x-1/2">
+              <Logo size="sm" />
+            </span>
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="text-accent/80 hover:text-accent"
+              className="ms-auto text-accent/80 hover:text-accent z-10"
             >
               <X className="h-6 w-6" strokeWidth={2.5} />
             </button>
