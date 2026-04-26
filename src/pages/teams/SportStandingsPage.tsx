@@ -149,7 +149,9 @@ const SportStandingsPage = () => {
                 <TableCell className="text-center font-bold tabular-nums">{i + 1}</TableCell>
                 <TableCell className="text-start">
                   <span className={cn(r.isUs && "text-accent")}>
-                    {r.isUs ? t("brand.name") : r.team}
+                    {r.isUs
+                      ? t("brand.name")
+                      : t(`schedule.teams.${r.team}`, { defaultValue: r.team })}
                   </span>
                 </TableCell>
                 <TableCell className="text-center tabular-nums">{r.played}</TableCell>
