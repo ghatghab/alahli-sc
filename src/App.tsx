@@ -81,7 +81,7 @@ const App = () => (
                     <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
                     <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
                     <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
-                    <Route path="standings" element={<RubricPage titleKey="teamsNav.standings" />} />
+                    <Route path="standings" element={<SportStandingsPage />} />
                     <Route path="honours" element={<RubricPage titleKey="teamsNav.honours" />} />
                   </Route>
                   <Route path="mens-first/*" element={<Navigate to="/teams/football/first-team" replace />} />
@@ -92,7 +92,7 @@ const App = () => (
                   <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
                   <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
                   <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
-                  <Route path="standings" element={<RubricPage titleKey="teamsNav.standings" />} />
+                  <Route path="standings" element={<SportStandingsPage />} />
                   <Route path="honours" element={<RubricPage titleKey="teamsNav.honours" />} />
                 </Route>
               </Route>
