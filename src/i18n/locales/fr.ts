@@ -3,7 +3,7 @@ export const fr = {
   nav: {
     club: "Club",
     teams: "Équipes",
-    matchCenter: "Centre des matchs",
+    matchCenter: "Matchs",
     news: "Actualités",
     standings: "Classement",
     tickets: "Billetterie",
