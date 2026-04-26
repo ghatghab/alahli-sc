@@ -106,7 +106,7 @@ const MatchDetailContent = ({
             {t("nextMatch.schedule")}
           </Link>
 
-          <div className="mt-6 text-xs font-bold uppercase tracking-[0.3em] text-gold">
+          <div className="mt-6 text-xs font-bold uppercase tracking-[0.3em] text-gold text-center">
             {fixture.competition}
           </div>
 
