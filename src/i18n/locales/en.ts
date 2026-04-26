@@ -49,6 +49,10 @@ export const en = {
     intro: "All Al Ahli Sports Club fixtures across every sport.",
     search: "Search opponent…",
     competition: "Competition",
+    competitions: {
+      "Libyan Premier League": "Libyan Premier League",
+      "Libyan Cup": "Libyan Cup",
+    },
     team: "Team",
     status: "Status",
     sort: "Sort",
