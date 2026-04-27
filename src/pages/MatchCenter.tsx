@@ -17,6 +17,7 @@ import logo from "@/assets/logo-alahli.png";
 import { cn } from "@/lib/utils";
 import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 import { Seo } from "@/components/Seo";
+import { competitionLabel } from "@/lib/competitionLabel";
 
 const TEAMS: Team[] = ["football", "basketball", "handball", "volleyball"];
 const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -333,7 +334,7 @@ const MatchRow = ({
             <span>{fmtDayDate(fixture.date)}</span>
             {isLive && <LiveBadge minute={fixture.liveMinute} />}
           </div>
-          <span className="font-medium text-end">{t(`schedule.competitions.${fixture.competition}`, { defaultValue: fixture.competition })}</span>
+          <span className="font-medium text-end">{competitionLabel(t, fixture.competition, fixture.team)}</span>
         </div>
 
         {/* Main row */}

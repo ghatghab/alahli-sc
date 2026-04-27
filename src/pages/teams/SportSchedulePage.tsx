@@ -5,6 +5,7 @@ import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import { LiveBadge } from "@/components/match/LiveBadge";
 import logo from "@/assets/logo-alahli.png";
 import { cn } from "@/lib/utils";
+import { competitionLabel } from "@/lib/competitionLabel";
 
 const SPORTS: Team[] = ["football", "basketball", "handball", "volleyball"];
 const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -110,7 +111,7 @@ const Row = ({
             )}
           </div>
           <span className="font-medium text-end">
-            {t(`schedule.competitions.${fixture.competition}`, { defaultValue: fixture.competition })}
+            {competitionLabel(t, fixture.competition, fixture.team)}
           </span>
         </div>
         <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 md:gap-6 px-2 md:px-4">

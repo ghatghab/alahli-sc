@@ -4,6 +4,7 @@ import { ArrowLeft, MapPin, Calendar, Clock } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { getFixtureById, type Fixture, type MatchEvent, type Player } from "@/lib/fixtures";
+import { competitionLabel } from "@/lib/competitionLabel";
 import logo from "@/assets/logo-alahli.png";
 import { LineupPitch } from "@/components/match/LineupPitch";
 import { Seo } from "@/components/Seo";
@@ -75,7 +76,7 @@ const MatchDetailContent = ({
   const finished = fixture.status === "finished";
 
   const matchTitle = `${homeName} vs ${awayName} | ${t("seo.siteName")}`;
-  const competitionName = t(`schedule.competitions.${fixture.competition}`, { defaultValue: fixture.competition });
+  const competitionName = competitionLabel(t, fixture.competition, fixture.team);
   const matchDesc = `${competitionName} — ${homeName} vs ${awayName} · ${venue}.`;
 
   const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
