@@ -344,7 +344,7 @@ export const ar = {
     back: "رجوع",
     teams: {
       title: "الفِرق",
-      mensFirst: "الفريق الأول للرجال",
+      mensFirst: "الفريق الأول\n",
       legends: "الأساطير",
     },
     club: {
