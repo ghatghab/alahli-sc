@@ -153,6 +153,26 @@ export const fr = {
     super: "Super Coupes",
     continental: "Compétitions continentales",
   },
+  honoursPage: {
+    totalTitles: "{{count}} TITRES",
+    yearsSoon: "Années détaillées bientôt disponibles.",
+    bronzeFiba: "Médaille de bronze — FIBA Intercontinental Cup 2025",
+    intro: {
+      football: "De ses débuts en championnat à ses succès récents, l'équipe de football de l'Al Ahli Sports Club a cumulé un total de {{count}} trophées.",
+      basketball: "De ses premiers titres locaux à sa consécration continentale, l'équipe de basket-ball de l'Al Ahli Sports Club a cumulé un total de {{count}} trophées.",
+      handball: "De ses débuts à ses titres récents, l'équipe de handball de l'Al Ahli Sports Club a cumulé un total de {{count}} trophées.",
+      volleyball: "De ses débuts à ses titres récents, l'équipe de volley-ball de l'Al Ahli Sports Club a cumulé un total de {{count}} trophées.",
+    },
+    competitions: {
+      footballLeague: "Championnat de Libye de football",
+      basketballLeague: "Championnat de Libye de basket-ball",
+      handballLeague: "Championnat de Libye de handball",
+      volleyballLeague: "Championnat de Libye de volley-ball",
+      libyanCup: "Coupe de Libye",
+      libyanSuperCup: "Supercoupe de Libye",
+      bal: "Basketball Africa League (BAL)",
+    },
+  },
   teamsList: {
     football: "Football",
     basketball: "Basketball",
