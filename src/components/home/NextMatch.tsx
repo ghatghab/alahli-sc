@@ -10,12 +10,13 @@ import { LiveBadge } from "@/components/match/LiveBadge";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
 
-// Sport icon (emoji) shown inside the colored side stripe of a card
-const sportIcon: Record<Team, string> = {
-  football: "⚽",
-  basketball: "🏀",
-  handball: "🤾",
-  volleyball: "🏐",
+// Pastel-green palette per sport for the ticket header band.
+// `bg`/`text` use HSL via Tailwind arbitrary values so the design system stays consistent.
+const sportTicketTheme: Record<Team, { band: string; accent: string; soft: string }> = {
+  football:   { band: "bg-[hsl(145,45%,72%)]", accent: "text-[hsl(145,55%,22%)]", soft: "bg-[hsl(145,55%,94%)]" },
+  basketball: { band: "bg-[hsl(95,40%,72%)]",  accent: "text-[hsl(95,55%,22%)]",  soft: "bg-[hsl(95,55%,94%)]"  },
+  handball:   { band: "bg-[hsl(170,40%,72%)]", accent: "text-[hsl(170,55%,22%)]", soft: "bg-[hsl(170,55%,94%)]" },
+  volleyball: { band: "bg-[hsl(120,38%,75%)]", accent: "text-[hsl(120,55%,22%)]", soft: "bg-[hsl(120,55%,94%)]" },
 };
 
 const useCountdown = (target: Date) => {
