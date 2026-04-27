@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
-import { fixtures, nextFixtureIndex, type Fixture } from "@/lib/fixtures";
+import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import { LiveBadge } from "@/components/match/LiveBadge";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
@@ -33,11 +33,47 @@ export const NextMatch = () => {
     const id = setTimeout(() => setMounted(true), 350);
     return () => clearTimeout(id);
   }, []);
-  // Prefer the live fixture if any; otherwise next upcoming.
-  const liveIdx = fixtures.findIndex(f => f.status === "live");
-  const nextIdx = liveIdx >= 0 ? liveIdx : nextFixtureIndex();
-  const next = fixtures[nextIdx];
-  const { days, hours, minutes, seconds } = useCountdown(next.date);
+
+  // Build the carousel list: one fixture per sport, prioritising
+  // live > next upcoming > most recent finished. Cap at 10 cards.
+  // Final order: live first, then by date ascending.
+  const carouselFixtures = useMemo<Fixture[]>(() => {
+    const SPORTS: Team[] = ["football", "basketball", "handball", "volleyball"];
+    const now = Date.now();
+    const picked: Fixture[] = [];
+    for (const s of SPORTS) {
+      const ofSport = fixtures.filter(f => f.team === s);
+      if (ofSport.length === 0) continue;
+      const live = ofSport.find(f => f.status === "live");
+      if (live) { picked.push(live); continue; }
+      const upcoming = ofSport
+        .filter(f => f.status !== "finished" && f.date.getTime() >= now)
+        .sort((a, b) => a.date.getTime() - b.date.getTime())[0];
+      if (upcoming) { picked.push(upcoming); continue; }
+      const recent = ofSport
+        .filter(f => f.status === "finished")
+        .sort((a, b) => b.date.getTime() - a.date.getTime())[0];
+      if (recent) picked.push(recent);
+    }
+    picked.sort((a, b) => {
+      const aLive = a.status === "live" ? 0 : 1;
+      const bLive = b.status === "live" ? 0 : 1;
+      if (aLive !== bLive) return aLive - bLive;
+      return a.date.getTime() - b.date.getTime();
+    });
+    return picked.slice(0, 10);
+  }, []);
+
+  // Initial active card: first live, otherwise first upcoming, otherwise 0.
+  const initialIdx = useMemo(() => {
+    const live = carouselFixtures.findIndex(f => f.status === "live");
+    if (live >= 0) return live;
+    const upcoming = carouselFixtures.findIndex(f => f.status !== "finished");
+    return upcoming >= 0 ? upcoming : 0;
+  }, [carouselFixtures]);
+
+  const next = carouselFixtures[initialIdx] ?? carouselFixtures[0];
+  const { days, hours, minutes, seconds } = useCountdown(next?.date ?? new Date());
 
   const lang = i18n.language as "en" | "fr" | "ar";
   const isRtl = i18n.dir() === "rtl";
@@ -45,22 +81,23 @@ export const NextMatch = () => {
   const [emblaRef, embla] = useEmblaCarousel({
     loop: false,
     align: "center",
-    startIndex: nextIdx,
+    startIndex: initialIdx,
     direction: isRtl ? "rtl" : "ltr",
   });
-  const [selected, setSelected] = useState(nextIdx);
+  const [selected, setSelected] = useState(initialIdx);
 
   useEffect(() => {
     if (!embla) return;
     const onSelect = () => setSelected(embla.selectedScrollSnap());
     embla.on("select", onSelect);
     onSelect();
-    // Auto-scroll to upcoming match (handles late init / RTL re-init)
-    embla.scrollTo(nextIdx, true);
+    // Auto-scroll to priority match (handles late init / RTL re-init)
+    embla.scrollTo(initialIdx, true);
     return () => { embla.off("select", onSelect); };
-  }, [embla, nextIdx]);
+  }, [embla, initialIdx]);
 
   if (!mounted) return <NextMatchSkeleton />;
+  if (carouselFixtures.length === 0) return null;
 
   const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const localeTag = lang === "ar" ? "ar-LY" : lang === "fr" ? "fr-FR" : "en-GB";
@@ -86,7 +123,7 @@ export const NextMatch = () => {
     } else if (e.key === "Home") {
       e.preventDefault(); embla.scrollTo(0);
     } else if (e.key === "End") {
-      e.preventDefault(); embla.scrollTo(fixtures.length - 1);
+      e.preventDefault(); embla.scrollTo(carouselFixtures.length - 1);
     }
   };
 
@@ -153,7 +190,7 @@ export const NextMatch = () => {
             aria-live="polite"
           >
             <div className="flex gap-4 sm:gap-6">
-              {fixtures.map((f, idx) => (
+              {carouselFixtures.map((f, idx) => (
                 <FixtureCard
                   key={f.id}
                   fixture={f}
@@ -183,7 +220,7 @@ export const NextMatch = () => {
               <ChevronRight className="h-5 w-5 hidden rtl:block" />
             </button>
             <div className="flex items-center gap-2" role="tablist" aria-label={t("a11y.matchesCarousel")}>
-              {fixtures.map((f, i) => (
+              {carouselFixtures.map((f, i) => (
                 <button
                   key={f.id}
                   type="button"
