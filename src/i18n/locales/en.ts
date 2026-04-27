@@ -94,8 +94,6 @@ export const en = {
       "Abu Salim": "Abu Salim",
       "Al Qadisiyah Bani Walid": "Al Qadisiyah Bani Walid",
       "Al Olympi": "Al Olympi",
-      "Al Ahly Tripoli": "Al Ahli Tripoli",
-      "Al Ahly Benghazi": "Al Ahli Benghazi",
       "Al Ittihad Misurata": "Al Ittihad Misrata",
       "Al Swehly": "Asswehly",
     },

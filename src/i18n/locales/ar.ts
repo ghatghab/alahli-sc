@@ -94,8 +94,6 @@ export const ar = {
       "Abu Salim": "أبو سليم",
       "Al Qadisiyah Bani Walid": "قادسية بني وليد",
       "Al Olympi": "الأولمبي",
-      "Al Ahly Tripoli": "الأهلي طرابلس",
-      "Al Ahly Benghazi": "الأهلي بنغازي",
       "Al Ittihad Misurata": "اتحاد مصراتة",
       "Al Swehly": "السويحلي",
     },
