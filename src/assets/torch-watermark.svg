@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Flame body and tail -->
+  <path d="M70 110 C 50 80, 60 35, 95 25 C 130 18, 165 35, 175 60 C 182 78, 178 95, 165 105 C 158 110, 150 112, 142 110 L 130 108 C 118 108, 108 115, 102 125 C 96 135, 85 138, 78 132 C 70 125, 68 118, 70 110 Z" />
+  <!-- Tail flick going right -->
+  <path d="M168 60 C 188 50, 195 35, 188 22 C 182 12, 170 12, 162 22" />
+  <!-- Cup / band -->
+  <path d="M72 130 L 138 130 L 132 158 L 78 158 Z" />
+  <!-- Handle (tapered) -->
+  <path d="M82 160 L 128 160 L 118 300 L 92 300 Z" />
+</svg>
