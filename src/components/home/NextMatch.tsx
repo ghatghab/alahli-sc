@@ -326,11 +326,11 @@ const FixtureCard = ({
         {/* Main section: logos vertically centered, competition label sits above only the central date/score block */}
         <div className="flex-1 flex items-stretch justify-center gap-3 sm:gap-5 md:gap-6 px-3 sm:px-4 md:px-5 py-2 min-w-0">
           {/* Home logo */}
-          <div className="w-20 sm:w-24 md:w-28 shrink-0 self-center grid place-items-center aspect-square">
+          <div className="w-16 sm:w-20 md:w-24 lg:w-28 shrink-0 self-center grid place-items-center aspect-square">
             {isHome ? (
               <img src={logo} alt={clubName} className="w-full h-full object-contain" />
             ) : (
-              <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight leading-none text-center">
+              <span className="font-display font-black text-foreground text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center">
                 {fixture.opponentShort}
               </span>
             )}
@@ -374,9 +374,9 @@ const FixtureCard = ({
           </div>
 
           {/* Away logo */}
-          <div className="w-20 sm:w-24 md:w-28 shrink-0 self-center grid place-items-center aspect-square">
+          <div className="w-16 sm:w-20 md:w-24 lg:w-28 shrink-0 self-center grid place-items-center aspect-square">
             {isHome ? (
-              <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight leading-none text-center">
+              <span className="font-display font-black text-foreground text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center">
                 {fixture.opponentShort}
               </span>
             ) : (
