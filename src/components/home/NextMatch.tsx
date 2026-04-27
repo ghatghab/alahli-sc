@@ -414,24 +414,21 @@ const FixtureCard = ({
         />
 
         {/* RIGHT STUB (ticket souche) */}
-        <div className="w-[26%] shrink-0 flex flex-col items-center justify-center px-2 sm:px-3 py-4 text-center rounded-e-2xl bg-muted/40">
+        <div className={`w-[26%] shrink-0 flex flex-col items-center justify-center px-2 sm:px-3 py-4 text-center rounded-e-2xl ${sportTicketTheme[fixture.team].soft}`}>
           <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
             {t("nextMatch.label")}
           </span>
-          <span className="mt-2 text-base sm:text-xl font-display font-black text-foreground whitespace-nowrap leading-tight">
+          <span className={`mt-2 text-base sm:text-xl font-display font-black whitespace-nowrap leading-tight ${sportTicketTheme[fixture.team].accent}`}>
             {fmtDate(fixture.date)}
           </span>
-          <span className="mt-1 text-lg sm:text-2xl font-display font-black text-accent tabular-nums leading-none">
+          <span className={`mt-1 text-lg sm:text-2xl font-display font-black tabular-nums leading-none ${sportTicketTheme[fixture.team].accent}`}>
             {fmtTime(fixture.date)}
           </span>
           <span className="mt-3 text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-muted-foreground line-clamp-1">
-            {homeAwayBadge(isHome, homeLabel, awayLabel)}
+            {isHome ? homeLabel : awayLabel}
           </span>
         </div>
       </Link>
     </div>
   );
 };
-
-const homeAwayBadge = (isHome: boolean, homeLabel: string, awayLabel: string) =>
-  isHome ? `🏟 ${homeLabel}` : `✈ ${awayLabel}`;
