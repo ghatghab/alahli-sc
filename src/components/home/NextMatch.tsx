@@ -317,18 +317,34 @@ const FixtureCard = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        {isActive && isLive && (
-          <div className="absolute start-16 top-3 z-10">
-            <LiveBadge minute={fixture.liveMinute} size="md" />
-          </div>
-        )}
-        {isActive && !isLive && fixture.isNext && (
-          <div className="absolute left-1/2 -translate-x-1/2 -top-px z-10">
-            <span className="block px-4 py-1 bg-accent text-accent-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-b-md">
-              {nextLabel}
+        {/* Consistent status badge — variants by sport (upcoming) / live / finished */}
+        <div className="absolute start-16 top-3 z-10">
+          {isLive ? (
+            <span
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-black uppercase tracking-[0.2em] shadow-sm"
+              aria-label={t("schedule.live")}
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive-foreground opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-destructive-foreground" />
+              </span>
+              {t("schedule.live")}
+              {typeof fixture.liveMinute === "number" && (
+                <span className="tabular-nums">· {fixture.liveMinute}'</span>
+              )}
             </span>
-          </div>
-        )}
+          ) : finished ? (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-muted text-muted-foreground text-[10px] font-black uppercase tracking-[0.2em] shadow-sm">
+              {t("schedule.finished")}
+            </span>
+          ) : (
+            <span
+              className={`inline-flex items-center px-2.5 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${sportBadgeBg[fixture.team]}`}
+            >
+              {t("schedule.upcoming")}
+            </span>
+          )}
+        </div>
         {/* Left colored stripe — pastel-green band per sport, vertical sport name only */}
         <div
           className={`w-12 sm:w-14 shrink-0 flex items-center justify-center py-4 rounded-s-2xl ${sportTicketTheme[fixture.team].band}`}
