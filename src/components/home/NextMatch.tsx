@@ -305,7 +305,7 @@ const FixtureCard = ({
         to={`/match/${fixture.id}`}
         aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName}`}
         tabIndex={isActive ? 0 : -1}
-        className={`flex relative h-56 sm:h-60 rounded-2xl bg-card border-2 transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
+        className={`flex relative h-56 sm:h-60 rounded-e-2xl bg-card border-2 transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
           isActive
             ? "border-accent shadow-elegant scale-100"
             : "border-border shadow-soft scale-[0.94] opacity-70 hover:opacity-100"
