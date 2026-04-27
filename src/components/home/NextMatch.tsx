@@ -290,8 +290,8 @@ const FixtureCard = ({
   const isLive = fixture.status === "live";
   const finished = fixture.status === "finished";
   const showScore = (finished || isLive) && !!fixture.score;
-  const venue = fixture.venue?.[lang];
   const sportKey = `teamsList.${fixture.team}` as const;
+  const halfScore = (fixture as any).halfScore as { home: number; away: number } | undefined;
   return (
     <div
       id={`fixture-slide-${fixture.id}`}
@@ -299,166 +299,94 @@ const FixtureCard = ({
       aria-roledescription="slide"
       aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName} — ${fmtDate(fixture.date)} ${fmtTime(fixture.date)}`}
       aria-hidden={!isActive}
-      className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[85%] md:basis-[65%] lg:basis-[55%] xl:basis-[48%]"
+      className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[80%] md:basis-[55%] lg:basis-[42%] xl:basis-[38%]"
     >
       <Link
         to={`/match/${fixture.id}`}
         aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName}`}
         tabIndex={isActive ? 0 : -1}
-        className={`flex relative h-56 sm:h-60 bg-card border-2 transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
+        className={`flex relative h-32 sm:h-36 md:h-40 rounded-lg overflow-hidden bg-card border transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
           isActive
-            ? "border-accent shadow-elegant scale-100"
-            : "border-border shadow-soft scale-[0.94] opacity-70 hover:opacity-100"
+            ? "border-border shadow-elegant scale-100"
+            : "border-border shadow-soft scale-[0.95] opacity-70 hover:opacity-100"
         }`}
-        style={{
-          // Semicircle notches at the perforation between main + stub
-          backgroundImage:
-            "radial-gradient(circle at calc(72% - 0px) 0, hsl(var(--background)) 10px, transparent 11px), radial-gradient(circle at calc(72% - 0px) 100%, hsl(var(--background)) 10px, transparent 11px)",
-          backgroundRepeat: "no-repeat",
-        }}
       >
-        {/* Left colored stripe — pastel-green band with scalloped (ticket-edge) left border */}
+        {/* Left colored stripe with vertical sport name */}
         <div
-          className={`relative w-14 sm:w-16 shrink-0 flex items-center justify-center py-4 ${sportTicketTheme[fixture.team].band}`}
-          style={{
-            // Scalloped left edge: repeating semi-circular notches like a torn ticket
-            WebkitMaskImage:
-              "radial-gradient(circle 7px at 0 7px, transparent 7px, #000 7.5px)",
-            maskImage:
-              "radial-gradient(circle 7px at 0 7px, transparent 7px, #000 7.5px)",
-            WebkitMaskSize: "100% 14px",
-            maskSize: "100% 14px",
-            WebkitMaskRepeat: "repeat-y",
-            maskRepeat: "repeat-y",
-            WebkitMaskPosition: "left center",
-            maskPosition: "left center",
-          }}
+          className={`w-10 sm:w-12 shrink-0 flex items-center justify-center ${sportTicketTheme[fixture.team].band}`}
         >
           <span
-            className={`text-[11px] sm:text-xs font-black uppercase tracking-[0.3em] whitespace-nowrap ${sportTicketTheme[fixture.team].accent}`}
+            className={`text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] whitespace-nowrap ${sportTicketTheme[fixture.team].accent}`}
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
             {t(sportKey)}
           </span>
         </div>
 
-        {/* MAIN section (teams + score/date) */}
-        <div className="flex-1 flex flex-col justify-between px-4 sm:px-6 py-4 min-w-0">
-          {/* Top: competition label — centered */}
-          <div className="text-center">
-            <span className="text-accent font-bold text-[10px] sm:text-xs uppercase tracking-[0.18em] line-clamp-1">
-              {competitionLabel(t, fixture.competition, fixture.team)}
-            </span>
-          </div>
+        {/* Main section */}
+        <div className="flex-1 flex flex-col items-center justify-center px-2 sm:px-4 py-2 min-w-0">
+          {/* Competition name on top */}
+          <span className="text-accent font-bold text-[9px] sm:text-[11px] uppercase tracking-[0.18em] line-clamp-1 mb-2 sm:mb-3 text-center max-w-full">
+            {competitionLabel(t, fixture.competition, fixture.team)}
+          </span>
 
-          {/* Middle: home — score/vs — away */}
-          <div className="flex items-center justify-between gap-2 sm:gap-4">
-            {/* Home */}
-            <div className="flex flex-col items-center text-center min-w-0 flex-1">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 grid place-items-center rounded-full overflow-hidden bg-muted ring-2 ring-gold/40">
-                {isHome ? (
-                  <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
-                ) : (
-                  <span className="font-display font-black text-muted-foreground text-base">
-                    {fixture.opponentShort}
-                  </span>
-                )}
-              </div>
-              <span className="mt-2 text-xs sm:text-sm font-display font-bold uppercase text-foreground line-clamp-1 max-w-full">
-                {isHome ? clubName : opponent}
-              </span>
-            </div>
-
-            {/* Center: score or VS */}
-            <div className="flex flex-col items-center justify-center shrink-0 min-w-[80px]">
-              {/* Status badge — square, sport-tinted */}
-              <div className="mb-2">
-                {isLive ? (
-                  <span
-                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-destructive text-destructive-foreground text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] shadow-sm"
-                    aria-label={t("schedule.live")}
-                  >
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive-foreground opacity-75" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-destructive-foreground" />
-                    </span>
-                    {t("schedule.live")}
-                  </span>
-                ) : finished ? (
-                  <span className="inline-flex items-center px-2.5 py-0.5 bg-muted text-muted-foreground text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] shadow-sm">
-                    {t("schedule.finished")}
-                  </span>
-                ) : (
-                  <span
-                    className={`inline-flex items-center px-2.5 py-0.5 text-white text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${sportBadgeBg[fixture.team]}`}
-                  >
-                    {t("schedule.upcoming")}
-                  </span>
-                )}
-              </div>
-              {showScore ? (
-                <>
-                  <span className={`font-display font-black tabular-nums tracking-tight text-3xl sm:text-4xl leading-none ${isLive ? "text-destructive" : "text-foreground"}`}>
-                    {fixture.score!.home}<span className="text-muted-foreground/50 mx-1">:</span>{fixture.score!.away}
-                  </span>
-                  {isLive && typeof fixture.liveMinute === "number" && (
-                    <span className="mt-2 text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground tabular-nums">
-                      {fixture.liveMinute}'
-                    </span>
-                  )}
-                </>
+          {/* Row: logo — score/date — logo */}
+          <div className="w-full flex items-center justify-between gap-2 sm:gap-4">
+            {/* Home logo */}
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 grid place-items-center rounded-full overflow-hidden bg-muted">
+              {isHome ? (
+                <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
               ) : (
-                <span className="font-display text-3xl sm:text-4xl font-black text-muted-foreground/50 leading-none">
-                  {vsLabel}
+                <span className="font-display font-black text-muted-foreground text-xs sm:text-sm">
+                  {fixture.opponentShort}
                 </span>
               )}
             </div>
 
-            {/* Away */}
-            <div className="flex flex-col items-center text-center min-w-0 flex-1">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 grid place-items-center rounded-full overflow-hidden bg-muted ring-2 ring-border">
-                {isHome ? (
-                  <span className="font-display font-black text-muted-foreground text-base">
-                    {fixture.opponentShort}
+            {/* Center: score or date */}
+            <div className="flex flex-col items-center justify-center min-w-0 flex-1">
+              {showScore ? (
+                <>
+                  <span className={`font-display font-black tabular-nums tracking-tight text-2xl sm:text-3xl md:text-4xl leading-none whitespace-nowrap ${isLive ? "text-destructive" : "text-foreground"}`}>
+                    {fixture.score!.home} <span className="text-muted-foreground/60">:</span> {fixture.score!.away}
                   </span>
-                ) : (
-                  <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
-                )}
-              </div>
-              <span className="mt-2 text-xs sm:text-sm font-display font-bold uppercase text-foreground line-clamp-1 max-w-full">
-                {isHome ? opponent : clubName}
-              </span>
+                  {halfScore ? (
+                    <span className="mt-1 text-[10px] sm:text-xs text-muted-foreground font-medium tabular-nums">
+                      ({halfScore.home}:{halfScore.away})
+                    </span>
+                  ) : isLive && typeof fixture.liveMinute === "number" ? (
+                    <span className="mt-1 text-[10px] sm:text-xs text-destructive font-bold uppercase tracking-wider tabular-nums">
+                      {fixture.liveMinute}'
+                    </span>
+                  ) : finished ? (
+                    <span className="mt-1 text-[9px] sm:text-[10px] text-muted-foreground font-bold uppercase tracking-wider">
+                      {t("schedule.finished")}
+                    </span>
+                  ) : null}
+                </>
+              ) : (
+                <>
+                  <span className="font-display font-black text-base sm:text-lg md:text-xl text-foreground whitespace-nowrap leading-tight">
+                    {fmtDate(fixture.date)}
+                  </span>
+                  <span className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-muted-foreground font-medium tabular-nums">
+                    {fmtTime(fixture.date)}
+                  </span>
+                </>
+              )}
+            </div>
+
+            {/* Away logo */}
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 grid place-items-center rounded-full overflow-hidden bg-muted">
+              {isHome ? (
+                <span className="font-display font-black text-muted-foreground text-xs sm:text-sm">
+                  {fixture.opponentShort}
+                </span>
+              ) : (
+                <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
+              )}
             </div>
           </div>
-
-          {/* Bottom: venue */}
-          {venue && (
-            <div className="text-center text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider line-clamp-1">
-              📍 {venue}
-            </div>
-          )}
-        </div>
-
-        {/* Perforation: dashed vertical line */}
-        <div
-          className="shrink-0 w-px my-4 border-l-2 border-dashed border-border"
-          aria-hidden
-        />
-
-        {/* RIGHT STUB (ticket souche) */}
-        <div className={`w-[26%] shrink-0 flex flex-col items-center justify-center px-2 sm:px-3 py-4 text-center ${sportTicketTheme[fixture.team].soft}`}>
-          <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
-            {t("nextMatch.label")}
-          </span>
-          <span className={`mt-2 text-base sm:text-xl font-display font-black whitespace-nowrap leading-tight ${sportTicketTheme[fixture.team].accent}`}>
-            {fmtDate(fixture.date)}
-          </span>
-          <span className={`mt-1 text-lg sm:text-2xl font-display font-black tabular-nums leading-none ${sportTicketTheme[fixture.team].accent}`}>
-            {fmtTime(fixture.date)}
-          </span>
-          <span className="mt-3 text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-muted-foreground line-clamp-1">
-            {isHome ? homeLabel : awayLabel}
-          </span>
         </div>
       </Link>
     </div>
