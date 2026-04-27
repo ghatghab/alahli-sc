@@ -8,6 +8,7 @@ import logo from "@/assets/logo-alahli.png";
 import { fixtures, nextFixtureIndex, type Fixture } from "@/lib/fixtures";
 import { LiveBadge } from "@/components/match/LiveBadge";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
+import { competitionLabel } from "@/lib/competitionLabel";
 
 const useCountdown = (target: Date) => {
   const [now, setNow] = useState(() => new Date());
@@ -271,7 +272,7 @@ const FixtureCard = ({
           <div className="px-4 py-6 sm:px-6">
             <div className="text-center">
               <div className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-foreground/70">
-                {t(`schedule.competitions.${fixture.competition}`, { defaultValue: fixture.competition })}
+                {competitionLabel(t, fixture.competition, fixture.team)}
               </div>
               <div className="mt-1 text-sm sm:text-base font-display font-bold text-foreground">
                 {fmtDate(fixture.date)} · {fmtTime(fixture.date)}
