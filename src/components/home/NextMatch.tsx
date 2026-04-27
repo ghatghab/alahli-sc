@@ -10,6 +10,14 @@ import { LiveBadge } from "@/components/match/LiveBadge";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
 
+// Sport icon (emoji) shown inside the colored side stripe of a card
+const sportIcon: Record<Team, string> = {
+  football: "⚽",
+  basketball: "🏀",
+  handball: "🤾",
+  volleyball: "🏐",
+};
+
 const useCountdown = (target: Date) => {
   const [now, setNow] = useState(() => new Date());
   useEffect(() => {
