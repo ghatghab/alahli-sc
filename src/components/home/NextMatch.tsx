@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
-import torchWatermark from "@/assets/torch-watermark.png";
+import torchWatermark from "@/assets/torch-watermark.svg";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
@@ -331,15 +331,18 @@ const FixtureCard = ({
             src={torchWatermark}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none select-none absolute inset-0 m-auto h-[160%] w-auto object-contain opacity-25 dark:opacity-15 -rotate-12"
+            className="pointer-events-none select-none absolute inset-0 m-auto h-[150%] w-auto object-contain opacity-20 dark:opacity-10 -rotate-12 text-foreground"
           />
-          <div className="relative flex flex-1 items-center justify-center gap-3 sm:gap-5 md:gap-6 min-w-0">
+          <div className="relative flex flex-1 items-center justify-center gap-2 sm:gap-4 md:gap-6 min-w-0 overflow-hidden">
           {/* Home logo */}
-          <div className="w-16 sm:w-20 md:w-24 lg:w-28 shrink-0 self-center grid place-items-center aspect-square">
+          <div
+            className="shrink-0 self-center grid place-items-center aspect-square overflow-hidden"
+            style={{ width: "clamp(4.5rem, 22vw, 8rem)" }}
+          >
             {isHome ? (
               <img src={logo} alt={clubName} className="w-full h-full object-contain" />
             ) : (
-              <span className="font-display font-black text-foreground text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center">
+              <span className="font-display font-black text-foreground text-base sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center truncate max-w-full">
                 {fixture.opponentShort}
               </span>
             )}
@@ -383,9 +386,12 @@ const FixtureCard = ({
           </div>
 
           {/* Away logo */}
-          <div className="w-16 sm:w-20 md:w-24 lg:w-28 shrink-0 self-center grid place-items-center aspect-square">
+          <div
+            className="shrink-0 self-center grid place-items-center aspect-square overflow-hidden"
+            style={{ width: "clamp(4.5rem, 22vw, 8rem)" }}
+          >
             {isHome ? (
-              <span className="font-display font-black text-foreground text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center">
+              <span className="font-display font-black text-foreground text-base sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center truncate max-w-full">
                 {fixture.opponentShort}
               </span>
             ) : (
