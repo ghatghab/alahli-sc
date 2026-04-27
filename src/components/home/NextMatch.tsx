@@ -446,7 +446,7 @@ const FixtureCard = ({
         />
 
         {/* RIGHT STUB (ticket souche) */}
-        <div className={`w-[26%] shrink-0 flex flex-col items-center justify-center px-2 sm:px-3 py-4 text-center rounded-e-2xl ${sportTicketTheme[fixture.team].soft}`}>
+        <div className={`w-[26%] shrink-0 flex flex-col items-center justify-center px-2 sm:px-3 py-4 text-center ${sportTicketTheme[fixture.team].soft}`}>
           <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
             {t("nextMatch.label")}
           </span>
