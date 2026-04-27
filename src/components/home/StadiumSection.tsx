@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import stadium from "@/assets/stadium-aerial.jpg";
 
 export const StadiumSection = () => {
@@ -13,7 +13,8 @@ export const StadiumSection = () => {
           <img src={stadium} alt="Stadium" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
           <div className="absolute inset-0 bg-gradient-to-tr from-foreground/40 via-transparent to-transparent" />
           <div className="absolute bottom-4 start-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold uppercase tracking-[0.25em] shadow-soft">
-            ★ {t("sections.stadium")}
+            <MapPin className="h-3 w-3" strokeWidth={2} />
+            {t("sections.stadium")}
           </div>
         </div>
         <div className="order-1 lg:order-2 space-y-6">
