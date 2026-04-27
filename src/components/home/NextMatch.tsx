@@ -6,7 +6,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
-import { LiveBadge } from "@/components/match/LiveBadge";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
 
@@ -17,6 +16,14 @@ const sportTicketTheme: Record<Team, { band: string; accent: string; soft: strin
   basketball: { band: "bg-[hsl(95,40%,72%)]",  accent: "text-[hsl(95,55%,22%)]",  soft: "bg-[hsl(95,55%,94%)]"  },
   handball:   { band: "bg-[hsl(170,40%,72%)]", accent: "text-[hsl(170,55%,22%)]", soft: "bg-[hsl(170,55%,94%)]" },
   volleyball: { band: "bg-[hsl(120,38%,75%)]", accent: "text-[hsl(120,55%,22%)]", soft: "bg-[hsl(120,55%,94%)]" },
+};
+
+// Solid sport-tinted backgrounds for the "Upcoming" status badge.
+const sportBadgeBg: Record<Team, string> = {
+  football:   "bg-[hsl(145,55%,40%)]",
+  basketball: "bg-[hsl(95,50%,38%)]",
+  handball:   "bg-[hsl(170,55%,35%)]",
+  volleyball: "bg-[hsl(120,50%,38%)]",
 };
 
 const useCountdown = (target: Date) => {
