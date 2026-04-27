@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
-import torchWatermark from "@/assets/torch-watermark.svg";
+import torchWatermark from "@/assets/torch-watermark.png";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
@@ -333,11 +333,11 @@ const FixtureCard = ({
             aria-hidden="true"
             className="pointer-events-none select-none absolute inset-0 m-auto h-[150%] w-auto object-contain opacity-20 dark:opacity-10 -rotate-12 text-foreground"
           />
-          <div className="relative flex flex-1 items-center justify-center gap-2 sm:gap-4 md:gap-6 min-w-0 overflow-hidden">
+          <div className="relative flex flex-1 items-center justify-center gap-2 sm:gap-3 md:gap-5 lg:gap-6 min-w-0 overflow-hidden">
           {/* Home logo */}
           <div
             className="shrink-0 self-center grid place-items-center aspect-square overflow-hidden"
-            style={{ width: "clamp(4.5rem, 22vw, 8rem)" }}
+            style={{ width: "clamp(4rem, 18vw, 7rem)" }}
           >
             {isHome ? (
               <img src={logo} alt={clubName} className="w-full h-full object-contain" />
@@ -388,7 +388,7 @@ const FixtureCard = ({
           {/* Away logo */}
           <div
             className="shrink-0 self-center grid place-items-center aspect-square overflow-hidden"
-            style={{ width: "clamp(4.5rem, 22vw, 8rem)" }}
+            style={{ width: "clamp(4rem, 18vw, 7rem)" }}
           >
             {isHome ? (
               <span className="font-display font-black text-foreground text-base sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center truncate max-w-full">
