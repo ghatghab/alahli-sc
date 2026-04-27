@@ -331,20 +331,20 @@ const FixtureCard = ({
           </span>
 
           {/* Row: logo — score/date — logo */}
-          <div className="w-full flex items-center justify-between gap-2 sm:gap-4">
+          <div className="w-full flex items-center justify-center gap-3 sm:gap-4 md:gap-5">
             {/* Home logo */}
-            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 grid place-items-center">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 shrink-0 grid place-items-center">
               {isHome ? (
                 <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
               ) : (
-                <span className="font-display font-black text-foreground text-sm sm:text-base md:text-lg tracking-tight">
+                <span className="font-display font-black text-foreground text-lg sm:text-xl md:text-2xl tracking-tight">
                   {fixture.opponentShort}
                 </span>
               )}
             </div>
 
             {/* Center: score or date */}
-            <div className="flex flex-col items-center justify-center min-w-0 flex-1">
+            <div className="flex flex-col items-center justify-center shrink-0 px-1">
               {showScore ? (
                 <>
                   <span className={`font-display font-black tabular-nums tracking-tight text-2xl sm:text-3xl md:text-4xl leading-none whitespace-nowrap ${isLive ? "text-destructive" : "text-foreground"}`}>
@@ -377,9 +377,9 @@ const FixtureCard = ({
             </div>
 
             {/* Away logo */}
-            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 grid place-items-center">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 shrink-0 grid place-items-center">
               {isHome ? (
-                <span className="font-display font-black text-foreground text-sm sm:text-base md:text-lg tracking-tight">
+                <span className="font-display font-black text-foreground text-lg sm:text-xl md:text-2xl tracking-tight">
                   {fixture.opponentShort}
                 </span>
               ) : (
