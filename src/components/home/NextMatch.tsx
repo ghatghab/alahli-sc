@@ -10,12 +10,13 @@ import { LiveBadge } from "@/components/match/LiveBadge";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
 
-// Sport icon (emoji) shown inside the colored side stripe of a card
-const sportIcon: Record<Team, string> = {
-  football: "⚽",
-  basketball: "🏀",
-  handball: "🤾",
-  volleyball: "🏐",
+// Pastel-green palette per sport for the ticket header band.
+// `bg`/`text` use HSL via Tailwind arbitrary values so the design system stays consistent.
+const sportTicketTheme: Record<Team, { band: string; accent: string; soft: string }> = {
+  football:   { band: "bg-[hsl(145,45%,72%)]", accent: "text-[hsl(145,55%,22%)]", soft: "bg-[hsl(145,55%,94%)]" },
+  basketball: { band: "bg-[hsl(95,40%,72%)]",  accent: "text-[hsl(95,55%,22%)]",  soft: "bg-[hsl(95,55%,94%)]"  },
+  handball:   { band: "bg-[hsl(170,40%,72%)]", accent: "text-[hsl(170,55%,22%)]", soft: "bg-[hsl(170,55%,94%)]" },
+  volleyball: { band: "bg-[hsl(120,38%,75%)]", accent: "text-[hsl(120,55%,22%)]", soft: "bg-[hsl(120,55%,94%)]" },
 };
 
 const useCountdown = (target: Date) => {
@@ -321,19 +322,16 @@ const FixtureCard = ({
             </span>
           </div>
         )}
-        {/* Left colored stripe with vertical sport name + icon */}
+        {/* Left colored stripe — pastel-green band per sport, vertical sport name only */}
         <div
-          className={`w-12 sm:w-14 shrink-0 flex flex-col items-center justify-between py-4 text-white rounded-s-2xl ${fixture.competitionColor}`}
-          aria-hidden
+          className={`w-12 sm:w-14 shrink-0 flex items-center justify-center py-4 rounded-s-2xl ${sportTicketTheme[fixture.team].band}`}
         >
-          <span className="text-2xl sm:text-3xl">{sportIcon[fixture.team]}</span>
           <span
-            className="text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] whitespace-nowrap"
+            className={`text-[11px] sm:text-xs font-black uppercase tracking-[0.3em] whitespace-nowrap ${sportTicketTheme[fixture.team].accent}`}
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
             {t(sportKey)}
           </span>
-          <span className="text-2xl sm:text-3xl">{sportIcon[fixture.team]}</span>
         </div>
 
         {/* MAIN section (teams + score/date) */}
@@ -416,24 +414,21 @@ const FixtureCard = ({
         />
 
         {/* RIGHT STUB (ticket souche) */}
-        <div className="w-[26%] shrink-0 flex flex-col items-center justify-center px-2 sm:px-3 py-4 text-center rounded-e-2xl bg-muted/40">
+        <div className={`w-[26%] shrink-0 flex flex-col items-center justify-center px-2 sm:px-3 py-4 text-center rounded-e-2xl ${sportTicketTheme[fixture.team].soft}`}>
           <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
             {t("nextMatch.label")}
           </span>
-          <span className="mt-2 text-base sm:text-xl font-display font-black text-foreground whitespace-nowrap leading-tight">
+          <span className={`mt-2 text-base sm:text-xl font-display font-black whitespace-nowrap leading-tight ${sportTicketTheme[fixture.team].accent}`}>
             {fmtDate(fixture.date)}
           </span>
-          <span className="mt-1 text-lg sm:text-2xl font-display font-black text-accent tabular-nums leading-none">
+          <span className={`mt-1 text-lg sm:text-2xl font-display font-black tabular-nums leading-none ${sportTicketTheme[fixture.team].accent}`}>
             {fmtTime(fixture.date)}
           </span>
           <span className="mt-3 text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-muted-foreground line-clamp-1">
-            {homeAwayBadge(isHome, homeLabel, awayLabel)}
+            {isHome ? homeLabel : awayLabel}
           </span>
         </div>
       </Link>
     </div>
   );
 };
-
-const homeAwayBadge = (isHome: boolean, homeLabel: string, awayLabel: string) =>
-  isHome ? `🏟 ${homeLabel}` : `✈ ${awayLabel}`;
