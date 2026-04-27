@@ -316,11 +316,6 @@ const FixtureCard = ({
               </div>
             </div>
 
-            <div className="mt-5 flex items-center justify-center">
-              <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
-                {isHome ? homeLabel : awayLabel}
-              </span>
-            </div>
           </div>
           <div className={`${fixture.competitionColor}`} />
         </div>
