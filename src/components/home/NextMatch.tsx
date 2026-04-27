@@ -331,7 +331,7 @@ const FixtureCard = ({
             src={torchWatermark}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none select-none absolute inset-0 m-auto h-[140%] w-auto object-contain opacity-[0.06] -rotate-12"
+            className="pointer-events-none select-none absolute inset-0 m-auto h-[160%] w-auto object-contain opacity-25 dark:opacity-15 -rotate-12"
           />
           <div className="relative flex flex-1 items-center justify-center gap-3 sm:gap-5 md:gap-6 min-w-0">
           {/* Home logo */}
