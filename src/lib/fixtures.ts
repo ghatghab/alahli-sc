@@ -13,7 +13,7 @@ export type Fixture = {
   isNext?: boolean;
   status?: "upcoming" | "live" | "finished";
   score?: { home: number; away: number };
-  liveMinute?: number; // current minute (only for status === "live")
+  liveMinute?: number;
   events?: MatchEvent[];
   lineups?: { home: Player[]; away: Player[] };
   stats?: MatchStat[];
@@ -34,13 +34,6 @@ export type MatchStat = { label: { en: string; fr: string; ar: string }; home: n
 
 import stadium1 from "@/assets/stadium-aerial.jpg";
 import stadium2 from "@/assets/hero-stadium.jpg";
-
-const mk = (offsetDays: number, h: number, m: number) => {
-  const d = new Date();
-  d.setDate(d.getDate() + offsetDays);
-  d.setHours(h, m, 0, 0);
-  return d;
-};
 
 const sampleEvents: MatchEvent[] = [
   { minute: 12, type: "goal", team: "home", player: "M. Al-Tarhouni", detail: "Right foot" },
@@ -78,94 +71,205 @@ const sampleStats: MatchStat[] = [
   { label: { en: "Pass accuracy (%)", fr: "Précision passes (%)", ar: "دقة التمرير (%)" }, home: 87, away: 79 },
 ];
 
-export const fixtures: Fixture[] = [
-  {
-    id: "f1",
-    team: "football",
-    competition: "Libyan Premier League",
-    competitionColor: "bg-primary",
-    date: mk(-3, 19, 0),
-    opponentName: { en: "Al-Suwayhli", fr: "Al-Suwayhli", ar: "السويحلي" },
-    opponentShort: "SUW",
-    homeAway: "away",
-    venue: { en: "Misrata Municipal Stadium", fr: "Stade Municipal de Misrata", ar: "ملعب مصراتة البلدي" },
-    status: "finished",
-    score: { home: 1, away: 2 },
-    events: sampleEvents,
-    lineups: { home: samplePlayers("Suwayhli"), away: samplePlayers("Alahli") },
-    stats: sampleStats,
-    gallery: [stadium1, stadium2, stadium1, stadium2],
-  },
-  {
-    id: "live1",
-    team: "football",
-    competition: "Libyan Premier League",
-    competitionColor: "bg-primary",
-    date: (() => { const d = new Date(); d.setMinutes(d.getMinutes() - 38); return d; })(),
-    opponentName: { en: "Al-Nasr", fr: "Al-Nasr", ar: "النصر" },
-    opponentShort: "NSR",
-    homeAway: "home",
-    venue: { en: "Tripoli International Stadium", fr: "Stade International de Tripoli", ar: "ملعب طرابلس الدولي" },
-    status: "live",
-    score: { home: 2, away: 1 },
-    liveMinute: 38,
-    events: sampleEvents.slice(0, 3),
-    lineups: { home: samplePlayers("Alahli"), away: samplePlayers("Nasr") },
-    stats: sampleStats,
-    gallery: [stadium1],
-  },
-  {
-    id: "f2",
-    team: "football",
-    competition: "Libyan Premier League",
-    competitionColor: "bg-accent",
-    date: mk(2, 17, 30),
-    opponentName: { en: "Libyan Stadium", fr: "Stade Libyen", ar: "الملعب الليبي" },
-    opponentShort: "LIB",
-    homeAway: "home",
-    venue: { en: "Tripoli International Stadium", fr: "Stade International de Tripoli", ar: "ملعب طرابلس الدولي" },
-    isNext: true,
-    status: "upcoming",
-    lineups: { home: samplePlayers("Alahli"), away: samplePlayers("Libyan") },
-    stats: sampleStats,
-    gallery: [stadium2, stadium1],
-  },
-  {
-    id: "f3",
-    team: "football",
-    competition: "Libyan Cup",
-    competitionColor: "bg-gold",
-    date: mk(8, 20, 0),
-    opponentName: { en: "Al-Ittihad", fr: "Al-Ittihad", ar: "الاتحاد" },
-    opponentShort: "ITT",
-    homeAway: "away",
-    venue: { en: "11 June Stadium", fr: "Stade du 11 juin", ar: "ملعب 11 يونيو" },
-    status: "upcoming",
-    lineups: { home: samplePlayers("Ittihad"), away: samplePlayers("Alahli") },
-    stats: sampleStats,
-    gallery: [stadium1],
-  },
-  {
-    id: "f4",
-    team: "basketball",
-    competition: "Libyan Premier League",
-    competitionColor: "bg-primary",
-    date: mk(15, 19, 0),
-    opponentName: { en: "Al-Madina", fr: "Al-Madina", ar: "المدينة" },
-    opponentShort: "MAD",
-    homeAway: "home",
-    venue: { en: "Tripoli International Stadium", fr: "Stade International de Tripoli", ar: "ملعب طرابلس الدولي" },
-    status: "upcoming",
-    lineups: { home: samplePlayers("Alahli"), away: samplePlayers("Madina") },
-    stats: sampleStats,
-    gallery: [stadium2, stadium1],
-  },
+// ---------- Helpers ----------
+const CLUB = "Al Ahly Tripoli";
+
+const D = (iso: string, h = 19, m = 0) => {
+  const d = new Date(`${iso}T00:00:00`);
+  d.setHours(h, m, 0, 0);
+  return d;
+};
+
+const compColor = (c: string) => {
+  if (/Premier|League|Championnat|الدوري/.test(c)) return "bg-primary";
+  if (/Cup|Coupe|كأس/.test(c) && /Super|Supercoupe|السوبر/.test(c)) return "bg-accent";
+  if (/Cup|Coupe|كأس/.test(c)) return "bg-gold";
+  return "bg-primary";
+};
+
+// Opponent name dictionary (en, fr, ar) — keep keys aligned with i18n schedule.teams
+const OPP: Record<string, { en: string; fr: string; ar: string; short: string }> = {
+  "Asswehly":               { en: "Asswehly",            fr: "Asswehly",            ar: "السويحلي",          short: "SUW" },
+  "Al-Khmes":               { en: "Al-Khoms",            fr: "Al-Khoms",            ar: "الخمس",            short: "KHM" },
+  "Abu Salim":              { en: "Abu Salim",           fr: "Abou Salim",          ar: "أبو سليم",          short: "ABS" },
+  "Al Dahra":               { en: "Al Dahra",            fr: "Al Dahra",            ar: "الظهرة",            short: "DAH" },
+  "Al Watan":               { en: "Al Watan",            fr: "Al Watan",            ar: "الوطن",             short: "WAT" },
+  "Assabah":                { en: "Assabah",             fr: "Assabah",             ar: "الصباح",            short: "SAB" },
+  "Al Malaab El Libby":     { en: "Libyan Stadium",      fr: "Le Stade Libyen",     ar: "الملعب الليبي",      short: "LIB" },
+  "Al Madina":              { en: "Al Madina",           fr: "Al Madina",           ar: "المدينة",           short: "MAD" },
+  "Al Qadisiyah":           { en: "Al Qadisiyah",        fr: "Al Qadisiyah",        ar: "القادسية",          short: "QAD" },
+  "Al Qadisiyah Bani Walid":{ en: "Al Qadisiyah Bani Walid", fr: "Al Qadisiyah Bani Walid", ar: "قادسية بني وليد", short: "QBW" },
+  "Al Olympi":              { en: "Al Olympi",           fr: "Al Olympi",           ar: "الأولمبي",          short: "OLY" },
+  "Al Ahly Benghazi":       { en: "Al Ahli Benghazi",    fr: "Al Ahli Benghazi",    ar: "الأهلي بنغازي",     short: "AHB" },
+  "Al Ahli Benghazi":       { en: "Al Ahli Benghazi",    fr: "Al Ahli Benghazi",    ar: "الأهلي بنغازي",     short: "AHB" },
+  "Al Ittihad":             { en: "Al Ittihad",          fr: "Al Ittihad",          ar: "الاتحاد",           short: "ITT" },
+  "Al Ittihad Misurata":    { en: "Al Ittihad Misrata",  fr: "Al Ittihad Misrata",  ar: "اتحاد مصراتة",      short: "IMS" },
+  "Al Hilal":               { en: "Al Hilal",            fr: "Al Hilal",            ar: "الهلال",            short: "HIL" },
+  "Al Najma":               { en: "Al Najma",            fr: "Al Najma",            ar: "النجمة",            short: "NJM" },
+  "Al Swehly":              { en: "Asswehly",            fr: "Asswehly",            ar: "السويحلي",          short: "SWH" },
+};
+
+const opp = (name: string) => {
+  const o = OPP[name];
+  if (o) return { name: { en: o.en, fr: o.fr, ar: o.ar }, short: o.short };
+  return { name: { en: name, fr: name, ar: name }, short: name.slice(0, 3).toUpperCase() };
+};
+
+// Common venues
+const VENUE_TRIPOLI = { en: "Tripoli International Stadium", fr: "Stade International de Tripoli", ar: "ملعب طرابلس الدولي" };
+const VENUE_AHMED_MOUSA = { en: "Ahmed Mousa Hall", fr: "Salle Ahmed Mousa", ar: "قاعة أحمد موسى" };
+const VENUE_MISRATA = { en: "Misrata International Hall", fr: "Salle Internationale de Misrata", ar: "قاعة مصراتة الدولية" };
+const VENUE_AKHDAR = { en: "Al-Akhdar Club Hall — Al-Bayda", fr: "Salle du Club Al-Akhdar — Al-Bayda", ar: "قاعة نادي الأخضر - مدينة البيضاء" };
+const VENUE_DERNA = { en: "Sports Hall — Derna", fr: "Salle des sports — Derna", ar: "قاعة الرياضة - درنة" };
+const VENUE_AWAY = { en: "Away venue", fr: "Stade adverse", ar: "ملعب الفريق المضيف" };
+
+type MatchInput = {
+  date: string;
+  time?: [number, number];
+  home: string;
+  away: string;
+  score?: string | null;
+  status?: "scheduled";
+  venue?: { en: string; fr: string; ar: string };
+};
+
+const parseScore = (s?: string | null): { home: number; away: number } | undefined => {
+  if (!s) return undefined;
+  const m = s.match(/^(\d+)\s*-\s*(\d+)/);
+  if (!m) return undefined;
+  return { home: parseInt(m[1], 10), away: parseInt(m[2], 10) };
+};
+
+let counter = 0;
+const build = (
+  team: Team,
+  competition: string,
+  matches: MatchInput[],
+  defaultHomeVenue: { en: string; fr: string; ar: string } = VENUE_TRIPOLI,
+): Fixture[] => {
+  const color = compColor(competition);
+  return matches
+    .filter(m => m.date) // skip null-date entries
+    .map(m => {
+      const isHome = m.home === CLUB;
+      const opponentName = isHome ? m.away : m.home;
+      const o = opp(opponentName);
+      const [h, mi] = m.time ?? [19, 0];
+      const date = D(m.date, h, mi);
+      const score = parseScore(m.score);
+      const isFinished = !!score && m.status !== "scheduled";
+      const venue = m.venue ?? (isHome ? defaultHomeVenue : VENUE_AWAY);
+      counter += 1;
+      const f: Fixture = {
+        id: `${team}-${counter}`,
+        team,
+        competition,
+        competitionColor: color,
+        date,
+        opponentName: o.name,
+        opponentShort: o.short,
+        homeAway: isHome ? "home" : "away",
+        venue,
+        status: isFinished ? "finished" : "upcoming",
+        score: isFinished ? score : undefined,
+        lineups: { home: samplePlayers(isHome ? "Alahli" : opponentName), away: samplePlayers(isHome ? opponentName : "Alahli") },
+        stats: sampleStats,
+        gallery: isFinished ? [stadium1, stadium2] : [stadium2],
+      };
+      if (isFinished) f.events = sampleEvents.slice(0, 4);
+      return f;
+    });
+};
+
+// ---------- FOOTBALL ----------
+const footballLeague: MatchInput[] = [
+  { date: "2025-12-18", home: CLUB,                away: "Al Qadisiyah",         score: "4-0" },
+  { date: "2025-12-25", home: "Al Madina",         away: CLUB,                   score: "1-1" },
+  { date: "2025-12-31", home: CLUB,                away: "Al Malaab El Libby",   score: "3-1" },
+  { date: "2026-01-05", home: "Assabah",           away: CLUB,                   score: "0-3" },
+  { date: "2026-01-15", home: CLUB,                away: "Al Watan",             score: "2-0" },
+  { date: "2026-01-20", home: "Al Dahra",          away: CLUB,                   score: "1-3" },
+  { date: "2026-01-27", home: "Abu Salim",         away: CLUB,                   score: "0-1" },
+  { date: "2026-02-02", home: CLUB,                away: "Al-Khmes",             score: "5-2" },
+  { date: "2026-02-07", home: "Asswehly",          away: CLUB,                   score: "0-0" },
+  { date: "2026-02-21", home: "Al Qadisiyah",     away: CLUB,                   score: "0-1" },
+  { date: "2026-02-25", home: CLUB,                away: "Al Madina",            score: "4-0" },
+  { date: "2026-03-03", home: "Al Malaab El Libby",away: CLUB,                   score: "0-3" },
+  { date: "2026-03-09", home: CLUB,                away: "Assabah",              score: "2-0" },
+  { date: "2026-03-14", home: "Al Watan",          away: CLUB,                   score: "0-3" },
+  { date: "2026-04-09", home: CLUB,                away: "Al Dahra",             score: "1-0" },
+  { date: "2026-04-13", home: CLUB,                away: "Abu Salim",            score: "7-1" },
+  { date: "2026-04-18", home: "Al-Khmes",          away: CLUB,                   score: "1-3" },
+  { date: "2026-04-23", home: CLUB,                away: "Asswehly",             score: "1-2" },
 ];
+
+const footballCup: MatchInput[] = [
+  { date: "2026-02-13", home: CLUB, away: "Al Qadisiyah Bani Walid", score: "3-1" },
+  { date: "2026-04-05", home: CLUB, away: "Al Olympi",                score: "1-0" },
+  // Quarter final not yet scheduled (no date) — omitted
+];
+
+const footballSuper: MatchInput[] = [
+  { date: "2025-12-07", home: CLUB, away: "Al Ahly Benghazi", score: "0-0", time: [20, 0] },
+  // Note: score "0-0 (4-3 tab)" — store base score, indicate via competition only
+];
+
+// ---------- BASKETBALL ----------
+const basketSuper: MatchInput[] = [
+  { date: "2025-12-20", home: CLUB, away: "Al Ahly Benghazi", score: "87-65", time: [19, 0], venue: VENUE_AHMED_MOUSA },
+];
+const basketCup: MatchInput[] = [
+  { date: "2026-03-13", home: CLUB,              away: "Al Madina",        score: "80-36" },
+  { date: "2026-04-11", home: CLUB,              away: "Al Ittihad",       score: "59-79" },
+  { date: "2026-04-25", home: "Al Ahly Benghazi", away: CLUB,              score: "94-90" },
+];
+
+// ---------- VOLLEYBALL ----------
+const volleyLeague: MatchInput[] = [
+  { date: "2026-04-04", home: CLUB,             away: "Al Ahly Benghazi",     score: "3-0", venue: VENUE_MISRATA },
+  { date: "2026-04-05", home: "Al Ittihad",     away: CLUB,                   score: "3-0", venue: VENUE_MISRATA },
+  { date: "2026-04-06", home: CLUB,             away: "Al Hilal",             score: "3-0", venue: VENUE_MISRATA },
+  { date: "2026-04-08", home: CLUB,             away: "Al Ittihad Misurata", score: "3-0", venue: VENUE_MISRATA },
+  { date: "2026-04-09", home: CLUB,             away: "Al Swehly",            score: "3-0", venue: VENUE_MISRATA },
+];
+
+// ---------- HANDBALL ----------
+const handballLeague: MatchInput[] = [
+  { date: "2026-04-23", home: CLUB, away: "Al Olympi",        score: "28-19", venue: VENUE_AKHDAR },
+  { date: "2026-04-24", home: CLUB, away: "Al Najma",         score: "38-23", venue: VENUE_AKHDAR },
+  { date: "2026-04-26", home: CLUB, away: "Al Ittihad",       score: "27-26", venue: VENUE_AKHDAR },
+  { date: "2026-04-27", home: CLUB, away: "Al Hilal",         score: "24-21", venue: VENUE_AKHDAR },
+  { date: "2026-04-28", home: CLUB, away: "Al Ahly Benghazi", score: null, status: "scheduled", time: [18, 0], venue: VENUE_AKHDAR },
+];
+const handballSuper: MatchInput[] = [
+  { date: "2025-10-17", home: "Al Ahly Benghazi", away: CLUB, score: "10-0", venue: VENUE_DERNA },
+];
+
+// ---------- ASSEMBLE ----------
+const all: Fixture[] = [
+  ...build("football", "Libyan Premier League", footballLeague),
+  ...build("football", "Libyan Cup", footballCup),
+  ...build("football", "Libyan Super Cup", footballSuper),
+  ...build("basketball", "Libyan Super Cup", basketSuper),
+  ...build("basketball", "Libyan Cup", basketCup),
+  ...build("volleyball", "Libyan Volleyball League", volleyLeague, VENUE_MISRATA),
+  ...build("handball", "Libyan Handball League", handballLeague, VENUE_AKHDAR),
+  ...build("handball", "Libyan Super Cup", handballSuper),
+];
+
+// Sort chronologically (asc)
+all.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+// Mark "next" — first upcoming fixture relative to now
+const nowTs = Date.now();
+const nextIdx = all.findIndex(f => f.date.getTime() >= nowTs && f.status !== "finished");
+if (nextIdx >= 0) all[nextIdx].isNext = true;
+
+export const fixtures: Fixture[] = all;
 
 export const getFixtureById = (id: string) => fixtures.find(f => f.id === id);
 
 export const nextFixtureIndex = (): number => {
-  const now = Date.now();
-  const idx = fixtures.findIndex(f => f.date.getTime() >= now);
+  const idx = fixtures.findIndex(f => f.date.getTime() >= Date.now() && f.status !== "finished");
   return idx === -1 ? Math.max(0, fixtures.length - 1) : idx;
 };
