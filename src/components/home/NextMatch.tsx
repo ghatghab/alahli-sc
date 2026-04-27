@@ -337,36 +337,36 @@ const FixtureCard = ({
           </div>
 
           {/* Center stack: competition above, score/date below */}
-          <div className="flex flex-col items-center justify-center shrink-0 min-w-0 px-1">
-            <span className="text-accent font-bold text-[9px] sm:text-[11px] md:text-xs uppercase tracking-[0.18em] line-clamp-1 mb-1.5 sm:mb-2 text-center whitespace-nowrap">
+          <div className="flex flex-col items-center justify-center shrink-0 min-w-0 px-1 gap-0.5">
+            <span className="text-accent font-bold text-[9px] sm:text-[11px] md:text-xs uppercase tracking-[0.18em] line-clamp-1 mb-0.5 sm:mb-1 text-center whitespace-nowrap">
               {competitionLabel(t, fixture.competition, fixture.team)}
             </span>
 
             {showScore ? (
               <>
-                <span className={`font-display font-black tabular-nums tracking-tight text-2xl sm:text-3xl md:text-4xl leading-none whitespace-nowrap ${isLive ? "text-destructive" : "text-foreground"}`}>
+                <span className={`font-display font-black tabular-nums tracking-tight text-3xl sm:text-4xl md:text-5xl leading-none whitespace-nowrap ${isLive ? "text-destructive" : "text-foreground"}`}>
                   {fixture.score!.home} <span className="text-muted-foreground/60">:</span> {fixture.score!.away}
                 </span>
                 {halfScore ? (
-                  <span className="mt-1 text-[10px] sm:text-xs text-muted-foreground font-medium tabular-nums">
+                  <span className="mt-0.5 text-[10px] sm:text-xs text-muted-foreground font-medium tabular-nums leading-none">
                     ({halfScore.home}:{halfScore.away})
                   </span>
                 ) : isLive && typeof fixture.liveMinute === "number" ? (
-                  <span className="mt-1 text-[10px] sm:text-xs text-destructive font-bold uppercase tracking-wider tabular-nums">
+                  <span className="mt-0.5 text-[10px] sm:text-xs text-destructive font-bold uppercase tracking-wider tabular-nums leading-none">
                     {fixture.liveMinute}'
                   </span>
                 ) : finished ? (
-                  <span className="mt-1 text-[9px] sm:text-[10px] text-muted-foreground font-bold uppercase tracking-wider">
+                  <span className="mt-0.5 text-[9px] sm:text-[10px] text-muted-foreground font-bold uppercase tracking-wider leading-none">
                     {t("schedule.finished")}
                   </span>
                 ) : null}
               </>
             ) : (
               <>
-                <span className="font-display font-black text-base sm:text-lg md:text-xl text-foreground whitespace-nowrap leading-tight">
+                <span className="font-display font-black text-base sm:text-lg md:text-xl text-foreground whitespace-nowrap leading-none">
                   {fmtDate(fixture.date)}
                 </span>
-                <span className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-muted-foreground font-medium tabular-nums">
+                <span className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium tabular-nums leading-none">
                   {fmtTime(fixture.date)}
                 </span>
               </>
