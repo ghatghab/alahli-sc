@@ -6,7 +6,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
-import { LiveBadge } from "@/components/match/LiveBadge";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
 
@@ -17,6 +16,14 @@ const sportTicketTheme: Record<Team, { band: string; accent: string; soft: strin
   basketball: { band: "bg-[hsl(95,40%,72%)]",  accent: "text-[hsl(95,55%,22%)]",  soft: "bg-[hsl(95,55%,94%)]"  },
   handball:   { band: "bg-[hsl(170,40%,72%)]", accent: "text-[hsl(170,55%,22%)]", soft: "bg-[hsl(170,55%,94%)]" },
   volleyball: { band: "bg-[hsl(120,38%,75%)]", accent: "text-[hsl(120,55%,22%)]", soft: "bg-[hsl(120,55%,94%)]" },
+};
+
+// Solid sport-tinted backgrounds for the "Upcoming" status badge.
+const sportBadgeBg: Record<Team, string> = {
+  football:   "bg-[hsl(145,55%,40%)]",
+  basketball: "bg-[hsl(95,50%,38%)]",
+  handball:   "bg-[hsl(170,55%,35%)]",
+  volleyball: "bg-[hsl(120,50%,38%)]",
 };
 
 const useCountdown = (target: Date) => {
@@ -310,18 +317,34 @@ const FixtureCard = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        {isActive && isLive && (
-          <div className="absolute start-16 top-3 z-10">
-            <LiveBadge minute={fixture.liveMinute} size="md" />
-          </div>
-        )}
-        {isActive && !isLive && fixture.isNext && (
-          <div className="absolute left-1/2 -translate-x-1/2 -top-px z-10">
-            <span className="block px-4 py-1 bg-accent text-accent-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-b-md">
-              {nextLabel}
+        {/* Consistent status badge — variants by sport (upcoming) / live / finished */}
+        <div className="absolute start-16 top-3 z-10">
+          {isLive ? (
+            <span
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-black uppercase tracking-[0.2em] shadow-sm"
+              aria-label={t("schedule.live")}
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive-foreground opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-destructive-foreground" />
+              </span>
+              {t("schedule.live")}
+              {typeof fixture.liveMinute === "number" && (
+                <span className="tabular-nums">· {fixture.liveMinute}'</span>
+              )}
             </span>
-          </div>
-        )}
+          ) : finished ? (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-muted text-muted-foreground text-[10px] font-black uppercase tracking-[0.2em] shadow-sm">
+              {t("schedule.finished")}
+            </span>
+          ) : (
+            <span
+              className={`inline-flex items-center px-2.5 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${sportBadgeBg[fixture.team]}`}
+            >
+              {t("schedule.upcoming")}
+            </span>
+          )}
+        </div>
         {/* Left colored stripe — pastel-green band per sport, vertical sport name only */}
         <div
           className={`w-12 sm:w-14 shrink-0 flex items-center justify-center py-4 rounded-s-2xl ${sportTicketTheme[fixture.team].band}`}
