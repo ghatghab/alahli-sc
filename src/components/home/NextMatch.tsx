@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
-import torchWatermark from "@/assets/torch-watermark.png";
+import torchWatermark from "@/assets/torch-watermark.svg";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
