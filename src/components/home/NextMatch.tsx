@@ -324,20 +324,20 @@ const FixtureCard = ({
         </div>
 
         {/* Main section: logos vertically centered, competition label sits above only the central date/score block */}
-        <div className="flex-1 flex items-center justify-center gap-3 sm:gap-5 md:gap-6 px-3 sm:px-4 md:px-5 py-2 min-w-0">
+        <div className="flex-1 flex items-stretch justify-center gap-3 sm:gap-5 md:gap-6 px-3 sm:px-4 md:px-5 py-2 min-w-0">
           {/* Home logo */}
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 shrink-0 grid place-items-center">
+          <div className="w-20 sm:w-24 md:w-28 shrink-0 self-center grid place-items-center aspect-square">
             {isHome ? (
-              <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
+              <img src={logo} alt={clubName} className="w-full h-full object-contain" />
             ) : (
-              <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight">
+              <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight leading-none text-center">
                 {fixture.opponentShort}
               </span>
             )}
           </div>
 
           {/* Center stack: competition above, score/date below */}
-          <div className="flex flex-col items-center justify-center shrink-0 min-w-0 px-1 gap-0.5">
+          <div className="flex flex-col items-center justify-center self-center shrink-0 min-w-0 px-1 gap-0.5">
             <span className="text-accent font-bold text-[9px] sm:text-[11px] md:text-xs uppercase tracking-[0.18em] line-clamp-1 mb-0.5 sm:mb-1 text-center whitespace-nowrap">
               {competitionLabel(t, fixture.competition, fixture.team)}
             </span>
@@ -374,13 +374,13 @@ const FixtureCard = ({
           </div>
 
           {/* Away logo */}
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 shrink-0 grid place-items-center">
+          <div className="w-20 sm:w-24 md:w-28 shrink-0 self-center grid place-items-center aspect-square">
             {isHome ? (
-              <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight">
+              <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight leading-none text-center">
                 {fixture.opponentShort}
               </span>
             ) : (
-              <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
+              <img src={logo} alt={clubName} className="w-full h-full object-contain" />
             )}
           </div>
         </div>
