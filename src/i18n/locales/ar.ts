@@ -171,6 +171,7 @@ export const ar = {
       libyanCup: "كأس ليبيا",
       libyanSuperCup: "كأس السوبر الليبي",
       bal: "دوري أبطال إفريقيا لكرة السلة (BAL)",
+      fibaBronze: "الميدالية البرونزية — كأس فيبا القاري 2025",
     },
   },
   teamsList: {
