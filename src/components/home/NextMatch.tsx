@@ -333,11 +333,11 @@ const FixtureCard = ({
           {/* Row: logo — score/date — logo */}
           <div className="w-full flex items-center justify-between gap-2 sm:gap-4">
             {/* Home logo */}
-            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 grid place-items-center rounded-full overflow-hidden bg-muted">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 grid place-items-center">
               {isHome ? (
                 <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
               ) : (
-                <span className="font-display font-black text-muted-foreground text-xs sm:text-sm">
+                <span className="font-display font-black text-foreground text-sm sm:text-base md:text-lg tracking-tight">
                   {fixture.opponentShort}
                 </span>
               )}
@@ -377,9 +377,9 @@ const FixtureCard = ({
             </div>
 
             {/* Away logo */}
-            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 grid place-items-center rounded-full overflow-hidden bg-muted">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 grid place-items-center">
               {isHome ? (
-                <span className="font-display font-black text-muted-foreground text-xs sm:text-sm">
+                <span className="font-display font-black text-foreground text-sm sm:text-base md:text-lg tracking-tight">
                   {fixture.opponentShort}
                 </span>
               ) : (
