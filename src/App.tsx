@@ -7,10 +7,17 @@ import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import "./i18n";
 import { Layout } from "./components/layout/Layout";
-import {
-  ClubPage, MatchCenterPage, SchedulePage,
-  TicketsPage, AcademyPage, ContactPage,
-} from "./pages/Generic";
+import { MatchCenterPage, SchedulePage } from "./pages/Generic";
+import TicketsPage from "./pages/Tickets";
+import AcademyPage from "./pages/Academy";
+import ContactPage from "./pages/Contact";
+import ClubOverview from "./pages/club/ClubOverview";
+import ClubHistory from "./pages/club/ClubHistory";
+import ClubIdentity from "./pages/club/ClubIdentity";
+import ClubLeadership from "./pages/club/ClubLeadership";
+import ClubPartners from "./pages/club/ClubPartners";
+import ClubSustainability from "./pages/club/ClubSustainability";
+import ClubMuseum from "./pages/club/ClubMuseum";
 import ClubLayout from "./pages/club/ClubLayout";
 import TeamsLayout from "./pages/teams/TeamsLayout";
 import FootballLayout from "./pages/teams/FootballLayout";
@@ -66,13 +73,13 @@ const App = () => (
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
               <Route path="/club" element={<ClubLayout />}>
-                <Route index element={<ClubPage />} />
-                <Route path="history" element={<ClubPage />} />
-                <Route path="identity" element={<ClubPage />} />
-                <Route path="leadership" element={<ClubPage />} />
-                <Route path="partners" element={<ClubPage />} />
-                <Route path="sustainability" element={<ClubPage />} />
-                <Route path="museum" element={<ClubPage />} />
+                <Route index element={<ClubOverview />} />
+                <Route path="history" element={<ClubHistory />} />
+                <Route path="identity" element={<ClubIdentity />} />
+                <Route path="leadership" element={<ClubLeadership />} />
+                <Route path="partners" element={<ClubPartners />} />
+                <Route path="sustainability" element={<ClubSustainability />} />
+                <Route path="museum" element={<ClubMuseum />} />
               </Route>
               <Route path="/teams" element={<TeamsLayout />}>
                 <Route index element={<TeamsHome />} />
