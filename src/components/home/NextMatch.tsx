@@ -335,7 +335,10 @@ const FixtureCard = ({
           />
           <div className="relative flex flex-1 items-center justify-center gap-2 sm:gap-4 md:gap-6 min-w-0 overflow-hidden">
           {/* Home logo */}
-          <div className="w-[22%] sm:w-[24%] md:w-[26%] max-w-[7rem] min-w-0 shrink self-center grid place-items-center aspect-square overflow-hidden">
+          <div
+            className="shrink-0 self-center grid place-items-center aspect-square overflow-hidden"
+            style={{ width: "clamp(4.5rem, 22vw, 8rem)" }}
+          >
             {isHome ? (
               <img src={logo} alt={clubName} className="w-full h-full object-contain" />
             ) : (
@@ -383,7 +386,10 @@ const FixtureCard = ({
           </div>
 
           {/* Away logo */}
-          <div className="w-[22%] sm:w-[24%] md:w-[26%] max-w-[7rem] min-w-0 shrink self-center grid place-items-center aspect-square overflow-hidden">
+          <div
+            className="shrink-0 self-center grid place-items-center aspect-square overflow-hidden"
+            style={{ width: "clamp(4.5rem, 22vw, 8rem)" }}
+          >
             {isHome ? (
               <span className="font-display font-black text-foreground text-base sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center truncate max-w-full">
                 {fixture.opponentShort}
