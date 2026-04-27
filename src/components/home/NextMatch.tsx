@@ -345,9 +345,22 @@ const FixtureCard = ({
             </span>
           )}
         </div>
-        {/* Left colored stripe — pastel-green band per sport, vertical sport name only */}
+        {/* Left colored stripe — pastel-green band with scalloped (ticket-edge) left border */}
         <div
-          className={`w-12 sm:w-14 shrink-0 flex items-center justify-center py-4 rounded-s-2xl ${sportTicketTheme[fixture.team].band}`}
+          className={`relative w-14 sm:w-16 shrink-0 flex items-center justify-center py-4 ${sportTicketTheme[fixture.team].band}`}
+          style={{
+            // Scalloped left edge: repeating semi-circular notches like a torn ticket
+            WebkitMaskImage:
+              "radial-gradient(circle 7px at 0 7px, transparent 7px, #000 7.5px)",
+            maskImage:
+              "radial-gradient(circle 7px at 0 7px, transparent 7px, #000 7.5px)",
+            WebkitMaskSize: "100% 14px",
+            maskSize: "100% 14px",
+            WebkitMaskRepeat: "repeat-y",
+            maskRepeat: "repeat-y",
+            WebkitMaskPosition: "left center",
+            maskPosition: "left center",
+          }}
         >
           <span
             className={`text-[11px] sm:text-xs font-black uppercase tracking-[0.3em] whitespace-nowrap ${sportTicketTheme[fixture.team].accent}`}
