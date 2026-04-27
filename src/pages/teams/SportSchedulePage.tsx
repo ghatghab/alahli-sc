@@ -130,7 +130,7 @@ const Row = ({
                 </div>
               )}
               <div className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-0.5">
-                {isLive ? `${fixture.liveMinute ?? ""}'` : finished ? t("schedule.finished") : isHome ? t("nextMatch.home") : t("nextMatch.away")}
+                {isLive ? `${fixture.liveMinute ?? ""}'` : finished ? t("schedule.finished") : ""}
               </div>
             </div>
             <Crest isAlahli={!isHome} short={fixture.opponentShort} color={fixture.competitionColor} alt={awayName} />
