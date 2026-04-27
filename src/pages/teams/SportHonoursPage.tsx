@@ -32,13 +32,13 @@ const DATA: Record<Sport, SportData> = {
     ],
   },
   basketball: {
-    total: 18,
-    extraKey: "bronzeFiba",
+    total: 19,
     trophies: [
       { count: 8, competitionKey: "basketballLeague" },
       { count: 5, competitionKey: "libyanCup" },
       { count: 4, competitionKey: "libyanSuperCup" },
       { count: 1, competitionKey: "bal" },
+      { count: 1, competitionKey: "fibaBronze" },
     ],
   },
   handball: {
