@@ -322,19 +322,16 @@ const FixtureCard = ({
             </span>
           </div>
         )}
-        {/* Left colored stripe with vertical sport name + icon */}
+        {/* Left colored stripe — pastel-green band per sport, vertical sport name only */}
         <div
-          className={`w-12 sm:w-14 shrink-0 flex flex-col items-center justify-between py-4 text-white rounded-s-2xl ${fixture.competitionColor}`}
-          aria-hidden
+          className={`w-12 sm:w-14 shrink-0 flex items-center justify-center py-4 rounded-s-2xl ${sportTicketTheme[fixture.team].band}`}
         >
-          <span className="text-2xl sm:text-3xl">{sportIcon[fixture.team]}</span>
           <span
-            className="text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] whitespace-nowrap"
+            className={`text-[11px] sm:text-xs font-black uppercase tracking-[0.3em] whitespace-nowrap ${sportTicketTheme[fixture.team].accent}`}
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
             {t(sportKey)}
           </span>
-          <span className="text-2xl sm:text-3xl">{sportIcon[fixture.team]}</span>
         </div>
 
         {/* MAIN section (teams + score/date) */}
