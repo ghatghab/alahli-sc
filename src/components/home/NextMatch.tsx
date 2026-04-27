@@ -305,7 +305,7 @@ const FixtureCard = ({
         to={`/match/${fixture.id}`}
         aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName}`}
         tabIndex={isActive ? 0 : -1}
-        className={`flex relative h-32 sm:h-36 md:h-40 rounded-lg overflow-hidden bg-card border transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
+        className={`flex relative h-40 sm:h-48 md:h-52 rounded-lg overflow-hidden bg-card border transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
           isActive
             ? "border-border shadow-elegant scale-100"
             : "border-border shadow-soft scale-[0.95] opacity-70 hover:opacity-100"
@@ -324,20 +324,20 @@ const FixtureCard = ({
         </div>
 
         {/* Main section */}
-        <div className="flex-1 flex flex-col items-center justify-center px-2 sm:px-4 py-2 min-w-0">
+        <div className="flex-1 flex flex-col items-center justify-start px-2 sm:px-4 pt-2 pb-2 min-w-0">
           {/* Competition name on top */}
-          <span className="text-accent font-bold text-[9px] sm:text-[11px] uppercase tracking-[0.18em] line-clamp-1 mb-2 sm:mb-3 text-center max-w-full">
+          <span className="text-accent font-bold text-[9px] sm:text-[11px] uppercase tracking-[0.18em] line-clamp-1 mb-1 sm:mb-1.5 text-center max-w-full">
             {competitionLabel(t, fixture.competition, fixture.team)}
           </span>
 
           {/* Row: logo — score/date — logo */}
           <div className="w-full flex items-center justify-center gap-3 sm:gap-4 md:gap-5">
             {/* Home logo */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 shrink-0 grid place-items-center">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 shrink-0 grid place-items-center">
               {isHome ? (
                 <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
               ) : (
-                <span className="font-display font-black text-foreground text-lg sm:text-xl md:text-2xl tracking-tight">
+                <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight">
                   {fixture.opponentShort}
                 </span>
               )}
@@ -377,9 +377,9 @@ const FixtureCard = ({
             </div>
 
             {/* Away logo */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 shrink-0 grid place-items-center">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 shrink-0 grid place-items-center">
               {isHome ? (
-                <span className="font-display font-black text-foreground text-lg sm:text-xl md:text-2xl tracking-tight">
+                <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight">
                   {fixture.opponentShort}
                 </span>
               ) : (
