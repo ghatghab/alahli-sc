@@ -171,6 +171,7 @@ export const fr = {
       libyanCup: "Coupe de Libye",
       libyanSuperCup: "Supercoupe de Libye",
       bal: "Basketball Africa League (BAL)",
+      fibaBronze: "Médaille de bronze — FIBA Intercontinental Cup 2025",
     },
   },
   teamsList: {
