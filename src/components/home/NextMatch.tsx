@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
+import torchWatermark from "@/assets/torch-watermark.png";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
@@ -324,7 +325,15 @@ const FixtureCard = ({
         </div>
 
         {/* Main section: logos vertically centered, competition label sits above only the central date/score block */}
-        <div className="flex-1 flex items-stretch justify-center gap-3 sm:gap-5 md:gap-6 px-3 sm:px-4 md:px-5 py-2 min-w-0">
+        <div className="relative flex-1 flex items-stretch justify-center gap-3 sm:gap-5 md:gap-6 px-3 sm:px-4 md:px-5 py-2 min-w-0 overflow-hidden">
+          {/* Decorative torch watermark in the background */}
+          <img
+            src={torchWatermark}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none select-none absolute inset-0 m-auto h-[140%] w-auto object-contain opacity-[0.06] -rotate-12"
+          />
+          <div className="relative flex flex-1 items-center justify-center gap-3 sm:gap-5 md:gap-6 min-w-0">
           {/* Home logo */}
           <div className="w-16 sm:w-20 md:w-24 lg:w-28 shrink-0 self-center grid place-items-center aspect-square">
             {isHome ? (
@@ -382,6 +391,7 @@ const FixtureCard = ({
             ) : (
               <img src={logo} alt={clubName} className="w-full h-full object-contain" />
             )}
+          </div>
           </div>
         </div>
       </Link>
