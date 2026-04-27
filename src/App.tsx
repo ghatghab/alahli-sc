@@ -30,6 +30,7 @@ import MatchCenter from "./pages/MatchCenter";
 import Standings from "./pages/Standings";
 import SportStandingsPage from "./pages/teams/SportStandingsPage";
 import SportHonoursPage from "./pages/teams/SportHonoursPage";
+import SportSchedulePage from "./pages/teams/SportSchedulePage";
 import { ProtectedAdmin } from "./components/admin/ProtectedAdmin";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -81,7 +82,7 @@ const App = () => (
                     <Route index element={<FirstTeamPage />} />
                     <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
                     <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
-                    <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
+                    <Route path="schedule" element={<SportSchedulePage />} />
                     <Route path="standings" element={<SportStandingsPage />} />
                     <Route path="honours" element={<SportHonoursPage />} />
                   </Route>
@@ -92,7 +93,7 @@ const App = () => (
                   <Route index element={<Navigate to="squad" replace />} />
                   <Route path="squad" element={<RubricPage titleKey="teamsNav.squad" />} />
                   <Route path="staff" element={<RubricPage titleKey="teamsNav.staff" />} />
-                  <Route path="schedule" element={<RubricPage titleKey="teamsNav.schedule" />} />
+                  <Route path="schedule" element={<SportSchedulePage />} />
                   <Route path="standings" element={<SportStandingsPage />} />
                   <Route path="honours" element={<SportHonoursPage />} />
                 </Route>
