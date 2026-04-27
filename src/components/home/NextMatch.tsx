@@ -235,6 +235,8 @@ const FixtureCard = ({
   const opponent = fixture.opponentName[lang];
   const isHome = fixture.homeAway === "home";
   const isLive = fixture.status === "live";
+  const finished = fixture.status === "finished";
+  const showScore = (finished || isLive) && !!fixture.score;
   return (
     <div
       id={`fixture-slide-${fixture.id}`}
@@ -296,9 +298,20 @@ const FixtureCard = ({
                 </div>
               </div>
 
-              <div className="font-display text-2xl font-black text-muted-foreground/50">
-                {vsLabel}
-              </div>
+              {showScore ? (
+                <div className="flex flex-col items-center min-w-[72px]">
+                  <div className={`font-display font-black tabular-nums tracking-tight text-2xl sm:text-3xl ${isLive ? "text-destructive" : "text-foreground"}`}>
+                    {fixture.score!.home} <span className="text-muted-foreground/60 mx-1">:</span> {fixture.score!.away}
+                  </div>
+                  <div className="mt-1 text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
+                    {isLive ? `${fixture.liveMinute ?? ""}'` : t("schedule.finished")}
+                  </div>
+                </div>
+              ) : (
+                <div className="font-display text-2xl font-black text-muted-foreground/50">
+                  {vsLabel}
+                </div>
+              )}
 
               {/* Away side */}
               <div className="flex flex-col items-center text-center">
