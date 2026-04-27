@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Trophy } from "lucide-react";
+import { Trophy as TrophyIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ComingSoon } from "@/components/ComingSoon";
 import trophiesImg from "@/assets/honours-trophies.jpg";
 
 type Sport = "football" | "basketball" | "handball" | "volleyball";
 
-type Trophy = {
+type TrophyEntry = {
   count: number;
   /** i18n key under honoursPage.competitions */
   competitionKey: string;
@@ -19,7 +19,7 @@ type SportData = {
   total: number;
   /** Optional extra label shown after total (e.g., bronze medal) */
   extraKey?: string;
-  trophies: Trophy[];
+  trophies: TrophyEntry[];
 };
 
 const DATA: Record<Sport, SportData> = {
@@ -121,7 +121,7 @@ const SportHonoursPage = () => {
             >
               <div className="flex items-start gap-4">
                 <div className="shrink-0 h-12 w-12 rounded-full bg-accent/10 ring-1 ring-accent/30 grid place-items-center">
-                  <Trophy className="h-5 w-5 text-accent" />
+                  <TrophyIcon className="h-5 w-5 text-accent" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground uppercase tracking-wide">
