@@ -305,7 +305,7 @@ const FixtureCard = ({
         to={`/match/${fixture.id}`}
         aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName}`}
         tabIndex={isActive ? 0 : -1}
-        className={`flex relative h-40 sm:h-48 md:h-52 rounded-lg overflow-hidden bg-card border transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
+        className={`flex relative h-48 sm:h-56 md:h-64 rounded-lg overflow-hidden bg-card border transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
           isActive
             ? "border-border shadow-elegant scale-100"
             : "border-border shadow-soft scale-[0.95] opacity-70 hover:opacity-100"
@@ -333,11 +333,11 @@ const FixtureCard = ({
           {/* Row: logo — score/date — logo */}
           <div className="w-full flex items-center justify-center gap-3 sm:gap-4 md:gap-5">
             {/* Home logo */}
-            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 shrink-0 grid place-items-center">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 shrink-0 grid place-items-center">
               {isHome ? (
                 <img src={logo} alt={clubName} className="max-w-full max-h-full object-contain" />
               ) : (
-                <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight">
+                <span className="font-display font-black text-foreground text-2xl sm:text-3xl md:text-4xl tracking-tight">
                   {fixture.opponentShort}
                 </span>
               )}
@@ -377,9 +377,9 @@ const FixtureCard = ({
             </div>
 
             {/* Away logo */}
-            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 shrink-0 grid place-items-center">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 shrink-0 grid place-items-center">
               {isHome ? (
-                <span className="font-display font-black text-foreground text-xl sm:text-2xl md:text-3xl tracking-tight">
+                <span className="font-display font-black text-foreground text-2xl sm:text-3xl md:text-4xl tracking-tight">
                   {fixture.opponentShort}
                 </span>
               ) : (
