@@ -317,11 +317,11 @@ const FixtureCard = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Consistent status badge — variants by sport (upcoming) / live / finished */}
-        <div className="absolute start-16 top-3 z-10">
+        {/* Consistent status badge — centered, square, variants by sport / live / finished */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 z-10">
           {isLive ? (
             <span
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-black uppercase tracking-[0.2em] shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-destructive text-destructive-foreground text-[10px] font-black uppercase tracking-[0.2em] shadow-sm"
               aria-label={t("schedule.live")}
             >
               <span className="relative flex h-1.5 w-1.5">
@@ -334,12 +334,12 @@ const FixtureCard = ({
               )}
             </span>
           ) : finished ? (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-muted text-muted-foreground text-[10px] font-black uppercase tracking-[0.2em] shadow-sm">
+            <span className="inline-flex items-center px-3 py-1 bg-muted text-muted-foreground text-[10px] font-black uppercase tracking-[0.2em] shadow-sm">
               {t("schedule.finished")}
             </span>
           ) : (
             <span
-              className={`inline-flex items-center px-2.5 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${sportBadgeBg[fixture.team]}`}
+              className={`inline-flex items-center px-3 py-1 text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${sportBadgeBg[fixture.team]}`}
             >
               {t("schedule.upcoming")}
             </span>
