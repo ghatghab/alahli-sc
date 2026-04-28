@@ -291,47 +291,47 @@ export const fr = {
     titleSuffix: "Al Ahli Sports Club | Officiel",
     home: {
       title: "Al Ahli Sports Club — Site officiel",
-      description: "Site officiel de l'Al Ahli Sports Club (النادي الأهلي الرياضي). Actualités, matchs, équipes et billetterie — vert et blanc depuis 1950.",
+      description: "Site officiel de l'Al Ahli Sports Club. Actualités, calendrier, équipes et informations de billetterie.",
     },
     club: {
       title: "Le Club | Al Ahli Sports Club",
-      description: "Découvrez l'histoire, l'identité et la direction de l'Al Ahli Sports Club, fondé en 1950.",
+      description: "Informations institutionnelles sur l'Al Ahli Sports Club : histoire, identité, gouvernance et responsabilité.",
     },
     club_history: {
       title: "Histoire | Al Ahli Sports Club",
-      description: "De 1950 à aujourd'hui — étapes, titres et grandes époques de l'Al Ahli Sports Club.",
+      description: "Dates clés et grandes étapes de l'Al Ahli Sports Club depuis sa fondation en 1950.",
     },
     club_identity: {
       title: "Identité & blason | Al Ahli Sports Club",
-      description: "Blason, couleurs, hymne et valeurs qui forgent l'identité vert et blanc de l'Al Ahli Sports Club.",
+      description: "Blason, couleurs, hymne et valeurs constitutifs de l'identité institutionnelle de l'Al Ahli Sports Club.",
     },
     club_leadership: {
       title: "Direction | Al Ahli Sports Club",
-      description: "Découvrez le bureau, les dirigeants et les décideurs à la tête de l'Al Ahli Sports Club.",
+      description: "Conseil d'administration, comité exécutif et gouvernance de l'Al Ahli Sports Club.",
     },
     club_partners: {
       title: "Partenaires & sponsors | Al Ahli Sports Club",
-      description: "Partenaires officiels, sponsors et équipementiers qui soutiennent l'Al Ahli Sports Club.",
+      description: "Partenaires officiels, sponsors et fournisseurs institutionnels de l'Al Ahli Sports Club.",
     },
     club_sustainability: {
       title: "Engagement & développement durable | Al Ahli Sports Club",
-      description: "Communauté, environnement et responsabilité sociale de l'Al Ahli Sports Club.",
+      description: "Engagements de l'Al Ahli Sports Club en matière sociale, environnementale et communautaire.",
     },
     club_museum: {
       title: "Musée & palmarès | Al Ahli Sports Club",
-      description: "Trophées, maillots et souvenirs — explorez le patrimoine de l'Al Ahli Sports Club.",
+      description: "Trophées, archives et collections patrimoniales de l'Al Ahli Sports Club.",
     },
     teams: {
       title: "Nos équipes | Al Ahli Sports Club",
-      description: "Football, basket, handball, volley — toutes les équipes officielles de l'Al Ahli Sports Club.",
+      description: "Sections officielles de l'Al Ahli Sports Club : football, basket-ball, handball et volley-ball.",
     },
     teams_football: {
       title: "Équipe de football | Al Ahli Sports Club",
-      description: "Effectif, staff, calendrier, classement et palmarès de la section football vert et blanc de l'Al Ahli Sports Club.",
+      description: "Effectif, staff technique, calendrier, classement et palmarès de la section football de l'Al Ahli Sports Club.",
     },
     teams_basketball: {
       title: "Équipe de basket-ball | Al Ahli Sports Club",
-      description: "Joueurs, encadrement, matchs et titres de la section basket-ball de l'Al Ahli Sports Club.",
+      description: "Effectif, staff technique, calendrier et palmarès de la section basket-ball de l'Al Ahli Sports Club.",
     },
     teams_handball: {
       title: "Équipe de handball | Al Ahli Sports Club",
@@ -339,31 +339,31 @@ export const fr = {
     },
     teams_volleyball: {
       title: "Équipe de volley-ball | Al Ahli Sports Club",
-      description: "Joueurs, staff, rencontres et trophées de la section volley-ball de l'Al Ahli Sports Club.",
+      description: "Effectif, staff technique, calendrier et palmarès de la section volley-ball de l'Al Ahli Sports Club.",
     },
     news: {
       title: "Actualités | Al Ahli Sports Club",
-      description: "Toutes les dernières actualités, transferts et annonces de l'Al Ahli Sports Club.",
+      description: "Communiqués officiels, annonces et actualités de l'Al Ahli Sports Club.",
     },
     matchCenter: {
       title: "Centre des matchs | Al Ahli Sports Club",
-      description: "Scores en direct, calendrier et résultats de toutes les compétitions de l'Al Ahli Sports Club.",
+      description: "Calendrier, résultats et données en direct de toutes les compétitions de l'Al Ahli Sports Club.",
     },
     standings: {
       title: "Classement | Al Ahli Sports Club",
-      description: "Classements actuels en championnat et coupe pour l'Al Ahli Sports Club, tous sports confondus.",
+      description: "Classements officiels en championnat et coupe de l'Al Ahli Sports Club, toutes sections.",
     },
     tickets: {
       title: "Billetterie | Al Ahli Sports Club",
-      description: "Achetez vos billets et vivez chaque match de l'Al Ahli Sports Club depuis les tribunes.",
+      description: "Billetterie, tarifs et informations d'accès pour les rencontres à domicile de l'Al Ahli Sports Club.",
     },
     academy: {
       title: "Académie | Al Ahli Sports Club",
-      description: "L'académie de l'Al Ahli Sports Club — former la nouvelle génération vert et blanc.",
+      description: "Programmes de formation et filières jeunes de l'Académie de l'Al Ahli Sports Club.",
     },
     contact: {
       title: "Contact | Al Ahli Sports Club",
-      description: "Contactez l'Al Ahli Sports Club — demandes officielles, médias et partenariats.",
+      description: "Coordonnées officielles de l'Al Ahli Sports Club : contact général, médias et partenariats.",
     },
     notFound: {
       title: "Page introuvable | Al Ahli Sports Club",
