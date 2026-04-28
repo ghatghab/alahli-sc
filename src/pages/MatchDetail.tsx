@@ -8,6 +8,14 @@ import { competitionLabel } from "@/lib/competitionLabel";
 import logo from "@/assets/logo-alahli.png";
 import { LineupPitch } from "@/components/match/LineupPitch";
 import { Seo } from "@/components/Seo";
+import {
+  getPeriodScores,
+  getSportStats,
+  startersTarget,
+  supportsLineupPitch,
+  supportsFormation,
+  supportsEventsTab,
+} from "@/lib/sportMatchData";
 
 const EventIcon = ({ type }: { type: MatchEvent["type"] }) => {
   switch (type) {
@@ -26,15 +34,17 @@ const PlayerRow = ({ p }: { p: Player }) => (
   </li>
 );
 
-const StatBar = ({ label, home, away }: { label: string; home: number; away: number }) => {
-  const total = home + away || 1;
-  const homePct = (home / total) * 100;
+const StatBar = ({ label, home, away, suffix }: { label: string; home: number | string; away: number | string; suffix?: string }) => {
+  const hN = typeof home === "number" ? home : 0;
+  const aN = typeof away === "number" ? away : 0;
+  const total = hN + aN || 1;
+  const homePct = (hN / total) * 100;
   return (
     <div className="py-3">
       <div className="flex items-center justify-between text-sm font-bold mb-1.5">
-        <span className="tabular-nums">{home}</span>
+        <span className="tabular-nums">{home}{suffix ?? ""}</span>
         <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
-        <span className="tabular-nums">{away}</span>
+        <span className="tabular-nums">{away}{suffix ?? ""}</span>
       </div>
       <div className="h-1.5 rounded-full bg-muted overflow-hidden flex">
         <div className="bg-accent" style={{ width: `${homePct}%` }} />
@@ -92,6 +102,30 @@ const MatchDetailContent = ({
   }).formatToParts(fixture.date);
   const tzName = tzParts.find(p => p.type === "timeZoneName")?.value ?? "";
 
+  const sport = fixture.team;
+  const showEvents = supportsEventsTab(sport);
+  const showPitch = supportsLineupPitch(sport);
+  const showFormation = supportsFormation(sport);
+  const startersN = startersTarget(sport);
+  const periods = finished ? getPeriodScores(fixture) : null;
+  const sportStats = finished ? getSportStats(fixture) : [];
+
+  const startersLabelKey =
+    startersN === 5 ? "matchDetail.starters5"
+      : startersN === 6 ? "matchDetail.starters6"
+      : startersN === 7 ? "matchDetail.starters7"
+      : "matchDetail.starters";
+
+  const tabs = [
+    finished ? { v: "summary", l: t("matchDetail.summary") } : null,
+    showEvents ? { v: "events", l: t("matchDetail.events") } : null,
+    { v: "lineups", l: t("matchDetail.lineups") },
+    { v: "stats", l: t("matchDetail.stats") },
+    { v: "gallery", l: t("matchDetail.gallery") },
+  ].filter(Boolean) as { v: string; l: string }[];
+
+  const defaultTab = finished ? "summary" : "lineups";
+
   return (
     <article className="pb-20">
       <Seo pageKey="matchCenter" title={matchTitle} description={matchDesc} type="article" />
@@ -109,7 +143,7 @@ const MatchDetailContent = ({
           </Link>
 
           <div className="mt-6 text-xs font-bold uppercase tracking-[0.3em] text-gold text-center">
-            {competitionName}
+            {competitionName} · {t(`teamsList.${sport}`)}
           </div>
 
           <div dir="ltr" className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-6 sm:gap-10">
@@ -176,14 +210,9 @@ const MatchDetailContent = ({
 
       {/* Tabs */}
       <div className="container-club mt-10">
-        <Tabs defaultValue={finished ? "events" : "lineups"} className="w-full">
+        <Tabs defaultValue={defaultTab} className="w-full">
           <TabsList className="w-full h-auto flex-wrap justify-center overflow-x-auto bg-transparent p-0 gap-2 rounded-none">
-            {[
-              { v: "events", l: t("matchDetail.events") },
-              { v: "lineups", l: t("matchDetail.lineups") },
-              { v: "stats", l: t("matchDetail.stats") },
-              { v: "gallery", l: t("matchDetail.gallery") },
-            ].map(tab => (
+            {tabs.map(tab => (
               <TabsTrigger
                 key={tab.v}
                 value={tab.v}
@@ -194,78 +223,136 @@ const MatchDetailContent = ({
             ))}
           </TabsList>
 
-          <TabsContent value="events" className="mt-8">
-            {fixture.events && fixture.events.length > 0 ? (
-              <ol className="max-w-2xl mx-auto space-y-2">
-                {fixture.events.map((e, i) => (
-                  <li
-                    key={i}
-                    className={`flex items-center gap-4 px-4 py-3 rounded-lg bg-card border border-border ${
-                      e.team === "away" ? "flex-row-reverse text-right" : ""
-                    }`}
-                  >
-                    <span className="w-10 font-display font-bold tabular-nums text-accent">{e.minute}'</span>
-                    <EventIcon type={e.type} />
-                    <div className="flex-1">
-                      <div className="font-semibold text-sm">{e.player}</div>
-                      {e.detail && <div className="text-xs text-muted-foreground">{e.detail}</div>}
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p className="text-center text-muted-foreground">{t("matchDetail.noEvents")}</p>
-            )}
-          </TabsContent>
+          {/* Summary (sport-specific period scores) */}
+          {finished && (
+            <TabsContent value="summary" className="mt-8">
+              {periods && periods.length > 0 ? (
+                <div className="max-w-2xl mx-auto rounded-xl border border-border bg-card p-6">
+                  <div className="text-xs uppercase tracking-wider text-muted-foreground text-center mb-4">
+                    {t("matchDetail.periodScore")}
+                  </div>
+                  <div dir="ltr" className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                          <th className="text-left py-2 font-semibold">{t("schedule.headers.team", { defaultValue: "Team" })}</th>
+                          {periods.map(p => (
+                            <th key={p.label} className="px-2 py-2 text-center font-semibold tabular-nums">{p.label}</th>
+                          ))}
+                          <th className="px-2 py-2 text-center font-semibold">{t("matchDetail.total")}</th>
+                        </tr>
+                      </thead>
+                      <tbody className="font-display">
+                        <tr className="border-t border-border">
+                          <td className="py-3 pr-2 font-bold uppercase truncate">{homeName}</td>
+                          {periods.map(p => (
+                            <td key={p.label} className="px-2 py-3 text-center tabular-nums">{p.home}</td>
+                          ))}
+                          <td className="px-2 py-3 text-center font-black text-accent tabular-nums">{fixture.score?.home}</td>
+                        </tr>
+                        <tr className="border-t border-border">
+                          <td className="py-3 pr-2 font-bold uppercase truncate">{awayName}</td>
+                          {periods.map(p => (
+                            <td key={p.label} className="px-2 py-3 text-center tabular-nums">{p.away}</td>
+                          ))}
+                          <td className="px-2 py-3 text-center font-black text-accent tabular-nums">{fixture.score?.away}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-center text-muted-foreground">{t("matchDetail.noStats")}</p>
+              )}
+            </TabsContent>
+          )}
 
+          {/* Events (football only) */}
+          {showEvents && (
+            <TabsContent value="events" className="mt-8">
+              {fixture.events && fixture.events.length > 0 ? (
+                <ol className="max-w-2xl mx-auto space-y-2">
+                  {fixture.events.map((e, i) => (
+                    <li
+                      key={i}
+                      className={`flex items-center gap-4 px-4 py-3 rounded-lg bg-card border border-border ${
+                        e.team === "away" ? "flex-row-reverse text-right" : ""
+                      }`}
+                    >
+                      <span className="w-10 font-display font-bold tabular-nums text-accent">{e.minute}'</span>
+                      <EventIcon type={e.type} />
+                      <div className="flex-1">
+                        <div className="font-semibold text-sm">{e.player}</div>
+                        {e.detail && <div className="text-xs text-muted-foreground">{e.detail}</div>}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p className="text-center text-muted-foreground">{t("matchDetail.noEvents")}</p>
+              )}
+            </TabsContent>
+          )}
+
+          {/* Lineups — pitch (football) or roster cards (other sports) */}
           <TabsContent value="lineups" className="mt-8">
             {fixture.lineups ? (
               <div className="space-y-10">
-                <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
-                  {(() => {
-                    const formation = (players: Player[]) => {
-                      const s = players.filter(p => p.isStarter);
-                      const df = s.filter(p => p.position === "DF").length;
-                      const mf = s.filter(p => p.position === "MF").length;
-                      const fw = s.filter(p => p.position === "FW").length;
-                      return `${df}-${mf}-${fw}`;
-                    };
-                    const homeF = formation(fixture.lineups!.home);
-                    const awayF = formation(fixture.lineups!.away);
-                    return (
-                      <div className="flex items-center justify-between mb-4 text-sm font-display font-bold uppercase gap-3">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className="text-accent truncate">{homeName}</span>
-                          <span className="inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[11px] font-bold text-accent tabular-nums">
-                            {homeF}
-                          </span>
+                {showPitch && (
+                  <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
+                    {showFormation && (() => {
+                      const formation = (players: Player[]) => {
+                        const s = players.filter(p => p.isStarter);
+                        const df = s.filter(p => p.position === "DF").length;
+                        const mf = s.filter(p => p.position === "MF").length;
+                        const fw = s.filter(p => p.position === "FW").length;
+                        return `${df}-${mf}-${fw}`;
+                      };
+                      const homeF = formation(fixture.lineups!.home);
+                      const awayF = formation(fixture.lineups!.away);
+                      return (
+                        <div className="flex items-center justify-between mb-4 text-sm font-display font-bold uppercase gap-3">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className="text-accent truncate">{homeName}</span>
+                            <span className="inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[11px] font-bold text-accent tabular-nums">
+                              {homeF}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className="inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-bold text-muted-foreground tabular-nums">
+                              {awayF}
+                            </span>
+                            <span className="text-muted-foreground truncate">{awayName}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className="inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-bold text-muted-foreground tabular-nums">
-                            {awayF}
-                          </span>
-                          <span className="text-muted-foreground truncate">{awayName}</span>
-                        </div>
-                      </div>
-                    );
-                  })()}
-                  <LineupPitch
-                    home={fixture.lineups.home}
-                    away={fixture.lineups.away}
-                    homeName={homeName}
-                    awayName={awayName}
-                  />
-                </div>
+                      );
+                    })()}
+                    <LineupPitch
+                      home={fixture.lineups.home}
+                      away={fixture.lineups.away}
+                      homeName={homeName}
+                      awayName={awayName}
+                    />
+                  </div>
+                )}
 
                 <div className="grid md:grid-cols-2 gap-8">
                   {(["home", "away"] as const).map(side => {
                     const players = fixture.lineups![side];
                     const name = side === "home" ? homeName : awayName;
+                    const starters = players.filter(p => p.isStarter).slice(0, startersN);
+                    const subs = players.filter(p => !p.isStarter);
                     return (
                       <div key={side} className="rounded-xl border border-border bg-card p-5">
                         <h3 className="font-display font-bold uppercase text-sm mb-3 text-accent text-center">{name}</h3>
-                        <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-2 mb-1 text-center">{t("matchDetail.subs")}</div>
-                        <ul dir={lang === "ar" ? "rtl" : "ltr"}>{players.filter(p => !p.isStarter).map(p => <PlayerRow key={p.number} p={p} />)}</ul>
+                        <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1 text-center">{t(startersLabelKey)}</div>
+                        <ul dir={lang === "ar" ? "rtl" : "ltr"}>{starters.map(p => <PlayerRow key={p.number} p={p} />)}</ul>
+                        {subs.length > 0 && (
+                          <>
+                            <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-4 mb-1 text-center">{t("matchDetail.bench")}</div>
+                            <ul dir={lang === "ar" ? "rtl" : "ltr"}>{subs.slice(0, sport === "football" ? 4 : 6).map(p => <PlayerRow key={p.number} p={p} />)}</ul>
+                          </>
+                        )}
                       </div>
                     );
                   })}
@@ -276,15 +363,22 @@ const MatchDetailContent = ({
             )}
           </TabsContent>
 
+          {/* Stats — sport-specific */}
           <TabsContent value="stats" className="mt-8">
-            {fixture.stats ? (
+            {sportStats.length > 0 ? (
               <div className="max-w-2xl mx-auto rounded-xl border border-border bg-card p-6">
                 <div className="flex items-center justify-between mb-4 text-sm font-display font-bold uppercase">
                   <span>{homeName}</span>
                   <span>{awayName}</span>
                 </div>
-                {fixture.stats.map((s, i) => (
-                  <StatBar key={i} label={s.label[lang]} home={s.home} away={s.away} />
+                {sportStats.map((s, i) => (
+                  <StatBar
+                    key={i}
+                    label={t(`matchDetail.stat.${s.labelKey}`)}
+                    home={s.home as number | string}
+                    away={s.away as number | string}
+                    suffix={s.suffix}
+                  />
                 ))}
               </div>
             ) : (
@@ -292,6 +386,7 @@ const MatchDetailContent = ({
             )}
           </TabsContent>
 
+          {/* Gallery */}
           <TabsContent value="gallery" className="mt-8">
             {fixture.gallery && fixture.gallery.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
