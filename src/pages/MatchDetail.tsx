@@ -270,27 +270,9 @@ const MatchDetailContent = ({
           {/* Events (football only) */}
           {showEvents && (
             <TabsContent value="events" className="mt-8">
-              {fixture.events && fixture.events.length > 0 ? (
-                <ol className="max-w-2xl mx-auto space-y-2">
-                  {fixture.events.map((e, i) => (
-                    <li
-                      key={i}
-                      className={`flex items-center gap-4 px-4 py-3 rounded-lg bg-card border border-border ${
-                        e.team === "away" ? "flex-row-reverse text-right" : ""
-                      }`}
-                    >
-                      <span className="w-10 font-display font-bold tabular-nums text-accent">{e.minute}'</span>
-                      <EventIcon type={e.type} />
-                      <div className="flex-1">
-                        <div className="font-semibold text-sm">{e.player}</div>
-                        {e.detail && <div className="text-xs text-muted-foreground">{e.detail}</div>}
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <p className="text-center text-muted-foreground">{t("matchDetail.noEvents")}</p>
-              )}
+              <p className="text-center text-muted-foreground max-w-2xl mx-auto py-8">
+                {t("matchDetail.eventsComingSoon")}
+              </p>
             </TabsContent>
           )}
 

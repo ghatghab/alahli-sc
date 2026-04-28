@@ -40,6 +40,7 @@ export const fr = {
     starters: "Onze de départ",
     subs: "Remplaçants",
     noEvents: "Aucun événement pour le moment.",
+    eventsComingSoon: "Les événements seront bientôt disponibles.",
     noLineups: "Les compositions seront annoncées bientôt.",
     noStats: "Statistiques pas encore disponibles.",
     noGallery: "Galerie bientôt disponible.",
