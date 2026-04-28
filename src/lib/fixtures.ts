@@ -270,7 +270,7 @@ const all: Fixture[] = [
   ...build("football", "Libyan Super Cup", footballSuper),
   ...build("basketball", "Libyan Super Cup", basketSuper),
   ...build("basketball", "Libyan Cup", basketCup),
-  ...build("basketball", "Libyan League Finals", basketFinals, VENUE_AHMED_MOUSA),
+  ...build("basketball", "Libyan Basketball Finals", basketFinals, VENUE_AHMED_MOUSA),
   ...build("volleyball", "Libyan Volleyball League", volleyLeague, VENUE_MISRATA),
   ...build("handball", "Libyan Handball League", handballLeague, VENUE_AKHDAR),
   ...build("handball", "Libyan Super Cup", handballSuper),
