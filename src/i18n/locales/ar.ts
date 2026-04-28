@@ -40,6 +40,7 @@ export const ar = {
     starters: "التشكيلة الأساسية",
     subs: "البدلاء",
     noEvents: "لا توجد أحداث بعد.",
+    eventsComingSoon: "ستتوفر الأحداث قريبًا.",
     noLineups: "سيتم الإعلان عن التشكيلات قريباً.",
     noStats: "الإحصائيات غير متاحة بعد.",
     noGallery: "الصور قادمة قريباً.",
