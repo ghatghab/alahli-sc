@@ -109,6 +109,9 @@ const OPP: Record<string, { en: string; fr: string; ar: string; short: string }>
   "Al Swehly":              { en: "Asswehly",            fr: "Asswehly",            ar: "السويحلي",          short: "SWH" },
 };
 
+OPP["Al Shabab Al Arabi"] = { en: "Al Shabab Al Arabi", fr: "Al Shabab Al Arabi", ar: "الشباب العربي", short: "SHB" };
+OPP["Al Nasr"] = { en: "Al Nasr", fr: "Al Nasr", ar: "النصر", short: "NSR" };
+
 const opp = (name: string) => {
   const o = OPP[name];
   if (o) return { name: { en: o.en, fr: o.fr, ar: o.ar }, short: o.short };
@@ -121,6 +124,8 @@ const VENUE_AHMED_MOUSA = { en: "Ahmed Mousa Hall", fr: "Salle Ahmed Mousa", ar:
 const VENUE_MISRATA = { en: "Misrata International Hall", fr: "Salle Internationale de Misrata", ar: "قاعة مصراتة الدولية" };
 const VENUE_AKHDAR = { en: "Al-Akhdar Club Hall — Al-Bayda", fr: "Salle du Club Al-Akhdar — Al-Bayda", ar: "قاعة نادي الأخضر - مدينة البيضاء" };
 const VENUE_DERNA = { en: "Sports Hall — Derna", fr: "Salle des sports — Derna", ar: "قاعة الرياضة - درنة" };
+const VENUE_DERNA_HALL = { en: "Derna Hall", fr: "Salle de Derna", ar: "قاعة درنة" };
+const VENUE_SIRTE = { en: "Sirte Stadium", fr: "Stade de Syrte", ar: "ملعب سرت" };
 const VENUE_AWAY = { en: "Away venue", fr: "Stade adverse", ar: "ملعب الفريق المضيف" };
 
 type MatchInput = {
@@ -206,7 +211,7 @@ const footballLeague: MatchInput[] = [
 const footballCup: MatchInput[] = [
   { date: "2026-02-13", home: CLUB, away: "Al Qadisiyah Bani Walid", score: "3-1" },
   { date: "2026-04-05", home: CLUB, away: "Al Olympi",                score: "1-0" },
-  // Quarter final not yet scheduled (no date) — omitted
+  { date: "2026-04-30", home: CLUB, away: "Asswehly", status: "scheduled", time: [17, 0], venue: VENUE_SIRTE },
 ];
 
 const footballSuper: MatchInput[] = [
@@ -224,6 +229,19 @@ const basketCup: MatchInput[] = [
   { date: "2026-04-25", home: "Al Ahly Benghazi", away: CLUB,              score: "94-90" },
 ];
 
+const basketFinals: MatchInput[] = [
+  { date: "2026-04-16", home: "Al Shabab Al Arabi", away: CLUB, score: "69-101" },
+  { date: "2026-04-17", home: "Al Madina",          away: CLUB, score: "55-94" },
+  { date: "2026-04-18", home: CLUB, away: "Al Ittihad",         score: "93-94" },
+  { date: "2026-04-20", home: CLUB, away: "Al Ahly Benghazi",   score: "95-87" },
+  { date: "2026-04-21", home: CLUB, away: "Al Nasr",            score: "99-86" },
+  { date: "2026-04-27", home: CLUB, away: "Al Shabab Al Arabi", score: "91-60" },
+  { date: "2026-04-28", time: [16, 0], home: "Al Madina",       away: CLUB, status: "scheduled", venue: VENUE_DERNA_HALL },
+  { date: "2026-04-29", time: [19, 0], home: CLUB, away: "Al Ittihad",       status: "scheduled", venue: VENUE_DERNA_HALL },
+  { date: "2026-05-01", time: [18, 0], home: CLUB, away: "Al Ahly Benghazi", status: "scheduled", venue: VENUE_DERNA_HALL },
+  { date: "2026-05-02", home: CLUB, away: "Al Nasr",            status: "scheduled", venue: VENUE_DERNA_HALL },
+];
+
 // ---------- VOLLEYBALL ----------
 const volleyLeague: MatchInput[] = [
   { date: "2026-04-04", home: CLUB,             away: "Al Ahly Benghazi",     score: "3-0", venue: VENUE_MISRATA },
@@ -239,7 +257,7 @@ const handballLeague: MatchInput[] = [
   { date: "2026-04-24", home: CLUB, away: "Al Najma",         score: "38-23", venue: VENUE_AKHDAR },
   { date: "2026-04-26", home: CLUB, away: "Al Ittihad",       score: "27-26", venue: VENUE_AKHDAR },
   { date: "2026-04-27", home: CLUB, away: "Al Hilal",         score: "24-21", venue: VENUE_AKHDAR },
-  { date: "2026-04-28", home: CLUB, away: "Al Ahly Benghazi", score: null, status: "scheduled", time: [18, 0], venue: VENUE_AKHDAR },
+  { date: "2026-04-28", home: CLUB, away: "Al Ahly Benghazi", score: null, status: "scheduled", time: [17, 0], venue: VENUE_AKHDAR },
 ];
 const handballSuper: MatchInput[] = [
   { date: "2025-10-17", home: "Al Ahly Benghazi", away: CLUB, score: "10-0", venue: VENUE_DERNA },
@@ -252,6 +270,7 @@ const all: Fixture[] = [
   ...build("football", "Libyan Super Cup", footballSuper),
   ...build("basketball", "Libyan Super Cup", basketSuper),
   ...build("basketball", "Libyan Cup", basketCup),
+  ...build("basketball", "Libyan League Finals", basketFinals, VENUE_AHMED_MOUSA),
   ...build("volleyball", "Libyan Volleyball League", volleyLeague, VENUE_MISRATA),
   ...build("handball", "Libyan Handball League", handballLeague, VENUE_AKHDAR),
   ...build("handball", "Libyan Super Cup", handballSuper),
