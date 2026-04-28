@@ -1,22 +1,18 @@
+import { useTranslation } from "react-i18next";
 import { Seo } from "@/components/Seo";
 import { PageHero } from "@/components/PageHero";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import stadium from "@/assets/stadium-aerial.jpg";
 
-const board = [
-  { name: "Mohamed Al-Tarhouni", role: "President", bio: "Lifelong supporter and former club captain. Elected for a four-year term in 2023." },
-  { name: "Hana Bensalem", role: "Vice-President", bio: "Leads governance, finance oversight and the women's sport development plan." },
-  { name: "Khalil Aboud", role: "General Secretary", bio: "Coordinates the executive office and represents the club at federation level." },
-  { name: "Youssef Mansouri", role: "Treasurer", bio: "Oversees budgeting, sponsorship and the club's long-term financial sustainability." },
-];
+const boardNames = ["Mohamed Al-Tarhouni", "Hana Bensalem", "Khalil Aboud", "Youssef Mansouri"];
 
-const directors = [
-  { name: "Adel Ben Romdhane", role: "Sporting Director — Football" },
-  { name: "Sami El-Karoui", role: "Sporting Director — Basketball" },
-  { name: "Walid Zayed", role: "Sporting Director — Handball" },
-  { name: "Karim Ferchichi", role: "Sporting Director — Volleyball" },
-  { name: "Leïla Mejri", role: "Head of Academy" },
-  { name: "Omar Driss", role: "Head of Communications" },
+const directorRows = [
+  { name: "Adel Ben Romdhane", roleKey: "sportingFootball" },
+  { name: "Sami El-Karoui", roleKey: "sportingBasketball" },
+  { name: "Walid Zayed", roleKey: "sportingHandball" },
+  { name: "Karim Ferchichi", roleKey: "sportingVolleyball" },
+  { name: "Leïla Mejri", roleKey: "academy" },
+  { name: "Omar Driss", roleKey: "comms" },
 ];
 
 const Card = ({ name, role, bio }: { name: string; role: string; bio?: string }) => (
@@ -30,33 +26,43 @@ const Card = ({ name, role, bio }: { name: string; role: string; bio?: string })
   </div>
 );
 
-const ClubLeadership = () => (
-  <>
-    <Seo pageKey="club" />
-    <Breadcrumbs />
-    <PageHero
-      eyebrow="Club / Leadership"
-      title="Board & executive office"
-      subtitle="A volunteer board and a professional executive team work together to keep the club competitive on the pitch and responsible off it."
-      image={stadium}
-    />
-    <section className="container-club py-16">
-      <div className="eyebrow mb-3">Executive board</div>
-      <h2 className="font-display text-3xl font-bold text-foreground">Elected officials</h2>
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {board.map(p => <Card key={p.name} {...p} />)}
-      </div>
-    </section>
-    <section className="bg-muted/30 py-16">
-      <div className="container-club">
-        <div className="eyebrow mb-3">Sporting & operations</div>
-        <h2 className="font-display text-3xl font-bold text-foreground">Directors</h2>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {directors.map(p => <Card key={p.name} {...p} />)}
+type BoardEntry = { role: string; bio: string };
+
+const ClubLeadership = () => {
+  const { t } = useTranslation();
+  const board = (t("pagesContent.clubLeadership.board", { returnObjects: true }) as BoardEntry[]) ?? [];
+  return (
+    <>
+      <Seo pageKey="club" />
+      <Breadcrumbs />
+      <PageHero
+        eyebrow={t("pagesContent.clubLeadership.eyebrow")}
+        title={t("pagesContent.clubLeadership.title")}
+        subtitle={t("pagesContent.clubLeadership.subtitle")}
+        image={stadium}
+      />
+      <section className="container-club py-16">
+        <div className="eyebrow mb-3">{t("pagesContent.clubLeadership.boardEyebrow")}</div>
+        <h2 className="font-display text-3xl font-bold text-foreground">{t("pagesContent.clubLeadership.boardTitle")}</h2>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {boardNames.map((name, i) => (
+            <Card key={name} name={name} role={board[i]?.role ?? ""} bio={board[i]?.bio} />
+          ))}
         </div>
-      </div>
-    </section>
-  </>
-);
+      </section>
+      <section className="bg-muted/30 py-16">
+        <div className="container-club">
+          <div className="eyebrow mb-3">{t("pagesContent.clubLeadership.directorsEyebrow")}</div>
+          <h2 className="font-display text-3xl font-bold text-foreground">{t("pagesContent.clubLeadership.directorsTitle")}</h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {directorRows.map(d => (
+              <Card key={d.name} name={d.name} role={t(`pagesContent.clubLeadership.directorRoles.${d.roleKey}`)} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
 
 export default ClubLeadership;

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { type RosterPlayer } from "@/lib/roster";
 
 const POSITION_GROUPS: Array<{ label: string; codes: string[] }> = [
@@ -15,7 +16,7 @@ const POSITION_GROUPS: Array<{ label: string; codes: string[] }> = [
   { label: "Middle Blockers", codes: ["MB"] },
 ];
 
-const PlayerCard = ({ p }: { p: RosterPlayer }) => (
+const PlayerCard = ({ p, yearsLabel }: { p: RosterPlayer; yearsLabel: string }) => (
   <div className="group relative rounded-2xl border border-border bg-card overflow-hidden transition-smooth hover:border-accent hover:shadow-elegant">
     <div className="aspect-[3/4] bg-gradient-to-br from-accent/20 via-muted to-card relative">
       <div className="absolute inset-0 grid place-items-center">
@@ -35,12 +36,14 @@ const PlayerCard = ({ p }: { p: RosterPlayer }) => (
         <h3 className="font-display font-bold text-foreground truncate">{p.name}</h3>
         <span className="font-display text-2xl font-black text-accent leading-none">{p.number}</span>
       </div>
-      <div className="mt-1 text-xs text-muted-foreground">{p.age} years</div>
+      <div className="mt-1 text-xs text-muted-foreground">{p.age} {yearsLabel}</div>
     </div>
   </div>
 );
 
 export const SquadGrid = ({ players }: { players: RosterPlayer[] }) => {
+  const { t } = useTranslation();
+  const yearsLabel = t("pagesContent.squad.years");
   // Group players by their position prefix using POSITION_GROUPS, falling back to "Other".
   const seen = new Set<number>();
   const groups = POSITION_GROUPS.map(g => ({
@@ -56,12 +59,14 @@ export const SquadGrid = ({ players }: { players: RosterPlayer[] }) => {
       {groups.map(g => (
         <section key={g.label}>
           <div className="flex items-center gap-4 mb-5">
-            <h2 className="font-display text-sm font-bold uppercase tracking-[0.3em] text-accent">{g.label}</h2>
+            <h2 className="font-display text-sm font-bold uppercase tracking-[0.3em] text-accent">
+              {t(`pagesContent.squad.groups.${g.label}`, { defaultValue: g.label })}
+            </h2>
             <div className="h-px flex-1 bg-border" />
             <span className="text-xs text-muted-foreground">{g.items.length}</span>
           </div>
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-            {g.items.map(p => <PlayerCard key={p.number} p={p} />)}
+            {g.items.map(p => <PlayerCard key={p.number} p={p} yearsLabel={yearsLabel} />)}
           </div>
         </section>
       ))}
