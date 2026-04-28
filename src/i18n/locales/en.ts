@@ -151,6 +151,23 @@ export const en = {
     join: "Join the family",
     joinSub: "Become a member, follow your team, live every emotion.",
   },
+  ahliTv: {
+    eyebrow: "Ahli TV",
+    title: "أهلي TV",
+    subtitle: "Relive the club's best moments on video: press conferences, highlights and behind the scenes.",
+    featuredBadge: "Featured",
+    duration: "Duration",
+    viewAll: "Watch all videos",
+    categories: { highlights: "Highlights", press: "Press", interview: "Interview", behind: "Behind the scenes" },
+    items: {
+      featuredTitle: "Head coach press conference",
+      featuredDesc: "The coach reflects on the league win and previews the upcoming clash against the historic rival.",
+      v1: "Al Ahli — Al Ittihad: 2-1 (Highlights)",
+      v2: "Pre-match presser: captain and head coach",
+      v3: "Al Ahli — Al Hilal: 2-1 (Highlights)",
+      v4: "Dressing room: title celebration — behind the scenes",
+    },
+  },
   honours: {
     league: "League titles",
     cup: "Domestic cups",
