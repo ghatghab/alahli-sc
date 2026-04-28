@@ -162,7 +162,7 @@ export const en = {
     items: {
       featuredTitle: "Head coach press conference",
       featuredDesc: "The coach reflects on the league win and previews the upcoming clash against the historic rival.",
-      v1: "Al Ahli — Al Ittihad: 2-1 (Highlights)",
+      v1: "Al Ahli — Al Ittihad: 4-1 (Highlights)",
       v2: "Pre-match presser: captain and head coach",
       v3: "Al Ahli — Al Hilal: 2-1 (Highlights)",
       v4: "Dressing room: title celebration — behind the scenes",

@@ -162,7 +162,7 @@ export const fr = {
     items: {
       featuredTitle: "Conférence de presse de l'entraîneur principal",
       featuredDesc: "Le coach revient sur la victoire en championnat et présente la prochaine rencontre face au rival historique.",
-      v1: "Al Ahli — Al Ittihad : 2-1 (Résumé)",
+      v1: "Al Ahli — Al Ittihad : 4-1 (Résumé)",
       v2: "Conférence d'avant-match : capitaine et entraîneur",
       v3: "Al Ahli — Al Hilal : 2-1 (Résumé)",
       v4: "Vestiaire : célébration du titre — coulisses",
