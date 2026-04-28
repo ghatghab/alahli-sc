@@ -111,6 +111,7 @@ export const en = {
     results: "{{n}} matches",
     reset: "Reset filters",
     loadMore: "Load {{n}} more",
+    backToToday: "Back to today",
   },
   live: {
     now: "Live now",
