@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Search, ArrowUpDown, RefreshCw } from "lucide-react";
+import { Search, ArrowUpDown, RefreshCw, CalendarDays } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -28,8 +28,6 @@ const tzShort = (() => {
   } catch { return ""; }
 })();
 
-const PAGE_SIZE = 10;
-
 const MatchCenter = () => {
   const { t, i18n } = useTranslation();
   const lang = (i18n.language as "en" | "fr" | "ar") || "en";
@@ -42,10 +40,6 @@ const MatchCenter = () => {
   const [status, setStatus] = useLocalStorageState<string>("mc.status", "all");
   const [sort, setSort] = useLocalStorageState<"asc" | "desc">("mc.sort", "asc");
   const [liveOnly, setLiveOnly] = useLocalStorageState<boolean>("mc.liveOnly", false);
-  const [visible, setVisible] = useState(PAGE_SIZE);
-
-  // Reset pagination when filters change
-  useEffect(() => { setVisible(PAGE_SIZE); }, [q, team, comp, status, sort, liveOnly]);
 
   // Live mode auto-refresh: re-renders every 30s so live minutes/counters can update.
   const [, setTick] = useState(0);
@@ -83,13 +77,10 @@ const MatchCenter = () => {
     return filtered;
   }, [q, team, comp, status, sort, liveOnly]);
 
-  const paged = useMemo(() => list.slice(0, visible), [list, visible]);
-  const hasMore = visible < list.length;
-
-  // Group paged results by month-year
+  // Group all results by month-year
   const grouped = useMemo(() => {
     const map = new Map<string, { label: string; items: Fixture[] }>();
-    for (const f of paged) {
+    for (const f of list) {
       const key = `${f.date.getFullYear()}-${f.date.getMonth()}`;
       const label = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric", timeZone: userTZ })
         .format(f.date);
@@ -97,7 +88,43 @@ const MatchCenter = () => {
       map.get(key)!.items.push(f);
     }
     return Array.from(map.entries()).map(([key, v]) => ({ key, ...v }));
-  }, [paged, locale]);
+  }, [list, locale]);
+
+  // Find the fixture closest to "now" (today or next upcoming, fallback to last past)
+  const todayAnchorId = useMemo(() => {
+    if (!list.length) return null;
+    const now = Date.now();
+    const future = list.find(f => f.date.getTime() >= now);
+    return (future ?? list[list.length - 1]).id;
+  }, [list]);
+
+  const todayRef = useRef<HTMLLIElement | null>(null);
+  const [showBackToToday, setShowBackToToday] = useState(false);
+
+  // Auto-scroll to today's anchor on mount / when anchor changes
+  useEffect(() => {
+    if (!todayAnchorId) return;
+    const id = window.setTimeout(() => {
+      todayRef.current?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "center" });
+    }, 50);
+    return () => window.clearTimeout(id);
+  }, [todayAnchorId]);
+
+  // Toggle floating button when the anchor is off-screen
+  useEffect(() => {
+    const el = todayRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setShowBackToToday(!entry.isIntersecting),
+      { rootMargin: "-30% 0px -30% 0px" },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [todayAnchorId, grouped]);
+
+  const scrollToToday = () => {
+    todayRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   const fmtDayDate = (d: Date) => {
     const wk = new Intl.DateTimeFormat(locale, { weekday: "short", timeZone: userTZ }).format(d);
@@ -273,7 +300,15 @@ const MatchCenter = () => {
                 </h2>
                 <ul className="divide-y divide-border border-y border-border">
                   {group.items.map(f => (
-                    <MatchRow key={f.id} fixture={f} lang={lang} locale={locale} fmtDayDate={fmtDayDate} t={t} />
+                    <MatchRow
+                      key={f.id}
+                      fixture={f}
+                      lang={lang}
+                      locale={locale}
+                      fmtDayDate={fmtDayDate}
+                      t={t}
+                      rowRef={f.id === todayAnchorId ? todayRef : undefined}
+                    />
                   ))}
                 </ul>
               </div>
@@ -281,31 +316,40 @@ const MatchCenter = () => {
           )}
         </div>
 
-        {/* Pagination */}
-        {hasMore && (
-          <div className="mt-8 flex justify-center">
-            <Button
-              variant="outline"
-              onClick={() => setVisible(v => v + PAGE_SIZE)}
-              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
-            >
-              {t("schedule.loadMore", { n: Math.min(PAGE_SIZE, list.length - visible) })}
-            </Button>
-          </div>
-        )}
       </section>
+
+      {/* Floating back-to-today badge */}
+      {showBackToToday && todayAnchorId && (
+        <button
+          type="button"
+          onClick={scrollToToday}
+          className={cn(
+            "fixed bottom-6 left-1/2 -translate-x-1/2 z-40",
+            "inline-flex items-center gap-2 rounded-full px-4 py-2.5",
+            "bg-accent text-accent-foreground shadow-lg shadow-black/20",
+            "text-xs font-bold uppercase tracking-wider",
+            "hover:scale-105 transition-transform",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2",
+          )}
+          aria-label={t("schedule.backToToday")}
+        >
+          <CalendarDays className="h-4 w-4" />
+          {t("schedule.backToToday")}
+        </button>
+      )}
     </>
   );
 };
 
 const MatchRow = ({
-  fixture, lang, locale, fmtDayDate, t,
+  fixture, lang, locale, fmtDayDate, t, rowRef,
 }: {
   fixture: Fixture;
   lang: "en" | "fr" | "ar";
   locale: string;
   fmtDayDate: (d: Date) => string;
   t: (k: string, opts?: Record<string, unknown>) => string;
+  rowRef?: React.Ref<HTMLLIElement>;
 }) => {
   const opp = fixture.opponentName[lang];
   const isHome = fixture.homeAway === "home";
@@ -318,7 +362,7 @@ const MatchRow = ({
   const awayLogo = isHome ? null : logo;
 
   return (
-    <li>
+    <li ref={rowRef}>
       <Link
         to={`/match/${fixture.id}`}
         className={cn(
