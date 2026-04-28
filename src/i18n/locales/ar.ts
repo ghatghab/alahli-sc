@@ -111,6 +111,7 @@ export const ar = {
     results: "{{n}} مباراة",
     reset: "إعادة الضبط",
     loadMore: "عرض {{n}} إضافية",
+    backToToday: "العودة إلى اليوم",
   },
   live: {
     now: "مباشر الآن",

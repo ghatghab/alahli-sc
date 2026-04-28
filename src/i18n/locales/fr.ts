@@ -111,6 +111,7 @@ export const fr = {
     results: "{{n}} matchs",
     reset: "Réinitialiser",
     loadMore: "Voir {{n}} de plus",
+    backToToday: "Revenir à aujourd'hui",
   },
   live: {
     now: "En direct",
