@@ -297,6 +297,30 @@ export const fr = {
       title: "Le Club | Al Ahli Sports Club",
       description: "Découvrez l'histoire, l'identité et la direction de l'Al Ahli Sports Club, fondé en 1950.",
     },
+    club_history: {
+      title: "Histoire | Al Ahli Sports Club",
+      description: "De 1950 à aujourd'hui — étapes, titres et grandes époques de l'Al Ahli Sports Club.",
+    },
+    club_identity: {
+      title: "Identité & blason | Al Ahli Sports Club",
+      description: "Blason, couleurs, hymne et valeurs qui forgent l'identité vert et blanc de l'Al Ahli Sports Club.",
+    },
+    club_leadership: {
+      title: "Direction | Al Ahli Sports Club",
+      description: "Découvrez le bureau, les dirigeants et les décideurs à la tête de l'Al Ahli Sports Club.",
+    },
+    club_partners: {
+      title: "Partenaires & sponsors | Al Ahli Sports Club",
+      description: "Partenaires officiels, sponsors et équipementiers qui soutiennent l'Al Ahli Sports Club.",
+    },
+    club_sustainability: {
+      title: "Engagement & développement durable | Al Ahli Sports Club",
+      description: "Communauté, environnement et responsabilité sociale de l'Al Ahli Sports Club.",
+    },
+    club_museum: {
+      title: "Musée & palmarès | Al Ahli Sports Club",
+      description: "Trophées, maillots et souvenirs — explorez le patrimoine de l'Al Ahli Sports Club.",
+    },
     teams: {
       title: "Nos équipes | Al Ahli Sports Club",
       description: "Football, basket, handball, volley — toutes les équipes officielles de l'Al Ahli Sports Club.",
