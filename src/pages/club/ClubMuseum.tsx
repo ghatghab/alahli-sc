@@ -15,7 +15,7 @@ const ClubMuseum = () => {
   const collections = (t("pagesContent.clubMuseum.collections", { returnObjects: true }) as Collection[]) ?? [];
   return (
     <>
-      <Seo pageKey="club" />
+      <Seo pageKey="club_museum" />
       <Breadcrumbs />
       <PageHero
         eyebrow={t("pagesContent.clubMuseum.eyebrow")}

@@ -16,7 +16,7 @@ const ClubSustainability = () => {
   const goals = (t("pagesContent.clubSustainability.goals", { returnObjects: true }) as Goal[]) ?? [];
   return (
     <>
-      <Seo pageKey="club" />
+      <Seo pageKey="club_sustainability" />
       <Breadcrumbs />
       <PageHero
         eyebrow={t("pagesContent.clubSustainability.eyebrow")}

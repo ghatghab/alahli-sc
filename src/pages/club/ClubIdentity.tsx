@@ -12,7 +12,7 @@ const ClubIdentity = () => {
   const values = (t("pagesContent.clubIdentity.values", { returnObjects: true }) as Value[]) ?? [];
   return (
     <>
-      <Seo pageKey="club" />
+      <Seo pageKey="club_identity" />
       <Breadcrumbs />
       <PageHero
         eyebrow={t("pagesContent.clubIdentity.eyebrow")}

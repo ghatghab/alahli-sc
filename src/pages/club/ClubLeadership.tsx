@@ -33,7 +33,7 @@ const ClubLeadership = () => {
   const board = (t("pagesContent.clubLeadership.board", { returnObjects: true }) as BoardEntry[]) ?? [];
   return (
     <>
-      <Seo pageKey="club" />
+      <Seo pageKey="club_leadership" />
       <Breadcrumbs />
       <PageHero
         eyebrow={t("pagesContent.clubLeadership.eyebrow")}
