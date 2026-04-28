@@ -20,7 +20,7 @@ const ClubPartners = () => {
   const { t } = useTranslation();
   return (
     <>
-      <Seo pageKey="club" />
+      <Seo pageKey="club_partners" />
       <Breadcrumbs />
       <PageHero
         eyebrow={t("pagesContent.clubPartners.eyebrow")}

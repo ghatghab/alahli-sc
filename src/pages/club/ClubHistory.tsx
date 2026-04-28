@@ -11,7 +11,7 @@ const ClubHistory = () => {
   const timeline = (t("pagesContent.clubHistory.timeline", { returnObjects: true }) as Item[]) ?? [];
   return (
     <>
-      <Seo pageKey="club" />
+      <Seo pageKey="club_history" />
       <Breadcrumbs />
       <PageHero
         eyebrow={t("pagesContent.clubHistory.eyebrow")}
