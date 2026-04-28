@@ -10,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { LiveBadge } from "@/components/match/LiveBadge";
 import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import logo from "@/assets/logo-alahli.png";
