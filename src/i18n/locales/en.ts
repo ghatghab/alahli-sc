@@ -40,6 +40,7 @@ export const en = {
     starters: "Starting XI",
     subs: "Substitutes",
     noEvents: "No events yet.",
+    eventsComingSoon: "Events will be available soon.",
     noLineups: "Line-ups will be announced soon.",
     noStats: "Stats not available yet.",
     noGallery: "Gallery coming soon.",
