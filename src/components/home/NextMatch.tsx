@@ -293,114 +293,139 @@ const FixtureCard = ({
   const showScore = (finished || isLive) && !!fixture.score;
   const sportKey = `teamsList.${fixture.team}` as const;
   const halfScore = (fixture as any).halfScore as { home: number; away: number } | undefined;
+  const homeName = isHome ? clubName : opponent;
+  const awayName = isHome ? opponent : clubName;
+  const homeShort = isHome ? "AHL" : fixture.opponentShort;
+  const awayShort = isHome ? fixture.opponentShort : "AHL";
+  const venueLabel = isHome ? homeLabel : awayLabel;
   return (
     <div
       id={`fixture-slide-${fixture.id}`}
       role="group"
       aria-roledescription="slide"
-      aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName} — ${fmtDate(fixture.date)} ${fmtTime(fixture.date)}`}
+      aria-label={`${homeName} ${vsLabel} ${awayName} — ${fmtDate(fixture.date)} ${fmtTime(fixture.date)}`}
       aria-hidden={!isActive}
       className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[80%] md:basis-[55%] lg:basis-[42%] xl:basis-[38%]"
     >
       <Link
         to={`/match/${fixture.id}`}
-        aria-label={`${isHome ? clubName : opponent} vs ${isHome ? opponent : clubName}`}
+        aria-label={`${homeName} ${vsLabel} ${awayName}`}
         tabIndex={isActive ? 0 : -1}
-        className={`flex relative h-48 sm:h-56 md:h-64 rounded-lg overflow-hidden bg-card border transition-all duration-300 hover:shadow-elegant hover:border-accent/60 ${
+        className={`relative block h-56 sm:h-64 md:h-72 rounded-2xl bg-card transition-all duration-300 hover:shadow-elegant ${
           isActive
-            ? "border-border shadow-elegant scale-100"
-            : "border-border shadow-soft scale-[0.95] opacity-70 hover:opacity-100"
+            ? "border-2 border-accent shadow-elegant scale-100"
+            : "border border-border shadow-soft scale-[0.95] opacity-70 hover:opacity-100"
         }`}
       >
-        {/* Left colored stripe with vertical sport name */}
-        <div
-          className={`w-10 sm:w-12 shrink-0 flex items-center justify-center ${sportTicketTheme[fixture.team].band}`}
-        >
-          <span
-            className={`text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] whitespace-nowrap ${sportTicketTheme[fixture.team].accent}`}
-            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-          >
-            {t(sportKey)}
-          </span>
-        </div>
-
-        {/* Main section: logos vertically centered, competition label sits above only the central date/score block */}
-        <div className="relative flex-1 flex items-stretch justify-center gap-3 sm:gap-5 md:gap-6 px-3 sm:px-4 md:px-5 py-2 min-w-0 overflow-hidden">
-          {/* Decorative torch watermark in the background */}
-          <img
-            src={torchWatermark}
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none select-none absolute inset-0 m-auto h-[150%] w-auto object-contain opacity-20 dark:opacity-10 -rotate-12 text-foreground"
-          />
-          <div className="relative flex flex-1 items-center justify-center gap-2 sm:gap-3 md:gap-5 lg:gap-6 min-w-0 overflow-hidden">
-          {/* Home logo */}
-          <div
-            className="shrink-0 self-center grid place-items-center aspect-square overflow-hidden"
-            style={{ width: "clamp(4rem, 18vw, 7rem)" }}
-          >
-            {isHome ? (
-              <img src={logo} alt={clubName} className="w-full h-full object-contain" />
-            ) : (
-              <span className="font-display font-black text-foreground text-base sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center truncate max-w-full">
-                {fixture.opponentShort}
-              </span>
-            )}
-          </div>
-
-          {/* Center stack: competition above, score/date below */}
-          <div className="flex flex-col items-center justify-center self-center shrink-0 min-w-0 px-1 gap-0.5">
-            <span className="text-accent font-bold text-[9px] sm:text-[11px] md:text-xs uppercase tracking-[0.18em] line-clamp-1 mb-0.5 sm:mb-1 text-center whitespace-nowrap">
-              {competitionLabel(t, fixture.competition, fixture.team)}
+        {/* "NEXT MATCH" pill — only on the active card, like in the reference */}
+        {isActive && !showScore && (
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+            <span className="inline-block rounded-md bg-accent text-accent-foreground px-3 py-1 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] shadow-soft">
+              {nextLabel}
             </span>
+          </div>
+        )}
+        {isLive && (
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+            <span className="inline-block rounded-md bg-destructive text-destructive-foreground px-3 py-1 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] shadow-soft animate-pulse">
+              {t("schedule.live")}
+            </span>
+          </div>
+        )}
 
-            {showScore ? (
-              <>
-                <span className={`font-display font-black tabular-nums tracking-tight text-3xl sm:text-4xl md:text-5xl leading-none whitespace-nowrap ${isLive ? "text-destructive" : "text-foreground"}`}>
-                  {fixture.score!.home} <span className="text-muted-foreground/60">:</span> {fixture.score!.away}
+        {/* Decorative torch watermark */}
+        <img
+          src={torchWatermark}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute inset-0 m-auto h-[120%] w-auto object-contain opacity-[0.06] dark:opacity-10 -rotate-12"
+        />
+
+        <div className="relative h-full flex flex-col px-4 sm:px-6 py-4 sm:py-5">
+          {/* Top: competition + date */}
+          <div className="text-center">
+            <div className={`text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] line-clamp-1 ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+              {competitionLabel(t, fixture.competition, fixture.team)}
+            </div>
+            <div className="mt-1.5 text-sm sm:text-base font-display font-bold text-foreground tabular-nums">
+              {showScore ? (
+                <span className={isLive ? "text-destructive" : "text-foreground"}>
+                  {fixture.score!.home} : {fixture.score!.away}
+                  {halfScore && (
+                    <span className="ms-2 text-xs font-medium text-muted-foreground">
+                      ({halfScore.home}:{halfScore.away})
+                    </span>
+                  )}
                 </span>
-                {halfScore ? (
-                  <span className="mt-0.5 text-[10px] sm:text-xs text-muted-foreground font-medium tabular-nums leading-none">
-                    ({halfScore.home}:{halfScore.away})
-                  </span>
-                ) : isLive && typeof fixture.liveMinute === "number" ? (
-                  <span className="mt-0.5 text-[10px] sm:text-xs text-destructive font-bold uppercase tracking-wider tabular-nums leading-none">
-                    {fixture.liveMinute}'
-                  </span>
-                ) : finished ? (
-                  <span className="mt-0.5 text-[9px] sm:text-[10px] text-muted-foreground font-bold uppercase tracking-wider leading-none">
-                    {t("schedule.finished")}
-                  </span>
-                ) : null}
-              </>
-            ) : (
-              <>
-                <span className="font-display font-black text-base sm:text-lg md:text-xl text-foreground whitespace-nowrap leading-none">
-                  {fmtDate(fixture.date)}
-                </span>
-                <span className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium tabular-nums leading-none">
-                  {fmtTime(fixture.date)}
-                </span>
-              </>
-            )}
+              ) : (
+                <>
+                  {fmtDate(fixture.date)} <span className="text-muted-foreground">·</span> {fmtTime(fixture.date)}
+                </>
+              )}
+            </div>
           </div>
 
-          {/* Away logo */}
-          <div
-            className="shrink-0 self-center grid place-items-center aspect-square overflow-hidden"
-            style={{ width: "clamp(4rem, 18vw, 7rem)" }}
-          >
-            {isHome ? (
-              <span className="font-display font-black text-foreground text-base sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-none text-center truncate max-w-full">
-                {fixture.opponentShort}
-              </span>
-            ) : (
-              <img src={logo} alt={clubName} className="w-full h-full object-contain" />
-            )}
+          {/* Middle: badges + VS */}
+          <div className="flex-1 flex items-center justify-center gap-3 sm:gap-6 md:gap-8 mt-2">
+            <TeamColumn
+              isLogo={isHome}
+              logoSrc={logo}
+              clubName={clubName}
+              short={homeShort}
+              fullName={homeName}
+              isActive={isActive}
+            />
+            <span className={`font-display font-black uppercase text-base sm:text-lg md:text-xl tracking-wider ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+              {vsLabel}
+            </span>
+            <TeamColumn
+              isLogo={!isHome}
+              logoSrc={logo}
+              clubName={clubName}
+              short={awayShort}
+              fullName={awayName}
+              isActive={isActive}
+            />
           </div>
+
+          {/* Bottom: HOME / AWAY label */}
+          <div className="text-center mt-2">
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
+              {venueLabel}
+            </span>
           </div>
         </div>
       </Link>
+    </div>
+  );
+};
+
+const TeamColumn = ({
+  isLogo, logoSrc, clubName, short, fullName, isActive,
+}: {
+  isLogo: boolean;
+  logoSrc: string;
+  clubName: string;
+  short: string;
+  fullName: string;
+  isActive: boolean;
+}) => {
+  return (
+    <div className="flex flex-col items-center gap-2 min-w-0 flex-1">
+      <div className={`shrink-0 grid place-items-center aspect-square rounded-full overflow-hidden bg-background border ${isActive ? "border-border" : "border-border/60"}`}
+        style={{ width: "clamp(3.5rem, 12vw, 5.5rem)" }}
+      >
+        {isLogo ? (
+          <img src={logoSrc} alt={clubName} className="w-[80%] h-[80%] object-contain" />
+        ) : (
+          <span className="font-display font-black text-foreground/70 text-xs sm:text-sm md:text-base tracking-tight">
+            {short}
+          </span>
+        )}
+      </div>
+      <span className={`text-center text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-wide line-clamp-2 leading-tight max-w-full ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+        {fullName}
+      </span>
     </div>
   );
 };
