@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, CalendarDays, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-alahli.png";
 import torchWatermark from "@/assets/torch-watermark.png";
@@ -10,21 +10,12 @@ import { fixtures, type Fixture, type Team } from "@/lib/fixtures";
 import { NextMatchSkeleton } from "./NextMatchSkeleton";
 import { competitionLabel } from "@/lib/competitionLabel";
 
-// Pastel-green palette per sport for the ticket header band.
-// `bg`/`text` use HSL via Tailwind arbitrary values so the design system stays consistent.
-const sportTicketTheme: Record<Team, { band: string; accent: string; soft: string }> = {
-  football:   { band: "bg-[hsl(145,45%,72%)]", accent: "text-[hsl(145,55%,22%)]", soft: "bg-[hsl(145,55%,94%)]" },
-  basketball: { band: "bg-[hsl(95,40%,72%)]",  accent: "text-[hsl(95,55%,22%)]",  soft: "bg-[hsl(95,55%,94%)]"  },
-  handball:   { band: "bg-[hsl(170,40%,72%)]", accent: "text-[hsl(170,55%,22%)]", soft: "bg-[hsl(170,55%,94%)]" },
-  volleyball: { band: "bg-[hsl(120,38%,75%)]", accent: "text-[hsl(120,55%,22%)]", soft: "bg-[hsl(120,55%,94%)]" },
-};
-
-// Solid sport-tinted backgrounds for the "Upcoming" status badge.
-const sportBadgeBg: Record<Team, string> = {
-  football:   "bg-[hsl(145,55%,40%)]",
-  basketball: "bg-[hsl(95,50%,38%)]",
-  handball:   "bg-[hsl(170,55%,35%)]",
-  volleyball: "bg-[hsl(120,50%,38%)]",
+// Sport icon emoji for the ticket stub. Sober, used as decorative glyph only.
+const sportGlyph: Record<Team, string> = {
+  football: "⚽",
+  basketball: "🏀",
+  handball: "🤾",
+  volleyball: "🏐",
 };
 
 const useCountdown = (target: Date) => {
