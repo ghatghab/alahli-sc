@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FileText, FolderTree, LogOut, Home, Users, Image, RefreshCw } from "lucide-react";
+import { FileText, FolderTree, LogOut, Home, Users, Image, RefreshCw, Shield, Trophy, CalendarDays, ListOrdered } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -21,6 +21,10 @@ const AdminLayout = () => {
     { to: "/admin/categories", icon: FolderTree, label: t("admin.categories") },
     { to: "/admin/players", icon: Users, label: t("admin.players.title") },
     { to: "/admin/photos", icon: Image, label: t("admin.photos.title") },
+    { to: "/admin/teams", icon: Shield, label: t("admin.teams.title") },
+    { to: "/admin/competitions", icon: Trophy, label: t("admin.competitions.title") },
+    { to: "/admin/fixtures", icon: CalendarDays, label: t("admin.fixtures.title") },
+    { to: "/admin/standings", icon: ListOrdered, label: t("admin.standings.title") },
     { to: "/admin/sync", icon: RefreshCw, label: t("admin.sync.title") },
   ];
 
