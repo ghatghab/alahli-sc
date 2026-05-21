@@ -47,6 +47,10 @@ import AdminCategories from "./pages/admin/AdminCategories";
 import AdminPlayers from "./pages/admin/AdminPlayers";
 import AdminPhotos from "./pages/admin/AdminPhotos";
 import AdminSync from "./pages/admin/AdminSync";
+import AdminTeams from "./pages/admin/AdminTeams";
+import AdminCompetitions from "./pages/admin/AdminCompetitions";
+import AdminFixtures from "./pages/admin/AdminFixtures";
+import AdminStandings from "./pages/admin/AdminStandings";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +78,10 @@ const App = () => (
               <Route path="categories" element={<AdminCategories />} />
               <Route path="players" element={<AdminPlayers />} />
               <Route path="photos" element={<AdminPhotos />} />
+              <Route path="teams" element={<AdminTeams />} />
+              <Route path="competitions" element={<AdminCompetitions />} />
+              <Route path="fixtures" element={<AdminFixtures />} />
+              <Route path="standings" element={<AdminStandings />} />
               <Route path="sync" element={<AdminSync />} />
             </Route>
             <Route element={<Layout />}>
