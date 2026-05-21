@@ -14,6 +14,127 @@ export type Database = {
   }
   public: {
     Tables: {
+      competitions: {
+        Row: {
+          country: string | null
+          created_at: string
+          ext_id: string | null
+          id: string
+          logo_url: string | null
+          name_ar: string | null
+          name_en: string
+          name_fr: string | null
+          season: string | null
+          source: string
+          sport: string
+          updated_at: string
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          ext_id?: string | null
+          id?: string
+          logo_url?: string | null
+          name_ar?: string | null
+          name_en: string
+          name_fr?: string | null
+          season?: string | null
+          source?: string
+          sport: string
+          updated_at?: string
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          ext_id?: string | null
+          id?: string
+          logo_url?: string | null
+          name_ar?: string | null
+          name_en?: string
+          name_fr?: string | null
+          season?: string | null
+          source?: string
+          sport?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      fixtures: {
+        Row: {
+          away_score: number | null
+          away_team_id: string | null
+          competition_id: string | null
+          created_at: string
+          ext_id: string | null
+          home_score: number | null
+          home_team_id: string | null
+          id: string
+          kickoff_at: string
+          raw: Json | null
+          source: string
+          sport: string
+          status: string
+          updated_at: string
+          venue: string | null
+        }
+        Insert: {
+          away_score?: number | null
+          away_team_id?: string | null
+          competition_id?: string | null
+          created_at?: string
+          ext_id?: string | null
+          home_score?: number | null
+          home_team_id?: string | null
+          id?: string
+          kickoff_at: string
+          raw?: Json | null
+          source?: string
+          sport: string
+          status?: string
+          updated_at?: string
+          venue?: string | null
+        }
+        Update: {
+          away_score?: number | null
+          away_team_id?: string | null
+          competition_id?: string | null
+          created_at?: string
+          ext_id?: string | null
+          home_score?: number | null
+          home_team_id?: string | null
+          id?: string
+          kickoff_at?: string
+          raw?: Json | null
+          source?: string
+          sport?: string
+          status?: string
+          updated_at?: string
+          venue?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fixtures_away_team_id_fkey"
+            columns: ["away_team_id"]
+            isOneToOne: false
+            referencedRelation: "sport_teams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fixtures_competition_id_fkey"
+            columns: ["competition_id"]
+            isOneToOne: false
+            referencedRelation: "competitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fixtures_home_team_id_fkey"
+            columns: ["home_team_id"]
+            isOneToOne: false
+            referencedRelation: "sport_teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       news_articles: {
         Row: {
           author_id: string | null
@@ -134,6 +255,261 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      photos: {
+        Row: {
+          album: string
+          created_at: string
+          id: string
+          image_url: string
+          sort_order: number
+          taken_at: string | null
+          title_ar: string | null
+          title_en: string | null
+          title_fr: string | null
+          updated_at: string
+        }
+        Insert: {
+          album?: string
+          created_at?: string
+          id?: string
+          image_url: string
+          sort_order?: number
+          taken_at?: string | null
+          title_ar?: string | null
+          title_en?: string | null
+          title_fr?: string | null
+          updated_at?: string
+        }
+        Update: {
+          album?: string
+          created_at?: string
+          id?: string
+          image_url?: string
+          sort_order?: number
+          taken_at?: string | null
+          title_ar?: string | null
+          title_en?: string | null
+          title_fr?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      players: {
+        Row: {
+          active: boolean
+          bio_ar: string | null
+          bio_en: string | null
+          bio_fr: string | null
+          created_at: string
+          date_of_birth: string | null
+          id: string
+          is_staff: boolean
+          jersey_number: number | null
+          name_ar: string | null
+          name_en: string
+          name_fr: string | null
+          nationality: string | null
+          photo_url: string | null
+          position: string | null
+          sort_order: number
+          sport: string
+          staff_role: string | null
+          team: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          bio_ar?: string | null
+          bio_en?: string | null
+          bio_fr?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          id?: string
+          is_staff?: boolean
+          jersey_number?: number | null
+          name_ar?: string | null
+          name_en: string
+          name_fr?: string | null
+          nationality?: string | null
+          photo_url?: string | null
+          position?: string | null
+          sort_order?: number
+          sport: string
+          staff_role?: string | null
+          team?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          bio_ar?: string | null
+          bio_en?: string | null
+          bio_fr?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          id?: string
+          is_staff?: boolean
+          jersey_number?: number | null
+          name_ar?: string | null
+          name_en?: string
+          name_fr?: string | null
+          nationality?: string | null
+          photo_url?: string | null
+          position?: string | null
+          sort_order?: number
+          sport?: string
+          staff_role?: string | null
+          team?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sport_teams: {
+        Row: {
+          created_at: string
+          ext_id: string | null
+          id: string
+          is_alahli: boolean
+          logo_url: string | null
+          name_ar: string | null
+          name_en: string
+          name_fr: string | null
+          short_name: string | null
+          source: string
+          sport: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          ext_id?: string | null
+          id?: string
+          is_alahli?: boolean
+          logo_url?: string | null
+          name_ar?: string | null
+          name_en: string
+          name_fr?: string | null
+          short_name?: string | null
+          source?: string
+          sport: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          ext_id?: string | null
+          id?: string
+          is_alahli?: boolean
+          logo_url?: string | null
+          name_ar?: string | null
+          name_en?: string
+          name_fr?: string | null
+          short_name?: string | null
+          source?: string
+          sport?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      standings: {
+        Row: {
+          competition_id: string
+          created_at: string
+          drawn: number
+          goals_against: number
+          goals_for: number
+          id: string
+          lost: number
+          played: number
+          points: number
+          rank: number
+          season: string | null
+          source: string
+          team_id: string
+          updated_at: string
+          won: number
+        }
+        Insert: {
+          competition_id: string
+          created_at?: string
+          drawn?: number
+          goals_against?: number
+          goals_for?: number
+          id?: string
+          lost?: number
+          played?: number
+          points?: number
+          rank?: number
+          season?: string | null
+          source?: string
+          team_id: string
+          updated_at?: string
+          won?: number
+        }
+        Update: {
+          competition_id?: string
+          created_at?: string
+          drawn?: number
+          goals_against?: number
+          goals_for?: number
+          id?: string
+          lost?: number
+          played?: number
+          points?: number
+          rank?: number
+          season?: string | null
+          source?: string
+          team_id?: string
+          updated_at?: string
+          won?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "standings_competition_id_fkey"
+            columns: ["competition_id"]
+            isOneToOne: false
+            referencedRelation: "competitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "standings_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "sport_teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sync_runs: {
+        Row: {
+          details: Json | null
+          error: string | null
+          finished_at: string | null
+          id: string
+          items_upserted: number
+          source: string
+          started_at: string
+          success: boolean | null
+        }
+        Insert: {
+          details?: Json | null
+          error?: string | null
+          finished_at?: string | null
+          id?: string
+          items_upserted?: number
+          source?: string
+          started_at?: string
+          success?: boolean | null
+        }
+        Update: {
+          details?: Json | null
+          error?: string | null
+          finished_at?: string | null
+          id?: string
+          items_upserted?: number
+          source?: string
+          started_at?: string
+          success?: boolean | null
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {

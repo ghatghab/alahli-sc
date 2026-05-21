@@ -44,6 +44,9 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminArticles from "./pages/admin/AdminArticles";
 import AdminArticleEdit from "./pages/admin/AdminArticleEdit";
 import AdminCategories from "./pages/admin/AdminCategories";
+import AdminPlayers from "./pages/admin/AdminPlayers";
+import AdminPhotos from "./pages/admin/AdminPhotos";
+import AdminSync from "./pages/admin/AdminSync";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +72,9 @@ const App = () => (
               <Route path="articles/new" element={<AdminArticleEdit />} />
               <Route path="articles/:id" element={<AdminArticleEdit />} />
               <Route path="categories" element={<AdminCategories />} />
+              <Route path="players" element={<AdminPlayers />} />
+              <Route path="photos" element={<AdminPhotos />} />
+              <Route path="sync" element={<AdminSync />} />
             </Route>
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
