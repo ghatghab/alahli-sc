@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const AdminLayout = () => {
   const { t } = useTranslation();
-  const { user, signOut, roles } = useAuth();
+  const { user, signOut, roles, canEditCms, canEditSports, canSync } = useAuth();
   const navigate = useNavigate();
 
   const onSignOut = async () => {
@@ -16,17 +16,17 @@ const AdminLayout = () => {
   };
 
   const links = [
-    { to: "/admin", end: true, icon: Home, label: t("admin.dashboard") },
-    { to: "/admin/articles", icon: FileText, label: t("admin.articles") },
-    { to: "/admin/categories", icon: FolderTree, label: t("admin.categories") },
-    { to: "/admin/players", icon: Users, label: t("admin.players.title") },
-    { to: "/admin/photos", icon: Image, label: t("admin.photos.title") },
-    { to: "/admin/teams", icon: Shield, label: t("admin.teams.title") },
-    { to: "/admin/competitions", icon: Trophy, label: t("admin.competitions.title") },
-    { to: "/admin/fixtures", icon: CalendarDays, label: t("admin.fixtures.title") },
-    { to: "/admin/standings", icon: ListOrdered, label: t("admin.standings.title") },
-    { to: "/admin/sync", icon: RefreshCw, label: t("admin.sync.title") },
-  ];
+    { to: "/admin", end: true, icon: Home, label: t("admin.dashboard"), show: true },
+    { to: "/admin/articles", icon: FileText, label: t("admin.articles"), show: canEditCms },
+    { to: "/admin/categories", icon: FolderTree, label: t("admin.categories"), show: canEditCms },
+    { to: "/admin/players", icon: Users, label: t("admin.players.title"), show: canEditCms },
+    { to: "/admin/photos", icon: Image, label: t("admin.photos.title"), show: canEditCms },
+    { to: "/admin/teams", icon: Shield, label: t("admin.teams.title"), show: canEditSports },
+    { to: "/admin/competitions", icon: Trophy, label: t("admin.competitions.title"), show: canEditSports },
+    { to: "/admin/fixtures", icon: CalendarDays, label: t("admin.fixtures.title"), show: canEditSports },
+    { to: "/admin/standings", icon: ListOrdered, label: t("admin.standings.title"), show: canEditSports },
+    { to: "/admin/sync", icon: RefreshCw, label: t("admin.sync.title"), show: canSync },
+  ].filter(l => l.show);
 
   return (
     <div className="min-h-screen bg-muted/30 flex flex-col lg:flex-row pt-20 lg:pt-0">
