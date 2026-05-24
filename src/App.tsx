@@ -51,6 +51,7 @@ import AdminTeams from "./pages/admin/AdminTeams";
 import AdminCompetitions from "./pages/admin/AdminCompetitions";
 import AdminFixtures from "./pages/admin/AdminFixtures";
 import AdminStandings from "./pages/admin/AdminStandings";
+import AdminUsers from "./pages/admin/AdminUsers";
 
 const queryClient = new QueryClient();
 
@@ -72,17 +73,18 @@ const App = () => (
               }
             >
               <Route index element={<AdminDashboard />} />
-              <Route path="articles" element={<AdminArticles />} />
-              <Route path="articles/new" element={<AdminArticleEdit />} />
-              <Route path="articles/:id" element={<AdminArticleEdit />} />
-              <Route path="categories" element={<AdminCategories />} />
-              <Route path="players" element={<AdminPlayers />} />
-              <Route path="photos" element={<AdminPhotos />} />
-              <Route path="teams" element={<AdminTeams />} />
-              <Route path="competitions" element={<AdminCompetitions />} />
-              <Route path="fixtures" element={<AdminFixtures />} />
-              <Route path="standings" element={<AdminStandings />} />
-              <Route path="sync" element={<AdminSync />} />
+              <Route path="articles" element={<ProtectedAdmin require="cms"><AdminArticles /></ProtectedAdmin>} />
+              <Route path="articles/new" element={<ProtectedAdmin require="cms"><AdminArticleEdit /></ProtectedAdmin>} />
+              <Route path="articles/:id" element={<ProtectedAdmin require="cms"><AdminArticleEdit /></ProtectedAdmin>} />
+              <Route path="categories" element={<ProtectedAdmin require="cms"><AdminCategories /></ProtectedAdmin>} />
+              <Route path="players" element={<ProtectedAdmin require="cms"><AdminPlayers /></ProtectedAdmin>} />
+              <Route path="photos" element={<ProtectedAdmin require="cms"><AdminPhotos /></ProtectedAdmin>} />
+              <Route path="teams" element={<ProtectedAdmin require="sports"><AdminTeams /></ProtectedAdmin>} />
+              <Route path="competitions" element={<ProtectedAdmin require="sports"><AdminCompetitions /></ProtectedAdmin>} />
+              <Route path="fixtures" element={<ProtectedAdmin require="sports"><AdminFixtures /></ProtectedAdmin>} />
+              <Route path="standings" element={<ProtectedAdmin require="sports"><AdminStandings /></ProtectedAdmin>} />
+              <Route path="sync" element={<ProtectedAdmin require="sync"><AdminSync /></ProtectedAdmin>} />
+              <Route path="users" element={<ProtectedAdmin require="sync"><AdminUsers /></ProtectedAdmin>} />
             </Route>
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />

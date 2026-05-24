@@ -124,6 +124,40 @@ Deno.serve(async (req) => {
     { auth: { persistSession: false } },
   );
 
+  // Auth check: only admins may trigger the sync.
+  // pg_cron / scheduled invocations can bypass by sending the SYNC_ADMIN_KEY.
+  const adminKey = Deno.env.get("SYNC_ADMIN_KEY");
+  const headerKey = req.headers.get("x-admin-key");
+  const isCronCall = !!adminKey && headerKey === adminKey;
+
+  if (!isCronCall) {
+    const authHeader = req.headers.get("Authorization") ?? "";
+    const token = authHeader.replace(/^Bearer\s+/i, "");
+    if (!token) {
+      return new Response(JSON.stringify({ ok: false, error: "Missing auth" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const { data: userData, error: userErr } = await supabase.auth.getUser(token);
+    if (userErr || !userData?.user) {
+      return new Response(JSON.stringify({ ok: false, error: "Invalid token" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const { data: isAdmin } = await supabase.rpc("has_role", {
+      _user_id: userData.user.id,
+      _role: "admin",
+    });
+    if (!isAdmin) {
+      return new Response(JSON.stringify({ ok: false, error: "Forbidden: admin role required" }), {
+        status: 403,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+  }
+
   const startedAt = new Date().toISOString();
   let runId: string | null = null;
   try {
