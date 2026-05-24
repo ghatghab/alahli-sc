@@ -51,6 +51,7 @@ import AdminTeams from "./pages/admin/AdminTeams";
 import AdminCompetitions from "./pages/admin/AdminCompetitions";
 import AdminFixtures from "./pages/admin/AdminFixtures";
 import AdminStandings from "./pages/admin/AdminStandings";
+import AdminUsers from "./pages/admin/AdminUsers";
 
 const queryClient = new QueryClient();
 
@@ -83,6 +84,7 @@ const App = () => (
               <Route path="fixtures" element={<ProtectedAdmin require="sports"><AdminFixtures /></ProtectedAdmin>} />
               <Route path="standings" element={<ProtectedAdmin require="sports"><AdminStandings /></ProtectedAdmin>} />
               <Route path="sync" element={<ProtectedAdmin require="sync"><AdminSync /></ProtectedAdmin>} />
+              <Route path="users" element={<ProtectedAdmin require="sync"><AdminUsers /></ProtectedAdmin>} />
             </Route>
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
