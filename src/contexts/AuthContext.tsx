@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 import { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
-type Role = "admin" | "editor" | "user";
+type Role = "admin" | "editor" | "user" | "cms_editor" | "sports_editor";
 
 interface AuthContextValue {
   user: User | null;
@@ -10,6 +10,9 @@ interface AuthContextValue {
   roles: Role[];
   isAdmin: boolean;
   isEditor: boolean;
+  canEditCms: boolean;
+  canEditSports: boolean;
+  canSync: boolean;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (email: string, password: string) => Promise<{ error: string | null }>;
@@ -77,6 +80,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         roles,
         isAdmin: roles.includes("admin"),
         isEditor: roles.includes("admin") || roles.includes("editor"),
+        canEditCms:
+          roles.includes("admin") || roles.includes("editor") || roles.includes("cms_editor"),
+        canEditSports:
+          roles.includes("admin") || roles.includes("editor") || roles.includes("sports_editor"),
+        canSync: roles.includes("admin"),
         loading,
         signIn,
         signUp,
